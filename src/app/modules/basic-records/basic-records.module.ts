@@ -8,8 +8,6 @@ import { BasicRecordHistoryComponent } from './basic-record-history/basic-record
 import { BasicRecordNewComponent } from './basic-record-new/basic-record-new.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
-import { FormDemandadaComponent } from './form-demandada/form-demandada.component';
-import { FormDemandanteComponent } from './form-demandante/form-demandante.component';
 import { FormFundamentoDemandaComponent } from './form-fundamento-demanda/form-fundamento-demanda.component';
 import { CloseExpedientModalComponent } from './close-expedient-modal/close-expedient-modal.component';
 import { FormExpedientNotaComponent } from './form-expedient-nota/form-expedient-nota.component';
@@ -30,8 +28,6 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     BasicRecordComponent,
     BasicRecordHistoryComponent,
     BasicRecordNewComponent,
-    FormDemandadaComponent,
-    FormDemandanteComponent,
     FormFundamentoDemandaComponent,
     CloseExpedientModalComponent,
     FormExpedientNotaComponent,
