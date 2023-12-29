@@ -62,7 +62,7 @@
     "ngx-chips": "^2.2.2",
     "ngx-clipboard": "^16.0.0",
     "ngx-connection-service": "^7.0.3",
-    "ngx-filesaver": "^10.0.1",
+    "ngx-filesaver": "^17.0.0",
     "ngx-lottie": "^7.0.4",
     "ngx-mask": "^17.0.4",
     "ngx-pagination": "^6.0.3",
