@@ -1,0 +1,83 @@
+.is-active {
+    border-bottom: 4px solid var(--rojo) !important;
+    color: var(--rojoClaro) !important;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    font-weight: bold;
+  }
+  #myTab li.nav-item .nav-link {
+    color: black;
+    height: 40px;
+    padding-bottom: 2.4rem !important;
+    font-family: proxima-font-bold;
+    font-weight: bold;
+  }
+  #myTab.nav-tabs {
+    margin-bottom: 1rem;
+    border: 0;
+    border-bottom: 2px solid #0000003d;
+    height: 50px;
+  }
+  .nav-tabs .nav-link:focus,
+  .nav-tabs .nav-link:hover {
+    border-color: #e9ecef #e9ecef #dee2e6;
+  }
+  
+  tbody,
+  td,
+  tfoot,
+  th,
+  thead,
+  tr {
+    border: none !important;
+  }
+  
+  .title-main {
+    color: #003777;
+  }
+  
+  tbody
+    .p-datatable-tbody.p-datatable-wrapper
+    .ng-star-inserted
+    .p-datatable
+    .p-datatable-tbody
+    > tr:nth-child(odd) {
+    background: #c54242 !important;
+    color: #333333;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    outline-color: #8dcdff;
+  }
+  .ui-datatable-odd {
+    background: #ffffff;
+  }
+  
+  .ui-datatable-even {
+    background: #f2f5f9;
+  }
+  
+  .spinner {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 9999;
+    border: 16px solid silver;
+    border-top: 16px solid #003785;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 700ms linear infinite;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  ::ng-deep .invalid .dropdown-btn {
+    border: 1px solid red !important;
+  }
+  

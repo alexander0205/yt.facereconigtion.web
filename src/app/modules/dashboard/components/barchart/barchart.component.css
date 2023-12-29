@@ -1,0 +1,22 @@
+.title {
+  font-family: proxima-font;
+  color: #93a2b4;
+}
+
+.footer {
+  background: white;
+  border: none;
+}
+
+.card-header:first-child {
+  border-radius: 0px;
+}
+
+.card-footer:first-child {
+  border-radius: 0px;
+}
+
+.card {
+  border-radius: 0px;
+  background-color: #F8FAFD;
+}

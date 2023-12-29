@@ -1,0 +1,115 @@
+<div class="w-100">
+  <nav class="
+      navbar navbar-expand-lg navbar-light navbar-class
+      bg-light
+      pr-3
+      pt-3
+      pb-3
+      pl-0
+    ">
+    <div class="container-fluid pl-0">
+      <a class="navbar-brand ms-sm-0 ms-2" href="#">
+        <!-- <svg class="d-block d-sm-block d-md-block d-lg-none d-xl-none" xmlns="http://www.w3.org/2000/svg" width="110"
+          height="32.011" viewBox="0 0 110 32.011">
+          <defs>
+            <style>
+              .a {
+                fill: #003777;
+              }
+            </style>
+          </defs>
+          <g transform="translate(-98.299 -1213.494)">
+            <path class="a"
+              d="M106.01,1222.461c0-1.855,1.58-3.108,4.413-3.108a13.317,13.317,0,0,1,9.012,3.386l3.67-4.825a17.247,17.247,0,0,0-12.078-4.314c-7.293,0-11.753,4.268-11.753,9.418,0,11.644,17.838,7.887,17.838,13.361,0,1.763-1.766,3.433-5.389,3.433a13.592,13.592,0,0,1-9.848-4.176l-3.577,5.011c2.88,2.923,7.154,4.918,13.1,4.918,8.361,0,12.4-4.269,12.4-9.928C123.8,1224.085,106.01,1227.379,106.01,1222.461Z"
+              transform="translate(0 -0.06)" />
+            <rect class="a" width="6.597" height="30.943" transform="translate(128.221 1214.005)" />
+            <path class="a"
+              d="M208.911,1219.34a8.4,8.4,0,0,1,7.293,4.5l5.667-2.783a14.184,14.184,0,0,0-12.96-7.562c-9.291,0-16.491,6.5-16.491,16.006s7.2,16.005,16.491,16.005a14.27,14.27,0,0,0,12.96-7.608l-5.667-2.737a8.309,8.309,0,0,1-7.293,4.5c-5.621,0-9.709-4.314-9.709-10.16S203.29,1219.34,208.911,1219.34Z"
+              transform="translate(-52.989 0)" />
+            <rect class="a" width="6.597" height="30.943" transform="translate(172.802 1214.005)" />
+            <path class="a" d="M293.44,1214.661v5.8H302.5V1245.6h6.643V1220.46h9.012v-5.8Z"
+              transform="translate(-109.854 -0.656)" />
+          </g>
+        </svg> -->
+        <img src="../../../assets/images/Layer_1.png" class="d-block d-sm-block d-md-block d-lg-none d-xl-none"  alt="SICET logo">
+        <div *ngIf="breadcrumb$ | async as breadCrumb" class="breadCrumbTitle">
+          <div *ngIf="breadCrumb.label ==='Dashboard'">
+            Gráficos&nbsp;
+          </div>
+          <div *ngIf="breadCrumb.label !=='Dashboard'">
+            {{ breadCrumb.label }}&nbsp;
+          </div>
+        </div>
+        <!-- <ul class="breadCrumb" *ngIf="(breadcrumbs$ | async)?.length > 1">
+          <li *ngFor="let breadcrumb of breadcrumbs$ | async">
+            {{ breadcrumb.label }}&nbsp;
+          </li>
+        </ul> -->
+      </a>
+      <button class="navbar-toggler minus" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <div class="menu ms-0 d-block d-sm-block d-md-block d-lg-none d-xl-none">
+            <div class="nav flex-column" role="tablist" aria-orientation="vertical">
+              <a class="nav-link ms-1 d-flex align-items-center" [routerLink]="'/Dashboard'" value="Inspeccion"
+          aria-selected="true" routerLinkActive="is-active" *ngIf="
+            this.userS.user.roleCode !== 'DIG'
+          "><i class="dashboard-icon" aria-hidden="true"></i>&nbsp;Gráficos</a>
+        <a class="nav-link d-flex align-items-center" [routerLink]="'/Casos'" value="Casos" aria-selected="false"
+          routerLinkActive="is-active"><i class="collection-icon mx-1" aria-hidden="true"></i>&nbsp;Registro de
+          Servicios</a>
+        <!-- <a class="nav-link d-flex align-items-center" [routerLink]="'/Asistencia'" value="Asistencia" aria-selected="false"
+          routerLinkActive="is-active"><i class="collection-icon mx-1" aria-hidden="true"></i>&nbsp;Registro de
+          Asistencias</a> -->
+        <a class="nav-link d-flex align-items-center" [routerLink]="'/Expedientes'" value="Expedientes"
+          aria-selected="false" routerLinkActive="is-active"><i class="fa fa-suitcase mx-1"
+            aria-hidden="true"></i>&nbsp;Expedientes</a>
+
+        <div *ngIf="this.userS.user.roleCode !== 'ABOG' && this.userS.user.roleCode !== 'PLEGA'">
+          <a [routerLink]="'/Reportes'" class="nav-link d-flex align-items-center ms-1" value="Reportes"
+          aria-selected="false" routerLinkActive="is-active"><i class="report-icon" aria-hidden="true"
+            style="margin-right: 5px"></i>&nbsp;Reportes</a>
+        </div>
+
+                  <a *ngIf="this.userS.user.roleCode == 'ADM'
+          " [routerLink]="'/Admin'" class="nav-link ms-1 d-flex align-items-center" value="admin" aria-selected="false"
+          routerLinkActive="is-active"><i class="admin" aria-hidden="true"
+            style="margin-right: 4px"></i>&nbsp;Usuarios&nbsp;y&nbsp;Roles</a>
+        <a *ngIf="this.userS.user.roleCode == 'ADM'" class="nav-link d-flex align-items-center" [routerLink]="'/Auditoria'" value="Auditoria"
+            aria-selected="false" routerLinkActive="is-active"><i class="auditory"
+              aria-hidden="true" style="margin-right: 5px"></i>&nbsp;Auditoria</a>
+            </div>
+          </div>
+        </ul>
+        <ul class="user">
+          <li class="bell" *ngIf="toolService.hasInternetConnection">
+            <app-notification-bell></app-notification-bell>
+          </li>
+          <li class="nav-item dropdown float-xl-end float-lg-end">
+            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <!-- <span class="badge badge-pill badge-secondary">{{
+                this.user.getInitials()
+              }}</span -->
+              <p-avatar [label]="this.user.getInitials()" styleClass="p-mr-2"
+                [style]="{ 'background-color': '#A6B9CF', color: '#FFFFFF' }" size="large" shape="circle"></p-avatar>
+              &nbsp;
+              <span id="usrNameLogin" class="css-drop-settings css-camelcase">{{
+                this.user.getFullName()
+                }}</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" (click)="seeProfile()">Ver Perfil</a>
+              <!-- <a class="dropdown-item">Soporte</a> -->
+              <a class="dropdown-item" (click)="logOut()">Cerrar Sesión</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

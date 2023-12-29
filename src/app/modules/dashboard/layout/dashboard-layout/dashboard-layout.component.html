@@ -1,0 +1,158 @@
+<div class="mb-2 ms-2" #content id="contentToConvert">
+  <div class="botones mb-5">
+    <div class="row">
+      <div class="col-10">
+        <div class="form-inline ps-0" class="row row-cols-lg-auto g-3">
+          <div class="col-lg-2 col-md-6 col-12 mb-sm-2 mb-2" style="height: 46px">
+            <div class="form-group hidden">
+              <div class="input-group">
+                <input style="will-change: none; transform: none" [hidden]="true" name="datepicker" class="form-control"
+                  ngbDatepicker #datepicker="ngbDatepicker" [autoClose]="'outside'"
+                  (dateSelect)="onDateSelection($event, datepicker)" [displayMonths]="2" [dayTemplate]="t"
+                  outsideDays="hidden" [startDate]="fromDate!" [maxDate]="maxDate" tabindex="-1" />
+                <ng-template #t let-date let-focused="focused">
+                  <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                  </span>
+                </ng-template>
+              </div>
+            </div>
+            <div class="input-group">
+              <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd" name="dpFromDate"
+                [value]="formatter.format(fromDate)" (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+                disabled="true" />
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6 col-12 mb-sm-2 mb-2" style="height: 46px">
+            <div class="form-group">
+              <div class="input-group ">
+                <input #dpToDate class="form-control" placeholder="yyyy-mm-dd" name="dpToDate"
+                  [value]="formatter.format(toDate)" (input)="toDate = validateInput(toDate, dpToDate.value)"
+                  disabled="true" />
+                <div class="input-group-append">
+                  <button style="border-radius: 0px" pButton icon="pi pi-calendar"
+                    class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()" type="button"
+                    [disabled]="isloading"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-12 mb-sm-2 mb-2" id="rltColumn">
+            <select name="representation" [(ngModel)]="repLocalCode" id="localRepDropDown" class="form-select mainDrop">
+              <option *ngFor="let rlt of localReps" value="{{ rlt.value }}">{{ rlt.text }}</option>
+            </select>
+          </div>
+
+          <div class="col-lg-2 col-12 mb-sm-2 mb-2" id="layerColumn">
+            <select [(ngModel)]="layerValue" id="layerDropdown" class="form-select mainDrop"
+              aria-label="Default select example">
+              <option value="" selected>Todos los abogados</option>
+              <option *ngFor="let layer of locaLayer" value="{{ layer.usuario.userId }}">
+                {{ layer.usuario.firstName }} {{ layer.usuario.firstLastName }}
+              </option>
+            </select>
+          </div>
+
+          <div class=" col-12 me-5 text-lg-left text-md-center text-center mb-sm-2 mx-3" style="margin-left: -21px">
+            <button class="me-2" pButton icon="pi pi-refresh" style="border-radius: 0px" class="buttonIcon me-2"
+              (click)="fetchData()" [disabled]="isloading"></button>
+            <button pButton iconPos="left" icon="pi pi-file-pdf" label="Exportar" style="border-radius: 0px"
+              class="buttonIcon" (click)="exportToPdf()" [disabled]="isloading"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!isloading; else loading">
+    <div class="row w-90 mb-3">
+      <div class="col-lg-4 col-12 mb-5">
+        <pie-chart [hasFooter]="false" [title]="' Asistencia Diaria'"
+          [totalTitle]="chartData.asistenciaDiariaSexo.total" [labels]="chartData.asistenciaDiariaSexo.labels"
+          [data]="chartData.asistenciaDiariaSexo.data" [colors]="chartData.asistenciaDiariaSexo.colors">
+        </pie-chart>
+      </div>
+      <div class="col-lg-4 col-12">
+        <pie-chart [hasFooter]="false" [title]="' Servicio Judicial Por Tipo de Solicitante'"
+          [totalTitle]="chartData.asistenciaJudicialTipoSolicitante.total"
+          [labels]="chartData.asistenciaJudicialTipoSolicitante.labels"
+          [data]="chartData.asistenciaJudicialTipoSolicitante.data"
+          [colors]="chartData.asistenciaJudicialTipoSolicitante.colors">
+        </pie-chart>
+      </div>
+      <div class="col-lg-4 col-12">
+        <pie-chart [hasFooter]="false" [title]="' Expedientes - Ficha Basica por Estatus'"
+          [totalTitle]="chartData.expedienteEstado.total" [labels]="chartData.expedienteEstado.labels"
+          [data]="chartData.expedienteEstado.data" [colors]="chartData.expedienteEstado.colors">
+        </pie-chart>
+      </div>
+      <div class="col-lg-4 col-12">
+        <pie-chart [hasFooter]="true" [title]="' SERVICIO JUDICIAL POR TIPO EMPLEADOR'"
+          [totalTitle]="chartData.asistenciaJudicialTipoEmpleador.total"
+          [labels]="chartData.asistenciaJudicialTipoEmpleador.labels"
+          [data]="chartData.asistenciaJudicialTipoEmpleador.data"
+          [colors]="chartData.asistenciaJudicialTipoEmpleador.colors"
+          [totalGeneral]="chartData.asistenciaJudicialTipoEmpleador.totalFooter">
+        </pie-chart>
+
+      </div>
+      <div class="col-lg-4 col-12">
+        <pie-chart [hasFooter]="true" [title]="' SERVICIO JUDICIAL TRABAJADOR POR ESTATUS'"
+          [totalTitle]="chartData.asistenciaJudicialTrabajadorEstado.total"
+          [labels]="chartData.asistenciaJudicialTrabajadorEstado.labels"
+          [data]="chartData.asistenciaJudicialTrabajadorEstado.data"
+          [colors]="chartData.asistenciaJudicialTrabajadorEstado.colors"
+          [totalGeneral]="chartData.asistenciaJudicialTrabajadorEstado.totalFooter">
+        </pie-chart>
+      </div>
+      <div class="col-lg-4 col-12">
+        <pie-chart [hasFooter]="true" [title]="' SERVICIO JUDICIAL EMPLEADOR POR ESTATUS'"
+          [totalTitle]="chartData.asistenciaJudicialEmpleadorEstado.total"
+          [labels]="chartData.asistenciaJudicialEmpleadorEstado.labels"
+          [data]="chartData.asistenciaJudicialEmpleadorEstado.data"
+          [colors]="chartData.asistenciaJudicialEmpleadorEstado.colors"
+          [totalGeneral]="chartData.asistenciaJudicialEmpleadorEstado.totalFooter">
+        </pie-chart>
+      </div>
+      <div class="col-lg-4 col-12 mt-5">
+        <pie-chart [hasFooter]="true" [title]="' ASISTENCIA DIARIA TRABAJADOR TIPO SOLICITANTE SEXO'"
+          [totalTitle]="chartData.asistenciaDiariaTipoSolicitanteTrabajadorSexo.total"
+          [labels]="chartData.asistenciaDiariaTipoSolicitanteTrabajadorSexo.labels"
+          [data]="chartData.asistenciaDiariaTipoSolicitanteTrabajadorSexo.data"
+          [colors]="chartData.asistenciaDiariaTipoSolicitanteTrabajadorSexo.colors"
+          [totalGeneral]="chartData.asistenciaDiariaTipoSolicitanteTrabajadorSexo.totalFooter">
+        </pie-chart>
+      </div>
+      <div class="col-12 mt-4 mb-5">
+        <app-barchart [hasFooter]="true" [title]="' ASISTENCIA JUDICIAL EMPLEADOR MOTIVO DEMANDA'"
+          [totalTitle]="chartData.asistenciaJudicialEmpleadorMotivoDemanda.total"
+          [labels]="chartData.asistenciaJudicialEmpleadorMotivoDemanda.labels"
+          [data]="chartData.asistenciaJudicialEmpleadorMotivoDemanda.data"
+          [colors]="chartData.asistenciaJudicialEmpleadorMotivoDemanda.colors"
+          [totalGeneral]="chartData.asistenciaJudicialEmpleadorMotivoDemanda.totalFooter">
+
+          >
+        </app-barchart>
+      </div>
+      <div class="col-12">
+        <app-barchart [hasFooter]="true" [title]="' ASISTENCIA JUDICIAL TRABAJADOR MOTIVO DEMANDA'"
+          [totalTitle]="chartData.asistenciaJudicialTrabajadorMotivoDemanda.total"
+          [labels]="chartData.asistenciaJudicialTrabajadorMotivoDemanda.labels"
+          [data]="chartData.asistenciaJudicialTrabajadorMotivoDemanda.data"
+          [colors]="chartData.asistenciaJudicialTrabajadorMotivoDemanda.colors"
+          [totalGeneral]="chartData.asistenciaJudicialTrabajadorMotivoDemanda.totalFooter">
+          >
+        </app-barchart>
+      </div>
+    </div>
+    <div class="row">
+
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="d-flex align-items-center justify-content-center">
+    <img class="align-self-center image" src="../../../../../assets/images/Layer_1.png" alt="" />
+  </div>
+</ng-template>

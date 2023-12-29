@@ -1,0 +1,22 @@
+.full {
+  height: 30rem;
+  width: 100%;
+}
+
+.here-maps img {
+  max-width: none;
+}
+
+.here-maps > canvas {
+  height: 400px !important;
+  width: 600px !important;
+}
+
+.map {
+  height: 90vh;
+  width: 100%;
+}
+
+.modal-body {
+  padding: 0px;
+}

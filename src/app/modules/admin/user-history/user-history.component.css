@@ -1,0 +1,17 @@
+.input-group input{
+    border: 1px solid #1460B8 !important;
+
+}
+
+table thead tr th { color: #1460B8; font-weight: 600; }
+th, td {  vertical-align: middle; }
+
+.btnEditUser {
+    background: transparent;
+    border: 1px solid #1460B8;
+    padding: 10px;
+    border-radius: 10px;
+    color: #1460B8;
+}
+
+.btnEditUser:hover { background: #1460B8; color: #fff; }

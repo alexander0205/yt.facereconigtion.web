@@ -1,0 +1,115 @@
+.btnOutlinedDanger {
+  color: #ED232A;
+  border: 1px solid #ED232A;
+  background: transparent;
+}
+
+.btnOutlinedDanger:hover {
+  background: #ED232A;
+  color: #fff;
+}
+
+.customCard {
+  background: #f3f3f3;
+  border: none;
+  border-left: 7px solid #23ED60;
+  border-radius: 0;
+}
+
+i.fa-info {
+  color: #23ED60;
+}
+
+.icono{
+  border: 3px solid #23ED60;
+  padding: 8px 12px 8px 12px;
+}
+
+
+.codigo a{
+  color: #1460B8 !important;
+  font-weight: 600;
+}
+
+.customCard table thead { font-weight: 400; }
+
+.btnSubmit {
+  background: #1460B8;
+  color: #fff;
+  padding: 6px 45px;
+  border-radius: 47px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.btnSubmit:hover, .btnSaveSubmitForm:hover { background: #0b3d77; }
+
+.btnSaveSubmitForm , .btn-guardar{
+  background: #1460B8;
+  color: #fff;
+  padding: 6px 45px;
+  border-radius: 47px;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+tr th{
+  color: #444444;
+}
+
+tr td{
+  font-weight: 600;
+}
+
+.asterisco{
+  color: #ED232A;
+}
+
+.btn-guardar{
+margin-bottom: 50px;
+}
+
+.btn-anadir{
+  color: #1460B8;
+  font-weight: 600;
+}
+
+.cierreDoc{
+  background-color: #F0F3F7;
+}
+
+
+.btn-upload {
+  position: relative;
+  padding: 8px 22px;
+  font-size: 15px;
+  line-height: 1.5;
+  border-radius: 3px;
+  color: #fff;
+  background: #1460B8;
+  border: 0;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.btn-upload:hover { background: #0f417c; }
+
+.btn-upload input[type="file"] {
+  cursor: pointer;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  transform: scale(5);
+  opacity: 0;
+}
+.maximoRe{
+  color: #6687AD;
+  font-weight: 300;
+}
+.formAdjuntar{
+  border-color: #23ED60;
+  border-radius: inherit;
+}
+.fa-check-circle-o{
+  color: #23ED60;
+}

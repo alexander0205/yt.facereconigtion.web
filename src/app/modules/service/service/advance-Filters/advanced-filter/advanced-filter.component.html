@@ -1,0 +1,427 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">
+      Busqueda Avanzada Orden de Servicio
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="close()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="centered-content">
+      <div class="accordion m-1 mb-2" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="false"
+              aria-controls="collapseOne"
+            >
+              <div class="checkIcon d-flex m-2">
+                <i
+                  *ngIf="forms.serviceOrder; else noValue"
+                  class="far fa-check-circle text-success"
+                >
+                </i>
+              </div>
+              <h4>Informaci&oacute;n General</h4>
+              <!-- <button
+                pButton
+                [pTooltip]="'limpiar'"
+                [icon]="'pi pi-undo'"
+                class="p-button-rounded cleanbtn"
+                stopPropagation
+                (click)="ServiceOrder.clean()"
+              ></button> -->
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <div class="accordion-body">
+                <serviceOrderForm-Component
+                  #ServiceOrder
+                  [isFilter]="true"
+                  (hasValue)="forms.serviceOrder = $event"
+                ></serviceOrderForm-Component>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item" >
+          <h2 class="accordion-header" id="headingTwo">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              <div class="checkIcon m-2">
+                <i
+                  *ngIf="forms.assignment; else noValue"
+                  class="far fa-check-circle text-success"
+                ></i>
+              </div>
+              <h4>Asignar Orden / Datos de la RLT</h4>
+              <!-- <button
+                pButton
+                [pTooltip]="'limpiar'"
+                [icon]="'pi pi-undo'"
+                class="p-button-rounded cleanbtn"
+                stopPropagation
+                (click)="OrderAssigment.clean()"
+              ></button> -->
+            </button>
+          </h2>
+          <div
+            id="collapseTwo"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <app-order-assignment
+                #OrderAssigment
+                [isFilter]="true"
+                (hasValue)="forms.assignment = $event"
+              ></app-order-assignment>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseThree"
+              aria-expanded="false"
+              aria-controls="collapseThree"
+            >
+              <div class="checkIcon m-2">
+                <i
+                  *ngIf="forms.worker; else noValue"
+                  class="far fa-check-circle text-success"
+                ></i>
+              </div>
+              <h4>Datos de la Persona Trabajadora</h4>
+            </button>
+          </h2>
+          <div
+            id="collapseThree"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <app-order-worker-new
+                [isFilter]="true"
+                (hasValue)="forms.worker = $event"
+                #workerData
+              ></app-order-worker-new>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseFour"
+              aria-expanded="false"
+              aria-controls="collapseFour"
+            >
+              <div class="checkIcon m-2">
+                <i
+                  *ngIf="forms.company; else noValue"
+                  class="far fa-check-circle text-success"
+                ></i>
+              </div>
+              <h4>Datos de la Empresa</h4>
+            </button>
+          </h2>
+          <div
+            id="collapseFour"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingFour"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <app-company-data
+                [isFilter]="true"
+                (hasValue)="forms.company = $event"
+                #companyData
+              >
+              </app-company-data>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingsix">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsesix"
+              aria-expanded="false"
+              aria-controls="collapsesix"
+            >
+              <div class="checkIcon m-2">
+                <i
+                  *ngIf="forms.visit; else noValue"
+                  class="far fa-check-circle text-success"
+                ></i>
+              </div>
+              <h4>Datos de Visita</h4>
+              <div class="formsNumber ms-2"></div>
+            </button>
+          </h2>
+          <div
+            id="collapsesix"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingsix"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <app-visit-data
+                [isFilter]="true"
+                (hasValue)="forms.visit = $event"
+                #visiData
+              ></app-visit-data>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingseven">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseseven"
+              aria-expanded="false"
+              aria-controls="collapseseven"
+            >
+              <div class="checkIcon m-2">
+                <i
+                  *ngIf="forms.warning; else noValue"
+                  class="far fa-check-circle text-success"
+                ></i>
+              </div>
+              <h4>Actas de Apercibimiento</h4>
+              <div class="formsNumber ms-2"></div>
+            </button>
+          </h2>
+          <div
+            id="collapseseven"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingseven"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <app-warning-report
+                [isFilter]="true"
+                (hasValue)="forms.warning = $event"
+                #warningReport
+              ></app-warning-report>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingeight">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseeight"
+              aria-expanded="false"
+              aria-controls="collapseeight"
+            >
+              <div class="checkIcon m-2">
+                <i
+                  *ngIf="forms.infraction; else noValue"
+                  class="far fa-check-circle text-success"
+                ></i>
+              </div>
+              <h4>Actas de Infracción</h4>
+              <div class="formsNumber ms-2"></div>
+            </button>
+          </h2>
+          <div
+            id="collapseeight"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingeight"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <app-infraction-report
+                [isFilter]="true"
+                (hasValue)="forms.infraction = $event"
+                #infractionData
+              ></app-infraction-report>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingten">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseten"
+              aria-expanded="false"
+              aria-controls="collapseten"
+            >
+              <div class="checkIcon m-2">
+                <i
+                  *ngIf="forms.inspection; else noValue"
+                  class="far fa-check-circle text-success"
+                ></i>
+              </div>
+              <div class="formsNumber">
+                <h4>Informe de Inspección</h4>
+              </div>
+            </button>
+          </h2>
+          <div
+            id="collapseten"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingten"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <app-inspection-report
+                #inspection
+                [isChildren]="true"
+                [isFilter]="true"
+                (hasValue)="forms.inspection = $event"
+              ></app-inspection-report>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item mb-1" *ngIf="user.userCode !== 'DIG'">
+          <h2 class="accordion-header" id="headeleven">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapeleven"
+              aria-expanded="false"
+              aria-controls="collapeleven"
+            >
+              <div class="checkIcon m-2">
+                <i
+                  *ngIf="forms.RLT; else noValue"
+                  class="far fa-check-circle text-success"
+                ></i>
+              </div>
+              <div class="formsNumber">
+                <h4>RLT</h4>
+              </div>
+            </button>
+          </h2>
+          <div
+            id="collapeleven"
+            class="accordion-collapse collapse"
+            aria-labelledby="headeleven"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <div class="form-row">
+                <div class="col-md col-12 mb-1">
+                  <label class="form-label form-control-lg"
+                    >Estado del Informe
+                  </label>
+
+                  <el-dropdown
+                    [options]="this.localReps"
+                    [(ngModel)]="RLTId"
+                    customClass="form-control form-control-lg"
+                    placeHolder="Elige un RLT del informe"
+                  ></el-dropdown>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <p-toggleButton
+            [(ngModel)]="nearToClose"
+            onLabel="Mostrando los Próx. a Vencer"
+            offLabel="Próximos a Vencer "
+            onIcon="pi pi-check"
+            offIcon="pi pi-times"
+            [style]="{ width: '15rem', height: '2.7rem' }"
+          ></p-toggleButton>
+        </div>
+      </div>
+      <div class="modal-footer mt-2">
+        <div class="row">
+          <div class="col-12 col-md text-center mb-1">
+            <button
+              type="button"
+              class="rounded-pill btn btn-clean px-5"
+              data-bs-dismiss="modal"
+              (click)="
+                clean(
+                  ServiceOrder,
+                  OrderAssigment,
+                  workerData,
+                  companyData,
+                  visiData,
+                  warningReport,
+                  infractionData,
+                  inspection
+                )
+              "
+            >
+              Limpiar
+            </button>
+          </div>
+          <div class="col-12 col-md text-center">
+            <button
+              id="toggleBtn"
+              type="button"
+              class="rounded-pill btn btn-save px-5"
+              data-bs-dismiss="modal"
+              (click)="
+                buildSearch(
+                  ServiceOrder.serviceOrder.value,
+                  OrderAssigment.assignmentForm.value,
+                  workerData.workerDataForm.value,
+                  companyData.companyDataForm.value,
+                  visiData.visitDataForm.value,
+                  warningReport.warningReportForm.value,
+                  infractionData.infractionReportForm.value,
+                  inspection.inspectionReportForm.value
+                )
+              "
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noValue><i class="far fa-circle text-danger"></i></ng-template>
+</div>

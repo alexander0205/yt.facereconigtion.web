@@ -1,0 +1,68 @@
+<p-fileUpload
+  mode="advanced"
+  name="files[]"
+  customUpload="true"
+  accept="image/*,.pdf,.csv,.txt,.xls,.xlsx,.doc,.docx"
+  maxFileSize="6000000"
+  [showCancelButton]="false"
+  [showUploadButton]="false"
+  styleClass="text-danger"
+  (onSelect)="test($event.files)"
+  (onRemove)="remove($event.file)"
+  multiple="multiple"
+  invalidFileSizeMessageSummary="Tamaño maximo excedido"
+  invalidFileSizeMessageDetail="El limite es de 3 mb"
+  invalidFileTypeMessageSummary="Formato no soportado"
+  invalidFileTypeMessageDetail="Los formatos aceptados son 'jpg, png,xls,xlsx,doc,docx, pdf y csv'"
+  chooseLabel="Cargar Archivo"
+>
+  <ng-template pTemplate="toolbar">
+    <div class="toolbar">{{ toolbar }}</div>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <div class="box" *ngIf="files.length === 0">
+      <!-- <input
+        type="file"
+        id="drop_zone"
+        class="FileUpload"
+        accept=".jpg,.png,.gif"
+        (change)="test($event.srcElement.files)"
+      /> -->
+      <div
+        class="
+          d-flex
+          h-100
+          justify-content-center
+          align-items-center
+          text-center
+        "
+        style="margin-top: 1rem"
+      >
+        <div class="icon align-items-center">
+          <i class="fileplus mt-2"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="40.008"
+              viewBox="0 0 30 40.008"
+            >
+              <defs>
+                <style>
+                  .a {
+                    fill: #a6b9cf;
+                  }
+                </style>
+              </defs>
+              <path
+                class="a"
+                d="M28.9,7.556,22.344,1A3.75,3.75,0,0,0,19.7-.1H3.75A3.763,3.763,0,0,0,0,3.658v32.5a3.751,3.751,0,0,0,3.75,3.75h22.5A3.751,3.751,0,0,0,30,36.158V10.212a3.768,3.768,0,0,0-1.1-2.656ZM25.945,9.908H20V3.962ZM3.75,36.158V3.658h12.5v8.125a1.87,1.87,0,0,0,1.875,1.875H26.25v22.5Zm20-13.437V24.6a.94.94,0,0,1-.937.938H16.875V31.47a.94.94,0,0,1-.937.937H14.063a.94.94,0,0,1-.937-.937V25.533H7.188A.94.94,0,0,1,6.25,24.6V22.72a.94.94,0,0,1,.938-.937h5.938V15.845a.94.94,0,0,1,.938-.937h1.875a.94.94,0,0,1,.938.938v5.937h5.938A.94.94,0,0,1,23.75,22.72Z"
+                transform="translate(0 0.1)"
+              /></svg
+          ></i>
+          <p>Arrastre archivos aqu&iacute;</p>
+        </div>
+      </div>
+    </div>
+  </ng-template></p-fileUpload
+>

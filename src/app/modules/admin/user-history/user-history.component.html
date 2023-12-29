@@ -1,0 +1,62 @@
+<div class="container-fluid">
+
+  <div class="row mb-3">
+    <div class="col-md-5">
+      <h2 class="mb-3">Lista de Usuarios</h2>
+    </div>
+  </div>
+
+  <div class="row m-2 mb-5">
+    <div class="col-6 col-md text-left">
+      <button type="button" class="{{btnCssDefault}}" data-bs-toggle="modal" (click)="onClickBtnNew()">
+        &nbsp;{{titlebtn}} <i class="{{ibtnCssDefault}}" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isNewUser" class="mt-2 ms-1 mr-2">
+    <app-prime-table [records]="records" [loading]="loading" [cols]="cols" [buttons]="customButtons" [filters]="filters"
+      [hasGlobalFilters]="false"></app-prime-table>
+  </div>
+
+  <div *ngIf="!isNewUser">
+    <div class="mt-2 ms-1 mr-2">
+      <app-prime-table [records]="recordAds" [loading]="loading" [cols]="colsAd" [buttons]="customAddButtons"
+        [filters]="filtersAd" [hasGlobalFilters]="false"></app-prime-table>
+    </div>
+  </div>
+
+  <!-- Modal editar usuario -->
+  <div class="modal fade" id="editUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-3">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Usuario</h1>
+
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1">
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0 justify-content-center">
+          <button type="button" class="btn btn-save " data-bs-dismiss="modal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>

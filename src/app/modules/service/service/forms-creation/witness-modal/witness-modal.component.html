@@ -1,0 +1,63 @@
+<div class="modal-content">
+    <div class="modal-header border-0">
+      <h1 class="modal-title text-center fs-4 modalTitle" id="staticBackdropLabel">Detalle del Registro</h1>
+      <button type="button" class="btn-close" (click)="closeModal()" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <div class="row mb-3">
+        <div class="col-12 col-md-3">
+          <dl>
+            <dt>Nombre Completo</dt>
+            <dd>{{ this.testigosR.referencia.nombre }} {{this.testigosR.referencia.apellido}}</dd>
+          </dl>
+          <dl>
+            <dt>Telefono</dt>
+            <dd>{{ this.testigosR.referencia.telefono }}</dd>
+          </dl>
+          <dl>
+            <dt>Correo Electronico</dt>
+            <dd>{{ this.testigosR.referencia.correoElectronico }}</dd>
+          </dl>
+        </div>
+        <div class="col-12 col-md-3">
+          <dl>
+            <dt>Provincia</dt>
+            <dd>{{ this.testigosR.referencia?.provinciaData?.descripcion }}</dd>
+          </dl>
+          <dl>
+            <dt>Municipio</dt>
+            <dd>{{ this.testigosR.referencia?.municipioData?.descripcion }}</dd>
+          </dl>
+          <dl>
+            <dt>Distrito Municipal</dt>
+            <dd>{{ this.testigosR.referencia?.distritoMunicipalData?.descripcion }}</dd>
+          </dl>
+        </div>
+        <div class="col-12 col-md-3">
+          <dl>
+            <dt>Sector</dt>
+            <dd>{{ this.testigosR.referencia.sector }}</dd>
+          </dl>
+          <dl>
+            <dt>Calle y Número</dt>
+            <dd>{{ this.testigosR.referencia.calle }} {{ this.testigosR.referencia.numero }}</dd>
+          </dl>
+          <dl>
+            <dt>Edificio</dt>
+            <dd>{{ this.testigosR.referencia.edificio }}</dd>
+          </dl>
+        </div>
+        <div class="col-12 col-md-3">
+          <dl>
+            <dt>Apartamento/Casa</dt>
+            <dd>{{ this.testigosR.referencia.apartamentoCasa }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+    </div>
+</div>
+  

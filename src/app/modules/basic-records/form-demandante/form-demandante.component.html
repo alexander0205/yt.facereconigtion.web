@@ -1,0 +1,274 @@
+<form [formGroup]="asistenciaDiariaForm" (ngSubmit)="validateDemandante()">
+  <div class="row mb-3 infoGeneral">
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="idTipoIdentificacion" class="pl-0 mx-1">Tipo de DocumentoTipo de Documento</label>
+        <span class="asterisco">*</span>
+        <select class="form-select" formControlName="idTipoIdentificacion">
+          <option value="" selected>-- Seleccione Tipo de Documento --</option>
+          <option *ngFor="let tipoDocu of identificationDrop" value="{{ tipoDocu.value }}">{{ tipoDocu.text }}
+          </option>
+        </select>
+        <div
+          *ngIf="asistenciaDiariaForm.get('idTipoIdentificacion').invalid && asistenciaDiariaForm.get('idTipoIdentificacion').touched">
+          <span class="text-danger">Elige un tipo de documento.</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="identificacion" class="pl-0">No. de Documento </label>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" maxlength="13" formControlName="identificacion"
+            placeholder="Escriba su número de documento">
+          <button class="btn btn-buscarInput" (click)="getCitizen()" type="button" id="buttonSe">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="nombre" class="pl-0">Nombre(s) <span class="asterisco">*</span></label>
+        <input type="text" class="form-control" maxlength="25" formControlName="nombre" placeholder="Escriba nombre">
+        <div *ngIf="asistenciaDiariaForm.get('nombre').invalid && asistenciaDiariaForm.get('nombre').touched">
+          <span class="text-danger">Ingrese un nombre</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="apellido" class="pl-0">Apellido(s) <span class="asterisco">*</span></label>
+        <input type="text" class="form-control" maxlength="25" formControlName="apellido"
+          placeholder="Escriba apellido">
+        <div *ngIf="asistenciaDiariaForm.get('apellido').invalid && asistenciaDiariaForm.get('apellido').touched">
+          <span class="text-danger">Ingrese un apellido</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3 infoGeneral">
+
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="idSexo" class="pl-0">Sexo <span class="asterisco">*</span></label>
+        <select class="form-select" formControlName="idSexo">
+          <option value="" selected>-- Seleccione el Sexo --</option>
+          <option *ngFor="let sexo of sexDrop" value="{{ sexo.value }}">{{ sexo.text }}</option>
+        </select>
+        <div *ngIf="asistenciaDiariaForm.get('idSexo').invalid && asistenciaDiariaForm.get('idSexo').touched">
+          <span class="text-danger">Ingrese un sexo</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="edad" class="pl-0">Edad <span class="asterisco">*</span></label>
+        <input type="number" class="form-control" formControlName="edad" max="99" min="1" maxlength="2"
+          (input)="maxCheck($event)" placeholder="Escriba la edad">
+        <div *ngIf="asistenciaDiariaForm.get('edad').invalid && asistenciaDiariaForm.get('edad').touched">
+          <span class="text-danger">Ingrese una edad valida.</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="idNacionalidad" class="pl-0">Nacionalidad <span class="asterisco">*</span></label>
+        <ng-multiselect-dropdown [data]="nationalityDrop" formControlName="idNacionalidadDropDown"
+          [settings]="nacionalityDropdownSettings" (onSelect)="onNacionalitySelect($event)"
+          [placeholder]="'-- Seleccione Nacionalidad --'">
+        </ng-multiselect-dropdown>
+        <div
+          *ngIf="asistenciaDiariaForm.get('idNacionalidad').invalid && asistenciaDiariaForm.get('idNacionalidad').touched">
+          <span class="text-danger">Elija una nacionalidad.</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="form-group">
+        <label for="idEstadoCivil" class="pl-0">Estado civil <span class="asterisco">*</span></label>
+        <select class="form-select" formControlName="idEstadoCivil">
+          <option value="" selected>-- Seleccione Estado civil --</option>
+          <option *ngFor="let estadoC of civilStatusDrop" value="{{ estadoC.value }}">{{ estadoC.text }}</option>
+        </select>
+        <div
+          *ngIf="asistenciaDiariaForm.get('idEstadoCivil').invalid && asistenciaDiariaForm.get('idEstadoCivil').touched">
+          <span class="text-danger">El campo es requerido</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row mb-3 infoGeneral">
+    <div class="col">
+      <div class="form-group">
+        <label for="telefono" class="pl-0">Teléfono del Solicitante <span class="asterisco">*</span></label>
+        <input type="text" [mask]="'000-000-0000'" class="form-control" formControlName="telefono"
+          id="solicitantePhoneRequest" (keydown)="checkPhoneNumber($event)" placeholder="Escriba el telefono">
+        <div *ngIf="asistenciaDiariaForm.get('telefono').invalid && asistenciaDiariaForm.get('telefono').touched">
+          <span class="text-danger">Ingrese numero de telefono</span>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="correoElectronico" class="pl-0">Correo Electronico</label>
+        <input type="email" class="form-control" formControlName="correoElectronico" placeholder="Escriba el correo">
+        <div *ngIf="asistenciaDiariaForm.get('telefono').invalid && asistenciaDiariaForm.get('telefono').touched">
+          <span class="text-danger">Ingrese numero de telefono</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3 infoGeneral ps-0">
+    <div class="row">
+      <div class="col">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="" class="form-label mb-2">Provincia
+              <span class="asterisco">*</span>
+            </label>
+            <select class="form-select" aria-label="Default select example" formControlName="provincia" id="provincia"
+              (change)="onSelectedProvince()">
+              <option value="" selected>-- Seleccione Provincia --</option>
+              <option *ngFor="let p of provinces" value="{{p.id}}">{{p.descripcion}}</option>
+            </select>
+            <div *ngIf="asistenciaDiariaForm.get('provincia').invalid &&
+            asistenciaDiariaForm.get('provincia').touched">
+              <span class="text-danger">Seleccione una opción</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="" class="form-label mb-2">Municipio
+              <span class="asterisco">*</span>
+            </label>
+            <select class="form-select" aria-label="Default select example" id="municipio" formControlName="municipio"
+              (change)="getDistrictDemandante(this.asistenciaDiariaForm.value.municipio)">
+              <option value="" selected>-- Seleccione Municipio --</option>
+              <option *ngFor="let m of municipio" value="{{ m.id }}">{{ m.descripcion }}</option>
+            </select>
+            <div *ngIf="asistenciaDiariaForm.get('municipio').invalid &&
+            asistenciaDiariaForm.get('municipio').touched">
+              <span class="text-danger">Seleccione una opción</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="" class="form-label mb-2">Distrito Municipal
+              <span class="asterisco">*</span>
+            </label>
+            <select class="form-select" aria-label="Default select example" id="distritoMunicipal"
+              formControlName="distritoMunicipal">
+              <option value="" selected>-- Seleccione Distrito Municipal --</option>
+              <option *ngFor="let d of distrito" value="{{ d.id }}">{{ d.descripcion }}</option>
+            </select>
+            <div *ngIf="asistenciaDiariaForm.get('distritoMunicipal').invalid &&
+            asistenciaDiariaForm.get('distritoMunicipal').touched">
+              <span class="text-danger">Seleccione una opción</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="" class="form-label mb-2">Sector
+              <span class="asterisco">*</span>
+            </label>
+            <input type="text" class="form-control" maxlength="180" id="sector" formControlName="sector"
+              placeholder="Escriba el Sector">
+            <div *ngIf="asistenciaDiariaForm.get('sector').invalid &&
+            asistenciaDiariaForm.get('sector').touched">
+              <span class="text-danger">Campo requerido</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="" class="form-label mb-2">Calle
+              <span class="asterisco">*</span>
+            </label>
+            <input type="text" class="form-control" id="calle" formControlName="calle" placeholder="Nombre de calle">
+            <div *ngIf="asistenciaDiariaForm.get('calle').invalid &&
+            asistenciaDiariaForm.get('calle').touched">
+              <span class="text-danger">Campo requerido</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="" class="form-label mb-2">Número
+              <span class="asterisco">*</span>
+            </label>
+            <input type="number" class="form-control" id="numero" formControlName="numero"
+              placeholder="Escriba Número de la casa ">
+            <div *ngIf="asistenciaDiariaForm.get('numero').invalid &&
+            asistenciaDiariaForm.get('numero').touched">
+              <span class="text-danger">Campo requerido</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="" class="form-label mb-2">Edificio 
+            </label>
+            <input type="text" class="form-control" id="edificio" formControlName="edificio"
+              placeholder="Escriba nombre y número de edificio">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="" class="form-label mb-2">Dirección de Referencia
+              
+            </label>
+            <input type="text" class="form-control" maxlength="180" id="direcionReferencia"
+              formControlName="direccionReferencia" placeholder="Escriba Dirección de Referencia">
+            
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="" class="form-label mb-2">Apartamento / Casa
+             
+            </label>
+            <input type="number" class="form-control" formControlName="apartamentoCasa"
+              placeholder="Número de apt. o casa">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <button type="submit"
+        [disabled]="expedientCerrado || this.user.roleCode === 'ADM' || this.user.roleCode === 'DIR' || this.user.roleCode === 'PLEGA' || this.user.roleCode === 'ENCA'"
+        class="btn btnSubmit float-end btn-guardar btnListo" id="btnDemandante">Listo</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,39 @@
+.myCustomModalClass .modal-dialog {
+  max-width: 565px;
+}
+.form-ctrl-fixed {
+  height: 49px !important;
+}
+
+.cs-service-order {
+  min-height: 550px !important;
+}
+
+#orderDate {
+  font-size: 13px;
+  color: red;
+}
+
+::ng-deep .invalid .dropdown-btn {
+  border: 1px solid red !important;
+}
+
+.input-group > .input-group-append {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-outline-secondary {
+  border: none;
+}
+.btn-outline-secondary:not(:disabled):not(.disabled):active {
+  color: #6c757d;
+  background: none;
+}
+
+.btn-outline-secondary:hover {
+  background: none;
+  color: var(--azulClaro);
+}

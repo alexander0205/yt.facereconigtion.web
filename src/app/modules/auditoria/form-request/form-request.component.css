@@ -1,0 +1,44 @@
+.btn-guardar, .btn-entendido, .btn-continuar{
+  background-color: #1460B8;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 24px;
+  gap: 10px;
+  width: 180px;
+  height: 48px;
+  border-radius: 100px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+}
+.btn-continuar{
+  color: #003876 !important;
+  background-color: #E6EBF1 !important;
+}
+
+.btn-guardar:hover { background: #0f417c; }
+
+.code-display {
+  position: relative;
+}
+
+pre {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}

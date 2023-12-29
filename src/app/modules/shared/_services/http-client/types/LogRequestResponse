@@ -1,0 +1,24 @@
+export interface LogRequestResponse {
+  idAsistenciaDiariaEmpleador: number
+  idUsuario: number
+  idRepLocalProvinciaCatalog: number
+  idEmpresa: number
+  idTipoCorrespondencia: number
+  idTipoDocumento: any
+  idEstado: number
+  idAsistenciaDiaria: number
+  idArchivoDocumentoFirmado: any
+  codigo: string
+  tipoEmpleador: string
+  tieneApoderadoSuDemanda: boolean
+  fechaAsignacion: string
+  fechaRegistro: string
+  comentarioDocumentoFirmado: any
+  observacion: string
+  activo: boolean
+  archivoDocumentoFirmado: any
+  expedienteCierre:any
+  DemandaCorrespondeFechasAnteriores: number,
+  FechaDemandaAnterior: any
+  codigoCorrespondencia: any
+}

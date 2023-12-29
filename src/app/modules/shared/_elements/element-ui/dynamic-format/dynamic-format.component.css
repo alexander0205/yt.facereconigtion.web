@@ -1,0 +1,31 @@
+.textareaToText {
+  border: none;
+  color: black;
+  pointer-events: none !important;
+  width: 100%;
+  overflow: hidden !important;
+  resize: none !important;
+  background-color: inherit !important;
+  color: var(--azulClaro);
+  font-family: Proxima-nova !important;
+}
+
+.textareaToText::placeholder {
+  color: var(--azul);
+  line-height: 200%;
+  font-size: 90%;
+}
+
+.buttonRoute {
+  border: none;
+  color: var(--azulClaro);
+  font-family: Proxima-nova !important;
+  background: none;
+}
+
+.buttonRoute:hover {
+  border: none;
+  color: var(--rojo);
+  font-family: Proxima-nova !important;
+  background: none;
+}

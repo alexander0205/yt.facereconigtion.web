@@ -1,0 +1,66 @@
+<!-- Modal -->
+<div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close"data-bs-dismiss="modal" aria-label="Close"
+        (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <h1 class="modal-title fs-4" id="staticBackdropLabel">Re-apertura de Casos</h1>
+        </div>
+        <form [formGroup]="reaperturarCasoForm" class="p-4">
+          <div class="apertura">
+            <div class="row mt-4">
+              <div class="col">
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label for="" class="form-label mb-2">Número de Registro</label>
+                    <input type="text" class="form-control" formControlName="nRegistro" id="" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label for="" class="form-label mb-2">Estado Actual</label>
+                    <input type="text" class="form-control" id="" formControlName="estadoActual" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="" class="form-label mb-2">
+                    Usuario <span class="asterisco">*</span>
+                  </label>
+                  <input type="text" class="form-control" id="" formControlName="user" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="" class="form-label mb-2">
+                    Motivo de Reapertura <span class="asterisco">*</span>
+                  </label>
+                  <select class="form-select" aria-label="Default select example" formControlName="motivoReapertura">
+                    <option selected>--Selecciona un Motivo--</option>
+                    <option *ngFor="let mr of motivosReapertura" value="{{ mr.value }}">{{ mr.text }}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <div class="mb-3">
+                    <label for="" class="form-label mb-2">Fecha</label>
+                    <input type="date" class="form-control" id="" FormControlName="fecha">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0 justify-content-center mb-5">
+        <button type="button" class="btn btn-guardar" (click)="reopenCase()">Guardar</button>
+      </div>
+</div>

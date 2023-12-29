@@ -1,0 +1,40 @@
+<router-outlet></router-outlet>
+<ng-template #content let-modal>
+  <div class="modal-body container paddingContainer">
+    <div class="row text-center d-flex justify-content-center">
+      <div class="outerSphere d-flex align-items-center justify-content-center">
+        <div class="stopwatch"></div>
+      </div>
+    </div>
+    <div class="row text-center mt-3">
+      <div class="nova-bold fs-3 fw-bold text">Su sesión expirará en</div>
+      <div style="color: #003777" class="fs-2 fw-bold nova-bold">
+        {{ contdown }} MINUTOS
+      </div>
+    </div>
+    <div class="row text-center mb-4 mt-2 fw-light">
+      <div class="nova fs-5 fw-light">¿Desea mantener su sesión abierta?</div>
+    </div>
+    <div class="flex-wrap flex align-items-center">
+      <div class="d-flex justify-content-center">
+        <button
+          type="button"
+          class="rounded-pill btn tableGrayButton px-2 buttonsW mr-3"
+          data-bs-dismiss="modal"
+          (click)="getOut()"
+        >
+          No, salir
+        </button>
+
+        <button
+          type="button"
+          class="rounded-pill btn tableDeleteButton px-2 buttonsW"
+          data-bs-dismiss="modal"
+          (click)="keepSession()"
+        >
+          Sí, seguir
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

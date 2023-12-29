@@ -1,0 +1,10 @@
+
+  
+  .apertura input, select{
+    border: 1px solid #E1E1E1 !important;
+    color: #444444 !important;
+  }
+
+  .table-responsive {
+    margin-top: 20px;
+  }

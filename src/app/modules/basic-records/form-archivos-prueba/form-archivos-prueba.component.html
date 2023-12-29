@@ -1,0 +1,42 @@
+<form [formGroup]="archivosPruebaForm" (ngSubmit)="validateGuardarDatos()">
+  <div class="adjuntaDatos mt-3" id="adjuntaDatos">
+    <div class="form">
+      <div class="formAdjuntar">
+        <label for="" class="form-label mb-2">Documentos Notificados</label>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" formControlName="descripcionArchivosDePrueba"
+                placeholder="Comentarios" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <button class="btn-upload">
+                <i class="fa fa-download"></i> Adjuntar
+                <input type="file" multiple (change)="onFileSelect($event)">
+              </button>
+            </div>
+            <div class="mt-2 ">
+              <div *ngFor="let file of fundamentoDefensaFilesItem; let i = index">
+                <div class="documentContainer">
+                  <span>{{file.name}}</span>
+                  <a type="button" class="downloadBtn" (click)="downLoadAttachedFile(file)">
+                    <i class="fa fa-cloud-download"></i>
+                  </a>
+                  <a type="button" class="deleteBtn" (click)="deleteFile(i)">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <p class="maximoRe">Peso máximo de 20 mb</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <button type="submit" class="btn btnSubmit float-end btn-guardar btnListo" id="btnGuardarArchivo"
+        [disabled]=" expedientCerrado || this.user.roleCode === 'ADM' || this.user.roleCode === 'DIR' || this.user.roleCode === 'PLEGA' || this.user.roleCode === 'ENCA'">Listo</button>
+    </div>
+  </div>
+</form>

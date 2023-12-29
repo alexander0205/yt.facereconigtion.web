@@ -1,0 +1,337 @@
+<form class="form" [formGroup]="empresaFormalizadaForm">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="mb-2">Tipo de Solicitante <span class="asterisco">*</span> </label>
+          <input disabled class="form-control" type="text"
+            value={{record?.asistenciaDiaria?.tipoSolicitante?.descripcion}} />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4" *ngIf="record?.tipoEmpleador === 'FORMALIZADA'">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">RNC / Cédula
+            <span class="asterisco">*</span>
+          </label>
+          <input type="text" class="form-control" maxlength="13" minlength="9" formControlName="rncCedula"
+            id="rncCedula" placeholder="ej. 001-2345678-9">
+          <div *ngIf="empresaFormalizadaForm.get('rncCedula').invalid &&
+            empresaFormalizadaForm.get('rncCedula').touched">
+            <span class="text-danger">Campo requerido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4" *ngIf="record?.asistenciaDiaria?.tipoSolicitante?.descripcion === 'Empleador'">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Tipo de Documento
+            <span class="asterisco">*</span>
+          </label>
+          <select class="form-select" aria-label="Default select example" id="tipoDeDocumento"
+            formControlName="idTipoIdentificacion" placeholder="Seleccione">
+            <option selected>Seleccione</option>
+            <option *ngFor="let tipoDocu of identificationDrop" value="{{ tipoDocu.value }}">
+              {{ tipoDocu.text }}
+          </select>
+          <div *ngIf="empresaFormalizadaForm.get('idTipoIdentificacion').invalid &&
+    empresaFormalizadaForm.get('idTipoIdentificacion').touched">
+            <span class="text-danger">Seleccione una opción</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-4" *ngIf="record?.asistenciaDiaria?.tipoSolicitante?.descripcion  === 'Empleador'">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">No. Documento (Rep. Legal)
+            <span class="asterisco">*</span>
+          </label>
+          <input type="text" class="form-control" id="noDocumento" formControlName="identificacion"
+            placeholder="ej. 001-8956-3247-8">
+          <div *ngIf="empresaFormalizadaForm.get('identificacion').invalid &&
+      empresaFormalizadaForm.get('identificacion').touched">
+            <span class="text-danger">Campo requerido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4" *ngIf="record?.tipoEmpleador === 'FORMALIZADA'">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="rnl" class="form-label mb-2">RNL
+          </label>
+          <input type="text" class="form-control" id="rnl" formControlName="rnl" placeholder="ej. 001-2345678-9">
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Nombre Comercial
+            <span class="asterisco">*</span>
+          </label>
+          <input type="text" class="form-control" maxlength="180" formControlName="nombreComercial" id="nombreComercial"
+            required placeholder="Nombre comercial">
+          <div *ngIf="empresaFormalizadaForm.get('nombreComercial').invalid &&
+        empresaFormalizadaForm.get('nombreComercial').touched">
+            <span class="text-danger">Campo requerido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-3" *ngIf="record?.tipoEmpleador !== 'FORMALIZADA'">
+      <div class="form-group">
+        <label for="idNacionalidad" class="form-label mb-2">Nacionalidad <span class="asterisco">*</span></label>
+        <select class="form-select" formControlName="idNacionalidad">
+          <option value="" selected>-- Seleccione --</option>
+          <option *ngFor="let nacionalidad of nationalityDrop" value="{{ nacionalidad.value }}">
+            {{ nacionalidad.text }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-12 col-md-3" *ngIf="record?.tipoEmpleador !== 'FORMALIZADA'">
+      <div class="form-group">
+        <label for="idEstadoCivil" class="form-label mb-2">Estado civil <span class="asterisco">*</span></label>
+        <select class="form-select" formControlName="idEstadoCivil">
+          <option value="" selected>-- Seleccione --</option>
+          <option *ngFor="let estadoC of civilStatusDrop" value="{{ estadoC.value }}">{{ estadoC.text
+            }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Provincia
+            <span class="asterisco">*</span>
+          </label>
+          <select class="form-select" aria-label="Default select example" formControlName="provincia" id="provincia" (change)="getProvinceDemandada()">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let p of provincesDrop" value="{{ p.id }}">{{ p.descripcion }}</option>
+          </select>
+          <div *ngIf="empresaFormalizadaForm.get('provincia').invalid &&
+      empresaFormalizadaForm.get('provincia').touched">
+            <span class="text-danger">Seleccione una opción</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Municipio
+            <span class="asterisco">*</span>
+          </label>
+          <select class="form-select" aria-label="Default select example" id="municipio" formControlName="municipio">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let m of municipalitiesDrop" value="{{ m.id }}">{{ m.descripcion }}</option>
+          </select>
+          <div *ngIf="empresaFormalizadaForm.get('municipio').invalid &&
+    empresaFormalizadaForm.get('municipio').touched">
+            <span class="text-danger">Seleccione una opción</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Distrito Municipal
+            <span class="asterisco">*</span>
+          </label>
+          <select class="form-select" aria-label="Default select example" id="distritoMunicipal"
+            formControlName="distritoMunicipal">
+            <option value="">-- Seleccione --</option>
+            <option *ngFor="let d of districtsDrop" value="{{ d.id }}">{{ d.descripcion }}</option>
+          </select>
+          <div *ngIf="empresaFormalizadaForm.get('distritoMunicipal').invalid &&
+    empresaFormalizadaForm.get('distritoMunicipal').touched">
+            <span class="text-danger">Seleccione una opción</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Sector
+          </label>
+          <input type="text" class="form-control" maxlength="180" id="sector" formControlName="sector"
+            placeholder="ej. El Millón">
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Calle
+            <span class="asterisco">*</span>
+          </label>
+          <input type="text" class="form-control" id="calle" formControlName="calle" placeholder="Nombre de calle">
+          <div *ngIf="empresaFormalizadaForm.get('calle').invalid &&
+      empresaFormalizadaForm.get('calle').touched">
+            <span class="text-danger">Campo requerido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Número
+            <span class="asterisco">*</span>
+          </label>
+          <input type="number" class="form-control" id="numero" formControlName="numero"
+            placeholder="Casa o apartamento">
+          <div *ngIf="empresaFormalizadaForm.get('numero').invalid &&
+    empresaFormalizadaForm.get('numero').touched">
+            <span class="text-danger">Campo requerido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Edificio
+            <span class="asterisco">*</span>
+          </label>
+          <input type="text" class="form-control" id="edificio" formControlName="edificio"
+            placeholder="Nombre y número de edificio">
+          <div *ngIf="empresaFormalizadaForm.get('edificio').invalid &&
+    empresaFormalizadaForm.get('edificio').touched">
+            <span class="text-danger">Campo requerido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Dirección de Referencia
+          </label>
+          <input type="text" class="form-control" maxlength="180" id="direcionReferencia"
+            formControlName="direccionReferencia" placeholder="Calle, número, edificio, apartamento o casa">
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Apartamento / Casa
+          </label>
+          <input type="number" class="form-control" id="apartamentoCasa" formControlName="apartamentoCasa"
+            placeholder="Número de apt. o casa">
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Actividad Economica
+            <span class="asterisco">*</span>
+          </label>
+          <select class="form-select" aria-label="Default select example" id="actividadEconomica"
+            formControlName="idTipoActividadComercial">
+            <option value="" selected>Seleccione</option>
+            <option *ngFor="let ae of economicActivities" value="{{ ae.id }}">{{ ae.nombre }}</option>
+          </select>
+          <div *ngIf="empresaFormalizadaForm.get('idTipoActividadComercial').invalid &&
+      empresaFormalizadaForm.get('idTipoActividadComercial').touched">
+            <span class="text-danger">Seleccione una opción</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">A que se dedica<span class="asterisco">*</span></label>
+          <input type="text" class="form-control" maxlength="180" id="aQueDedica" formControlName="dedicacion"
+            placeholder="A que se dedica">
+          <div *ngIf="empresaFormalizadaForm.get('dedicacion').invalid &&
+        empresaFormalizadaForm.get('dedicacion').touched">
+            <span class="text-danger">Campo requerido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Representante Legal o Empleador<span class="asterisco">*</span>
+          </label>
+          <input type="text" class="form-control" maxlength="180" id="representanteLegal"
+            formControlName="representanteLegalEmpleador" placeholder="Nombre representante legal">
+          <div *ngIf="empresaFormalizadaForm.get('representanteLegalEmpleador').invalid &&
+          empresaFormalizadaForm.get('representanteLegalEmpleador').touched">
+            <span class="text-danger">Campo requerido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col" *ngIf="record?.tipoEmpleador  === 'FORMALIZADA'">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Razón Social
+          </label>
+          <input type="text" class="form-control" maxlength="180" id="razonSocial" formControlName="razonSocial"
+            placeholder="Razón social">
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Teléfono
+            <span class="asterisco">*</span>
+          </label>
+          <input type="text" class="form-control" [mask]="'000-000-0000'" id="noTelefono" formControlName="telefono"
+            placeholder="(829) 632-1212">
+          <div *ngIf="empresaFormalizadaForm.get('telefono').invalid &&
+      empresaFormalizadaForm.get('telefono').touched">
+            <span class="text-danger">Campo requerido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col" *ngIf="record?.asistenciaDiaria?.tipoSolicitante?.descripcion  === 'Empleador'">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="" class="form-label mb-2">Correo Electrónico
+          </label>
+          <input type="email" class="form-control" id="CorreE" formControlName="correoElectronico"
+            placeholder="Escriba su Correo Electrónico">
+          <div *ngIf="empresaFormalizadaForm.get('correoElectronico').invalid &&
+      empresaFormalizadaForm.get('correoElectronico').touched">
+            <span class="text-danger">Correo Electronico invalido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

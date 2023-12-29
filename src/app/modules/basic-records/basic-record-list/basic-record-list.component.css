@@ -1,0 +1,78 @@
+.tabsection {  }
+
+body{
+  font-family: Proxima Nova;
+}
+
+.tabsection button {
+  color: #777777;
+}
+
+.tabsection button.active {
+  border: none;
+  color: #ED232A;
+  font-weight: 600;
+  border-bottom: 3px solid;
+}
+
+.btnOutlinePrimary {
+    background: transparent;
+    border: 1px solid #1460B8;
+    color: #1460B8;
+    border-radius: 20px;
+    visibility: hidden;
+}
+
+.btnOutlinePrimary:hover {
+    background: #1460B8;
+    color: #fff;
+}
+
+table thead {
+    align-items: center;
+}
+
+table tbody tr:hover .btnOutlinePrimary { visibility: visible; }
+
+.buscador{
+  margin-top: 31px;
+}
+.buscador i{
+  color: #1460B8;
+}
+
+th{
+  color: #777777;
+}
+
+tr td{
+  color: #444444 
+}
+
+.estado span{
+  background: rgba(20, 96, 184, 0.1);
+  padding: 7px;
+  color: #1460B8;
+}
+
+
+
+.btnPagination {
+  color: #1460B8;
+  border: 2px solid #1460B8;
+  width: 140px;
+}
+
+.btnPagination:hover{
+  background-color: #1460B8;
+  color: #fff;
+}
+
+.pagination span{
+  color: #1460B8;
+}
+
+#recordTable thead tr th a:hover { 
+  cursor: pointer; 
+  color: #1460B8; 
+}

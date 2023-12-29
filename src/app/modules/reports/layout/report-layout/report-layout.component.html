@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-sm-6 pl-sm-0">
+      <label class="form-label form-control-lg title"
+        >TIPO&nbsp;DE&nbsp;REPORTE</label
+      >
+      <br />
+      <el-dropdown
+        style="font-weight: 600"
+        [options]="reportTypes"
+        customClass="form-control form-control-lg colection-type mainDrop"
+        [(ngModel)]="selection"
+        placeHolder="Elige un tipo de Reporte"
+        valueName="alternateField"
+        [stringOut]="true"
+        (ngModelChange)="reportSelected($event)"
+      ></el-dropdown>
+    </div>
+  </div>
+  <div class="row" *ngIf="selection; else noSelection">
+    <div class="col-12 h-100 pl-sm-0">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <ng-template #noSelection>
+    <div class="row">
+      <div class="col-12 pl-sm-0">
+        <div class="alert alert-primary css-alert-light" role="alert">
+          <span
+            ><i
+              class="fa fa-info-circle faa-flash animated faa-slow"
+              aria-hidden="true"
+            ></i
+            >&nbsp;Debe selecconar el tipo de Reporte para colocar la
+            informaci&oacute;n general</span
+          >
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

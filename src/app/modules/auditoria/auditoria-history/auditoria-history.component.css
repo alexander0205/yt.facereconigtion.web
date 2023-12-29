@@ -1,0 +1,124 @@
+.botones button{
+    color: #1460B8;
+    border: 1px solid #1460B8;
+    font-weight: 700;
+}
+
+.botones .btn-fecha{
+    margin-left: -37px;
+}
+
+th{
+    color: #777777;
+  }
+
+  tr td{
+    color: #444444;
+  }
+
+  table tbody tr:hover .btnOutlinePrimary { visibility: visible; }
+  .btnOutlinePrimary {
+    background: transparent;
+    color: #1460B8;
+    visibility: hidden;
+}
+
+.btnOutlinePrimary:hover {
+    background: #1460B8;
+    color: #fff;
+}
+
+.btnPagination {
+  color: #1460B8;
+  border: 2px solid #1460B8;
+  width: 140px;
+}
+
+.btnPagination:hover{
+  background-color: #1460B8;
+  color: #fff;
+}
+
+.pagination span{
+  color: #1460B8;
+}
+
+.tituloH{
+  color: #444444;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+select, input{
+  border: 1px solid #1460B8 !important;
+  color: #1460B8 !important;
+  font-weight: 700;
+  border-radius: 0px;
+  border-color: #1460B8;
+
+}
+
+.btnSearch{
+  height: 46px;
+  width: 50px;
+  border-radius: 0px;
+  margin-left: -103px;
+  background-color: #1460B8;
+  color: #fff !important;
+}
+
+.btnExport{
+  height: 46px;
+  /* width: 50px; */
+  border-radius: 0px; 
+}
+
+.btnSearch:hover {
+  background: #1460B8;
+  color: #fff !important;
+}
+
+.btnSearch i{
+  font-size: 20px;
+}
+
+.estado span{
+  background: rgba(237, 190, 35, 0.14);
+  padding: 7px;
+  color: #BE981C;
+}
+
+.btn-buscar{
+  border-radius: 0%;
+  border-color: #1460B8 !important;
+}
+
+.btnBuscar{
+  border-radius: 0%;
+  color: #1460B8;
+  background-color: #fff;
+  padding: 10px;
+}
+
+
+
+#recordTableHistory thead tr th a:hover { 
+  cursor: pointer; 
+  color: #1460B8; 
+}
+
+.btn-reaperturaCaso{
+  background: transparent;
+  border: 1px solid #1460B8;
+  color: #1460B8;
+  border-radius: 20px;
+}
+
+.btn-reaperturaCaso:hover{
+  background: #1460B8;
+    color: #fff;
+}
+
+.table-responsive {
+  margin-top: 20px;
+}

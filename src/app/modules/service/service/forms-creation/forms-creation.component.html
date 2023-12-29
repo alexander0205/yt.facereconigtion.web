@@ -1,0 +1,2292 @@
+<div class="container-fluid h-100" style="margin-bottom: 13%;">
+  <div class="row d-flex justify-content-around justify-content-lg-start">
+
+    <div class="row mb-3">
+      <div class="col-12 col-md-6">
+        <h3 class="pl-0 title mb-5">Registro de Asistencia Diaria</h3>
+      </div>
+      <div class="col-12 col-md-6">
+        <div *ngIf="this.user.roleCode !== 'ENCA' && this.user.roleCode !== 'DIR' && this.user.roleCode !== 'ADM'">
+          <button *ngIf="this.asistenciaDiariaForm.value.idAsistenciaDiaria "
+            (click)="duplicarServicioAsistenciaDiaria()" type="button" class=" btn btn-anadir" id="creaOtroRegistro"
+            [ngClass]="{' float-start': !asistenciaJudicialHeaderForm.value.idAsistenciaDiariaEmpleador || !asistenciaDiariaForm.value.idAsistenciaDiaria,
+        ' float-end': this.motivoVisita || asistenciaJudicialHeaderForm.value.idAsistenciaDiariaEmpleador && asistenciaDiariaForm.value.idAsistenciaDiaria}">
+            Crear Otro Registro
+          </button>
+        </div>
+        <div class="serviciosJudicial" *ngIf="this.user.roleCode !== 'PLEGA' && this.user.roleCode !== 'ENCA' && this.user.roleCode !== 'DIR'
+           && this.user.roleCode !== 'ADM'">
+          <div *ngIf="isMotivoConsultaSelected">
+            <button class="btn btn-anadir float-end mx-3" type="button" (click)="agregarServicio()" id="btnAddService">
+              <i class="fa fa-plus"></i> Añadir Servicio Judicial
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="asistenciaDiariaForm">
+      <h5 class="pl-0 mb-4">INFORMACION DEL ENTREVISTADOR</h5>
+
+
+      <div class="row mb-3 paralegal">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="nombreUsuario" class="pl-0">Entrevistador</label>
+            <input type="text" id="paralegalName" formControlName="nombreUsuario" class="form-control css-camelcase"
+              disabled readonly>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="" class="pl-0">Fecha</label>
+            <input type="date" class="form-control" formControlName="fechaAlta" id="inputDate">
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="idRepLocalProvinciaCatalog" class="pl-0">Representacion Local (RLT)
+              <span class="asterisco">*</span></label>
+            <ng-multiselect-dropdown [data]="localRepresentativeDrop" [disabled]="newSelectDisabled"
+              formControlName="idRepLocalProvinciaCatalogDropDown" [settings]="rltdropdownSettings"
+              (onSelect)="onRltSelect($event)" [placeholder]="'-- Seleccione --'" (onDeSelect)="onDeRLTSelect($event)">
+            </ng-multiselect-dropdown>
+            <div *ngIf="asistenciaDiariaForm.get('idRepLocalProvinciaCatalog').invalid &&
+             asistenciaDiariaForm.get('idRepLocalProvinciaCatalog').touched">
+              <span class="text-danger">Elija una opcion</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h5 class="pl-0 mb-4">INFORMACION GENERAL SOLICITANTE</h5>
+
+      <div class="row mb-3 infoGeneral">
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="idTipoIdentificacion" class="pl-0 mx-1">Tipo de Documento</label>
+            <span class="asterisco">*</span>
+            <select class="form-select" formControlName="idTipoIdentificacion" id="idTipoIdentificacion"
+              (change)="validateDocumentType()">
+              <option value="" selected>-- Seleccione Tipo de Documento --</option>
+              <option *ngFor="let tipoDocu of identificationDrop" value="{{ tipoDocu.value }}">{{ tipoDocu.text }}
+              </option>
+            </select>
+            <div
+              *ngIf="asistenciaDiariaForm.get('idTipoIdentificacion').invalid && asistenciaDiariaForm.get('idTipoIdentificacion').touched">
+              <span class="text-danger">Elige un tipo de documento.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="identificacion" class="pl-0">No. de Documento <span class="asterisco"
+                id="numberDocumentAsterisco">*</span></label>
+            <div class="input-group">
+              <input type="text" class="form-control" aria-describedby="button-addon2" maxlength="13"
+                formControlName="identificacion" id="identificacion" placeholder="Escriba su número de documento">
+              <button class="btn btn-buscarInput" type="button" id="btnSearchCitizen" (click)="getCitizen()">
+                <i class="fa fa-search"></i>
+              </button>
+
+            </div>
+            <div
+              *ngIf="asistenciaDiariaForm.get('identificacion').invalid && asistenciaDiariaForm.get('identificacion').touched">
+              <span class="text-danger">Ingrese un numero de documento.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="nombre" class="pl-0">Nombre(s) <span class="asterisco">*</span></label>
+            <input type="text" class="form-control" maxlength="25" formControlName="nombre"
+              placeholder="Escriba nombre">
+            <div *ngIf="asistenciaDiariaForm.get('nombre').invalid && asistenciaDiariaForm.get('nombre').touched">
+              <span class="text-danger">Ingrese un nombre</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="apellido" class="pl-0">Apellido(s) <span class="asterisco">*</span></label>
+            <input type="text" class="form-control" maxlength="25" formControlName="apellido"
+              placeholder="Escriba apellido">
+            <div *ngIf="asistenciaDiariaForm.get('apellido').invalid && asistenciaDiariaForm.get('apellido').touched">
+              <span class="text-danger">Ingrese un apellido</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3 infoGeneral">
+
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="idSexo" class="pl-0">Sexo <span class="asterisco">*</span></label>
+            <select class="form-select" formControlName="idSexo">
+              <option value="" selected>-- Seleccione el Sexo -- </option>
+              <option *ngFor="let sexo of sexDrop" value="{{ sexo.value }}">{{ sexo.text }}</option>
+            </select>
+            <div *ngIf="asistenciaDiariaForm.get('idSexo').invalid && asistenciaDiariaForm.get('idSexo').touched">
+              <span class="text-danger">Ingrese un sexo</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="edad" class="pl-0">Edad <span class="asterisco">*</span></label>
+            <input type="number" class="form-control" formControlName="edad" max="99" min="1" maxlength="2"
+              (input)="maxCheck($event)" placeholder="Escriba la edad">
+            <div *ngIf="asistenciaDiariaForm.get('edad').invalid && asistenciaDiariaForm.get('edad').touched">
+              <span class="text-danger">Ingrese una edad valida.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="idNacionalidad" class="pl-0">Nacionalidad <span class="asterisco">*</span></label>
+            <ng-multiselect-dropdown [data]="nationalityDrop" formControlName="idNacionalidadDropDown"
+              [settings]="nacionalityDropdownSettings" (onSelect)="onNacionalitySelect($event)"
+              [placeholder]="'-- Seleccione Nacionalidad --'" [disabled]="newSelectDisabled">
+            </ng-multiselect-dropdown>
+            <div
+              *ngIf="asistenciaDiariaForm.get('idNacionalidad').invalid && asistenciaDiariaForm.get('idNacionalidad').touched">
+              <span class="text-danger">Elija una nacionalidad.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="idEstadoCivil" class="pl-0">Estado civil <span class="asterisco">*</span></label>
+            <select class="form-select" formControlName="idEstadoCivil">
+              <option value="" selected>-- Seleccione Estado civil --</option>
+              <option *ngFor="let estadoC of civilStatusDrop" value="{{ estadoC.value }}">{{ estadoC.text }}</option>
+            </select>
+            <div
+              *ngIf="asistenciaDiariaForm.get('idEstadoCivil').invalid && asistenciaDiariaForm.get('idEstadoCivil').touched">
+              <span class="text-danger">Elija un Estado Civil</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row mb-3 infoGeneral">
+        <div class="col">
+          <div class="form-group">
+            <label for="idTipoSolicitante" class="pl-0">Tipo de Solicitante <span class="asterisco">*</span></label>
+            <select class="form-select" (change)="onChangeTipoSolicitante()" formControlName="idTipoSolicitante"
+              id="typeApplicant">
+              <option value="" selected>-- Seleccione Tipo de Solicitante --</option>
+              <option *ngFor="let ta of typeApplicantDrop" value="{{ ta.value }}">{{ ta.text }}</option>
+            </select>
+            <div *ngIf="asistenciaDiariaForm.get('idTipoSolicitante').invalid &&
+               asistenciaDiariaForm.get('idTipoSolicitante').touched">
+              <span class="text-danger">Elija un tipo de Solicitante</span>
+            </div>
+          </div>
+        </div>
+        <div class="col " id="especifique">
+          <div class="form-group">
+            <label for="idRepresentante" class="pl-0">Especifique</label>
+            <select class="form-select" formControlName="idRepresentante">
+              <option value="" selected>-- Seleccione Especifique representante --</option>
+              <option *ngFor="let e of rTEDrop" value="{{ e.value }}">{{ e.text }}</option>
+            </select>
+            <div
+              *ngIf="asistenciaDiariaForm.get('idRepresentante').invalid && asistenciaDiariaForm.get('idRepresentante').touched">
+              <span class="text-danger">Elija una opcion</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="telefono" class="pl-0">Teléfono del Solicitante <span class="asterisco">*</span></label>
+            <input type="text" [mask]="'000-000-0000'" class="form-control" formControlName="telefono"
+              id="solicitantePhoneRequest" (keydown)="checkPhoneNumber($event)" placeholder="Escriba el telefono">
+            <div *ngIf="asistenciaDiariaForm.get('telefono').invalid && asistenciaDiariaForm.get('telefono').touched">
+              <span class="text-danger">Ingrese numero de telefono</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="correoElectronico" class="pl-0">Correo Electronico</label>
+            <input type="email" class="form-control" formControlName="correoElectronico"
+              placeholder="Escriba el correo">
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3 infoGeneral ps-0">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="telefonoOtraParte" class="pl-0">Teléfono (de la otra parte)</label>
+            <input type="text" [mask]="'000-000-0000'" class="form-control" formControlName="telefonoOtraParte"
+              (keydown)="checkPhoneNumber($event)" placeholder="Escriba el telefono">
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="idMotivoVisita" class="pl-0">Motivo de Visita <span class="asterisco">*</span></label>
+            <select class="form-select" formControlName="idMotivoVisita" id="idMotivoVisita" (change)="motivoVisita()">
+              <option value="" selected>-- Seleccione Motivo de visita--</option>
+              <option *ngFor="let motivoV of reasonOfVisitDrop" value="{{ motivoV.value }}">{{ motivoV.text }}</option>
+            </select>
+            <div
+              *ngIf="asistenciaDiariaForm.get('idMotivoVisita').invalid && asistenciaDiariaForm.get('idMotivoVisita').touched">
+              <span class="text-danger">Elija un motivo de visita</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="idReferido" class="pl-0">Referido</label>
+            <select class="form-select" formControlName="idReferido" >
+              <option value="">-- Seleccione Referido --</option>
+              <option *ngFor="let referido of referidoDrop" value="{{ referido.value }}">{{ referido.text }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3 infoGeneral pl-0">
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="idAbogado" class="pl-0">Abogado (Principal)</label>
+            <ng-multiselect-dropdown [data]="abogadosDrop" formControlName="idAbogadoDropDown" [disabled]="newSelectDisabled"
+              [placeholder]="'-- Seleccione Abogado (Principal) --'" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+              (onDeSelect)="onItemDeSelect($event)">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="form-group">
+            <label for="idAbogadoAlterno" class="pl-0">Abogado (Alterno)</label>
+            <ng-multiselect-dropdown [data]="abogadosDrop" formControlName="idAbogadoAlternoDropDown" [disabled]="newSelectDisabled"
+              [settings]="dropdownSettings" (onSelect)="onItemAlternoSelect($event)"
+              (onDeSelect)="onItemAlternoDeSelect($event)" [placeholder]="'-- Seleccione Abogado (Alterno) --'">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="observaciones" class="pl-0">Observaciones</label>
+          <textarea type="text" class="form-control" maxlength="180" formControlName="observaciones"
+            placeholder="Escriba algun comentario, nota u observación" style="height: 47px; resize: none;">
+           </textarea>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="asistenciaDiariaForm.hasError('abogadosIguales')">
+      <span class="text-danger">No puede seleccionar el mismo abogado en ambos campos</span>
+    </div>
+    <div
+      *ngIf="!this.asistenciaJudicialHeaderForm.value.idAsistenciaDiariaEmpleador && !validateExistAsistenciaJudicial"
+      class="boton-guardar float-end mb-5">
+      <button type="button" (click)="guardarAsistenciaDiaria()" class="btn btn-guardar btn-listo float-end"
+        [disabled]=" (this.user.roleCode === 'ENCA' || this.user.roleCode === 'DIR' || this.user.roleCode == 'ADM') || asistenciaDiariaForm.hasError('abogadosIguales') ">Guardar</button>
+    </div>
+    <div class="collapse" id="servicioJudicialCollapse">
+      <div class="card card-body border-0 ps-0">
+        <hr class="divider">
+        <div class="col-md-8 mt-5">
+          <h3 class="pl-0 title mb-5">
+            Servicio Judicial <span class="dEmpleador">(Datos del {{ TipoSolicitante }})</span>
+          </h3>
+        </div>
+        <form class="form" [formGroup]="asistenciaJudicialHeaderForm">
+          <div class="cardChechbox card p-3 text-center " type="checkbox">
+            <div class="form-check px-0">
+              <label class="form-check-label" for="flexCheckDefault">
+                No tiene ningún abogado apoderado a su defensa
+              </label>
+              <input class="form-check-input ms-4 rounded-circle mt-0 float-end mx-5"
+                formControlName="tieneApoderadoSuDemanda" type="checkbox" id="checkAbogado">
+            </div>
+          </div>
+          <div class="form-group mt-4  col-4" id="tipoEmpleador">
+            <label for="" class="pl-0 mb-2">Tipo de Empleador <span class="asterisco">*</span></label>
+            <select formControlName="tipoEmpleador" id="selectTypeEmployer" class="form-select">
+              <option value="">Seleccione</option>
+              <option value="FORMALIZADA">
+                Empresas, Establecimientos o Instituciones (Formal)
+              </option>
+              <option value="FISICA">
+                Persona Física (Informal)
+              </option>
+            </select>
+          </div>
+        </form>
+        <div id="empleador">
+          <div class="accordion mt-2" id="empresa">
+
+            <div class="accordion-item  INFORMACION-GENERAL">
+              <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#InformacionGeneral-collapseOne" aria-expanded="false"
+                  aria-controls="InformacionGeneral-collapseOne" id="acordionInformacionGeneral">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" id="iconoCheckInformacionGeneral" aria-hidden="true"></i>
+                  INFORMACIÓN GENERAL
+                </button>
+              </h2>
+              <div id="InformacionGeneral-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingSeven">
+                <div class="accordion-body mb-5">
+                  <form action="" [formGroup]="informacionGeneralForm" (submit)="validateGeneralInfoForm()">
+                    <div class="row">
+                      <div class="mb-3 col-4 mt-3">
+                        <div class="form-group">
+                          <label for="" class="form-label mb-2">Fecha de Registro</label>
+                          <input type="date" class="form-control" formControlName="fechaRegistro" id="fechaAcordeon">
+                        </div>
+                      </div>
+                      <div class="mb-3 col-4 mt-3">
+                        <div class="form-group">
+                          <label for="idRepLocalProvinciaCatalog" class="form-label mb-2">Representacion Local
+                            (RLT)</label>
+                          <ng-multiselect-dropdown [data]="localRepresentativeDrop"
+                            formControlName="idRepLocalProvinciaCatalogDropDown" [settings]="rltedropdownSettings"
+                            (onSelect)="onRltSelect($event)" [placeholder]="'-- Seleccione --'">
+                          </ng-multiselect-dropdown>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="boton-guardar float-end mb-3 mt-3">
+                      <button type="submit" class="btn btn-guardar btn-listo float-end" id="btn-informacionGeneral"
+                        [disabled]="isInRole">
+                        Listo
+                      </button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item empresa-formalizada" id="empresa-formalizada">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#EmpresaFormalizada-collapseOne" aria-expanded="false"
+                  aria-controls="EmpresaFormalizada-collapseOne" id="acordionEmpresaFormalizada">
+                  <i class="fa fa-clock-o mx-2 iconoCheckEmpresaFormalizada" id="iconoCheckEmpresaFormalizada"
+                    aria-hidden="true"></i>
+                  <span>{{this.empresaTitleForm}}
+                  </span>
+                </button>
+              </h2>
+              <div id="EmpresaFormalizada-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body">
+                  <form class="form" [formGroup]="empresaFormalizadaForm">
+                    <div class="row">
+                      <div class="col" *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador === 'FORMALIZADA'">
+                        <div class="mb-3">
+                          <div class="form-group ">
+                            <label for="" class="form-label mb-2">RNC / Cédula
+                              <span id="asterico-cedula" class="asterisco">*</span>
+                            </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" maxlength="13" minlength="9"
+                                aria-describedby="button-addon2" formControlName="rncCedula" id="rncCedula"
+                                placeholder="Escriba RNC o Cedula">
+                              <button [disabled]="isBlocked" class="btn btn-buscarInput btnSirla" type="button"
+                                id="button-addon2"
+                                (click)="getCompanyData(this.empresaFormalizadaForm.get('rncCedula').value, 'rncCedula')">
+                                <i class="fa fa-search"></i>
+                              </button>
+                            </div>
+                            <div *ngIf="empresaFormalizadaForm.get('rncCedula').invalid &&
+                              empresaFormalizadaForm.get('rncCedula').touched">
+                              <div *ngIf="empresaFormalizadaForm.get('rncCedula').errors.required">
+                                <span class="text-danger">Campo requerido</span>
+                              </div>
+                              <div *ngIf="empresaFormalizadaForm.get('rncCedula').errors.pattern">
+                                <span class="text-danger">El campo contiene caracteres inválido</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col" *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador === 'FORMALIZADA'">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="rnl" class="form-label mb-2">RNL
+                            </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" id="rnl" formControlName="rnl"
+                                placeholder="Escriba RNL" aria-describedby="button-addon3">
+                              <button [disabled]="isBlocked" class="btn btn-buscarInput btnSirla" type="button"
+                                id="button-addon3"
+                                (click)="getCompanyData(this.empresaFormalizadaForm.get('rnl').value, 'rnl')">
+                                <i class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-3" *ngIf="TipoSolicitante === 'Empleador'">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Tipo de Documento
+                              <span class="asterisco">*</span>
+                            </label>
+                            <select class="form-select" aria-label="Default select example" id="tipoDeDocumento"
+                              formControlName="idTipoIdentificacion"
+                              (change)="validateDocumentTypeEmpoyer()">
+                              <option value="0" selected>Seleccione</option>
+                              <option *ngFor="let tipoDocu of identificationDrop" value="{{ tipoDocu.value }}">
+                                {{ tipoDocu.text }}
+                            </select>
+                            <div *ngIf="empresaFormalizadaForm.get('idTipoIdentificacion').invalid &&
+                      empresaFormalizadaForm.get('idTipoIdentificacion').touched">
+                              <span class="text-danger">Seleccione una opción</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col" *ngIf="TipoSolicitante === 'Empleador'">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">No. Documento
+                              <span class="asterisco" id="numberDocumentEmployerAsterisco">*</span>
+                            </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" id="noDocumento" formControlName="identificacion"
+                                placeholder="Escriba su Numero de Documento">
+                              <button *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador !== 'FORMALIZADA'"
+                                class="btn btn-buscarInput" type="button" id="button-addon2"
+                                (click)="getCitizenPersonaFisica()">
+                                <i class="fa fa-search"></i>
+                              </button>
+                            </div>
+                            <div *ngIf="empresaFormalizadaForm.get('identificacion').invalid &&
+                        empresaFormalizadaForm.get('identificacion').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col" *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador !== 'FORMALIZADA'">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Nombres
+                              <span class="asterisco">*</span>
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" id="nombre" formControlName="nombre"
+                              placeholder="Nombre"
+                              required="asistenciaJudicialHeaderForm.value.tipoEmpleador !== 'FORMALIZADA'">
+                          </div>
+                          <div *ngIf="empresaFormalizadaForm.get('nombre').invalid &&
+                          empresaFormalizadaForm.get('nombre').touched">
+                            <span class="text-danger">Campo requerido</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col" *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador !== 'FORMALIZADA'">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Apellidos
+                              <span class="asterisco">*</span>
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" id="apellido"
+                              formControlName="apellido" placeholder="Apellido"
+                              required="asistenciaJudicialHeaderForm.value.tipoEmpleador !== 'FORMALIZADA'">
+                          </div>
+                          <div *ngIf="empresaFormalizadaForm.get('apellido').invalid &&
+                          empresaFormalizadaForm.get('apellido').touched">
+                            <span class="text-danger">Campo requerido</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Nombre Comercial
+                              <span class="asterisco">*</span>
+                            </label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" maxlength="180" formControlName="nombreComercial"
+                                aria-describedby="button-addon4" id="nombreComercial" required
+                                placeholder="Nombre comercial">
+                              <button [disabled]="isBlocked"
+                                *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador === 'FORMALIZADA'"
+                                class="btn btn-buscarInput btnSirla" type="button" id="button-addon4"
+                                (click)="getCompanyData(this.empresaFormalizadaForm.get('nombreComercial').value, 'nombreComercial')">
+                                <i class="fa fa-search"></i>
+                              </button>
+                            </div>
+                            <div *ngIf="empresaFormalizadaForm.get('nombreComercial').invalid &&
+                          empresaFormalizadaForm.get('nombreComercial').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col" *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador === 'FORMALIZADA'">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Razón Social
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" id="razonSocial"
+                              formControlName="razonSocial" placeholder="Razón social">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-3"
+                        *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador !== 'FORMALIZADA'">
+                        <div class="form-group">
+                          <label for="idNacionalidad" class="form-label mb-2">Nacionalidad <span
+                              class="asterisco">*</span></label>
+                          <ng-multiselect-dropdown [placeholder]="'Seleccione una Nacionalidad'"
+                            [settings]="nacionalityPersonaDropdownSettings" [data]="nationalityDrop"
+                            formControlName="idNacionalidadDropDown" (onSelect)="onNacionalityPersonaSelect($event)">
+                          </ng-multiselect-dropdown>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Provincia
+                              <span class="asterisco">*</span>
+                            </label>
+                            <select class="form-select" aria-label="Default select example" formControlName="provincia"
+                              id="provincia" (change)="onSelectedProvince()">
+                              <option value="0" selected>-- Seleccione --</option>
+                              <option *ngFor="let p of provinces" value="{{p.id}}">{{ p.descripcion }}</option>
+                            </select>
+                            <div *ngIf="empresaFormalizadaForm.get('provincia').invalid &&
+                        empresaFormalizadaForm.get('provincia').touched">
+                              <span class="text-danger">Seleccione una opción</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Municipio
+                              <span class="asterisco">*</span>
+                            </label>
+                            <select class="form-select" aria-label="Default select example" id="municipio"
+                              formControlName="municipio"
+                              (change)="getDistricts(this.empresaFormalizadaForm.value.municipio)">
+                              <option value="0" selected>-- Seleccione --</option>
+                              <option *ngFor="let m of municipality" value="{{ m.id }}">{{ m.descripcion }}</option>
+                            </select>
+                            <div *ngIf="empresaFormalizadaForm.get('municipio').invalid &&
+                      empresaFormalizadaForm.get('municipio').touched">
+                              <span class="text-danger">Seleccione una opción</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Distrito Municipal
+                              <span class="asterisco">*</span>
+                            </label>
+                            <select class="form-select" aria-label="Default select example" id="distritoMunicipal"
+                              formControlName="distritoMunicipal">
+                              <option value="0" selected>-- Seleccione --</option>
+                              <option *ngFor="let d of district" value="{{ d.id }}">{{ d.descripcion }}</option>
+                            </select>
+                            <div *ngIf="empresaFormalizadaForm.get('distritoMunicipal').invalid &&
+                      empresaFormalizadaForm.get('distritoMunicipal').touched">
+                              <span class="text-danger">Seleccione una opción</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Sector <span id="asterico-sector"
+                                class="asterisco">*</span>
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" id="sector" formControlName="sector"
+                              placeholder="Escriba Sector">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Calle
+                              <span class="asterisco">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="calle" formControlName="calle"
+                              placeholder="Nombre de calle">
+                            <div *ngIf="empresaFormalizadaForm.get('calle').invalid &&
+                        empresaFormalizadaForm.get('calle').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Número
+                              <span class="asterisco">*</span>
+                            </label>
+                            <input type="number" class="form-control" id="numero" formControlName="numero"
+                              placeholder="Casa o apartamento">
+                            <div *ngIf="empresaFormalizadaForm.get('numero').invalid &&
+                      empresaFormalizadaForm.get('numero').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Edificio
+                            </label>
+                            <input type="text" class="form-control" id="edificio" formControlName="edificio"
+                              placeholder="Nombre y número de edificio">
+                            <div
+                              *ngIf="empresaFormalizadaForm.get('edificio').invalid && empresaFormalizadaForm.get('edificio').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Dirección de Referencia
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" id="direcionReferencia"
+                              formControlName="direccionReferencia"
+                              placeholder="Calle, número, edificio, apartamento o casa">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Apartamento / Casa
+                            </label>
+                            <input type="number" class="form-control" id="apartamentoCasa"
+                              formControlName="apartamentoCasa" placeholder="Número de apt. o casa">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Actividad Economica
+                              <span class="asterisco">*</span>
+                            </label>
+                            <ng-multiselect-dropdown [data]="economicActivities"
+                              formControlName="idTipoActividadComercialDropDown"
+                              [settings]="economicActivityDropdownSettings"
+                              (onSelect)="onEconomicActivitySelect($event)" required
+                              [placeholder]="'-- Seleccione Actividad Economica --'"
+                              [ngClass]="{'invalid-field': empresaFormalizadaForm.get('idTipoActividadComercialDropDown').invalid &&
+                              empresaFormalizadaForm.get('idTipoActividadComercialDropDown').touched}">
+                            </ng-multiselect-dropdown>
+                            <div *ngIf="empresaFormalizadaForm.get('idTipoActividadComercial').invalid &&
+                        empresaFormalizadaForm.get('idTipoActividadComercial').touched">
+                              <span class="text-danger">Seleccione una opción</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-3"
+                        *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador !== 'FORMALIZADA'">
+                        <div class="form-group">
+                          <label for="idEstadoCivil" class="form-label mb-2">Estado civil <span
+                              class="asterisco">*</span></label>
+                          <select class="form-select" formControlName="idEstadoCivil">
+                            <option value="" selected>-- Seleccione --</option>
+                            <option *ngFor="let estadoC of civilStatusDrop" value="{{ estadoC.value }}">{{ estadoC.text
+                              }}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">A que se dedica<span
+                                class="asterisco">*</span></label>
+                            <input type="text" class="form-control" maxlength="180" id="aQueDedica"
+                              formControlName="dedicacion" placeholder="A que se dedica">
+                            <div *ngIf="empresaFormalizadaForm.get('dedicacion').invalid &&
+                          empresaFormalizadaForm.get('dedicacion').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col" *ngIf="asistenciaJudicialHeaderForm.value.tipoEmpleador === 'FORMALIZADA'">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Representante Legal o Empleador<span
+                                class="asterisco">*</span>
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" id="representanteLegal"
+                              formControlName="representanteLegalEmpleador" placeholder="Nombre representante legal"
+                              required="asistenciaJudicialHeaderForm.value.tipoEmpleador === 'FORMALIZADA'">
+                            <div *ngIf="empresaFormalizadaForm.get('representanteLegalEmpleador').invalid &&
+                            empresaFormalizadaForm.get('representanteLegalEmpleador').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Teléfono
+                              <span class="asterisco">*</span>
+                            </label>
+                            <input type="text" class="form-control" [mask]="'000-000-0000'" id="noTelefono"
+                              formControlName="telefono" placeholder="Escriba telefono">
+                            <div *ngIf="empresaFormalizadaForm.get('telefono').invalid &&
+                        empresaFormalizadaForm.get('telefono').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col" *ngIf="TipoSolicitante === 'Empleador'">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">Correo Electrónico
+                            </label>
+                            <input type="email" class="form-control" id="CorreE" formControlName="correoElectronico"
+                              placeholder="Escriba su Correo Electrónico">
+                            <div *ngIf="empresaFormalizadaForm.get('correoElectronico').invalid &&
+                        empresaFormalizadaForm.get('correoElectronico').touched">
+                              <span class="text-danger">Correo Electronico invalido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="boton-guardar float-end mb-3 mt-3">
+                        <button type="submit" class="btn btn-guardar btn-listo float-end" (click)="validateempresaF()"
+                          id="btn-empresaFormalizada" [disabled]="isInRole">
+                          Listo
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item ElementosDelContratoDeTrabajo" *ngIf="TipoSolicitante !== 'Empleador'">
+              <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#ElementosDelContratoDeTrabajo-collapseOne" aria-expanded="false"
+                  id="acordionElementosDelContratoDeTrabajo" aria-controls="ElementosDelContratoDeTrabajo-collapseOne">
+                  <i class="fa fa-clock-o mx-2" id="iconoCheckElementosDelContratoDeTrabajo" aria-hidden="true"></i>
+                  ELEMENTOS DEL CONTRATO DE TRABAJO
+                </button>
+              </h2>
+
+              <div id="ElementosDelContratoDeTrabajo-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingOne">
+                <div class="accordion-body mb-5">
+                  <form [formGroup]="contratoTrabajoForm" (ngSubmit)="validateContratoTrabajo()"
+                    id="contratoTrabajoForm">
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="ocupacion" class="form-label">Ocupación o Cargo</label>
+                          <input formControlName="ocupacion" type="text" class="form-control" maxlength="180"
+                            id="ocupacion" placeholder="Ingrese la ocupación o cargo">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="lugarTrabajo" class="form-label">
+                            Lugar de Trabajo (Sucursal) <span class="asterisco">*</span>
+                          </label>
+                          <input formControlName="lugarTrabajo" type="text" class="form-control" maxlength="180"
+                            id="lugarTrabajo" placeholder="Ingrese el lugar de trabajo" required>
+                          <div *ngIf="contratoTrabajoForm.get('lugarTrabajo').invalid &&
+                            contratoTrabajoForm.get('lugarTrabajo').touched">
+                            <span class="text-danger">Campo requerido</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="tipoJornada" class="form-label">
+                            Tipo de Jornada <span class="asterisco">*</span>
+                          </label>
+                          <select formControlName="idTipoJornada" class="form-select" id="tipoJornada" required>
+                            <option value="">Seleccione</option>
+                            <option *ngFor="let faseDoc of workDayDrop" value="{{faseDoc.value}}">
+                              {{faseDoc.text}}
+                            </option>
+                          </select>
+                          <div *ngIf="contratoTrabajoForm.get('idTipoJornada').invalid &&
+                          contratoTrabajoForm.get('idTipoJornada').touched">
+                            <span class="text-danger">Seleccione una opción</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="idJornadaLaboral">
+                              Jornada Laboral <span class="asterisco">*</span>
+                            </label>
+                            <select class="form-select" formControlName="idJornadaLaboral" id="idJornadaLaboral"
+                              required>
+                              <option value="">Seleccione</option>
+                              <option *ngFor="let faseDoc of typeWorkDayDrop" value="{{faseDoc.value}}">
+                                {{faseDoc.text}}
+                              </option>
+                            </select>
+                            <div *ngIf="contratoTrabajoForm.get('idJornadaLaboral').invalid &&
+                            contratoTrabajoForm.get('idJornadaLaboral').touched">
+                              <span class="text-danger">Seleccione una opción</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="fechaInicio">
+                              Desde el <span class="asterisco">*</span>
+                            </label>
+                            <input type="date" class="form-control" formControlName="fechaInicio" id="fechaInicio"
+                              required>
+                            <div *ngIf="contratoTrabajoForm.get('fechaInicio').invalid &&
+                              contratoTrabajoForm.get('fechaInicio').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="fechaFin">
+                              Hasta el <span class="asterisco">*</span>
+                            </label>
+                            <input type="date" class="form-control" formControlName="fechaFin" id="fechaFin" required>
+                            <div *ngIf="contratoTrabajoForm.get('fechaFin').invalid &&
+                            contratoTrabajoForm.get('fechaFin').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="departamento">Departamento</label>
+                            <input type="text" class="form-control" maxlength="180" formControlName="departamento"
+                              id="departamento">
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="supervisorInmediato">Supervisor Inmediato</label>
+                            <input type="text" class="form-control" maxlength="180"
+                              formControlName="supervisorInmediato" id="supervisorInmediato">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="boton-guardar float-end-mb-3 mt-5">
+                      <button type="submit" class="btn btn-guardar btn-listo float-end" id="btn-contratoTrabajo"
+                        [disabled]="isInRole">
+                        Listo
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="accordion-item Referencia-personal" id="referencia-personal">
+              <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#Referencia-collapseOne" aria-expanded="false" aria-controls="Referencia-collapseOne"
+                  id="acordionReferencia">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" id="iconoCheckReferencia" aria-hidden="true"></i> REFERENCIA
+                  PERSONAL DE FAMILIAR O
+                  AMIGO CERCANO
+                </button>
+              </h2>
+              <div id="Referencia-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingTwo">
+                <div class="accordion-body mb-5">
+                  <div class="mb-3">
+                    <div class=" ">
+                      <p class="maximoReferencia ms-3">Máximo de hasta 3 referencias.</p>
+                    </div>
+
+                  </div>
+                  <div class="formParent">
+                    <form class="form" [formGroup]="referenciaPersonalesForm" (ngSubmit)="saveReferencia()">
+                      <div class="row">
+                        <div class="col">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Nombre (s)
+                              </label>
+                              <input type="text" class="form-control" maxlength="180" formControlName="nombre"
+                                placeholder="Escriba su nombre"
+                                [class.is-invalid]="referenciaPersonalesForm.get('nombre').invalid && referenciaPersonalesForm.get('nombre').touched">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Apellido (s)
+                              </label>
+                              <input type="text" class="form-control" maxlength="180" id="apellidoReferencia"
+                                formControlName="apellido" placeholder="Escriba su apellido">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Provincia
+                              </label>
+                              <select class="form-select" aria-label="Default select example" formControlName="provincia"
+                                id="provincia" (change)="onSelectedProvinceReferencia()">
+                                <option value="0" selected>-- Seleccione --</option>
+                                <option *ngFor="let p of provinces" value="{{p.id}}">{{ p.descripcion }}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Municipio
+                              </label>
+                              <select class="form-select" aria-label="Default select example" id="municipio"
+                                formControlName="municipio"
+                                (change)="getMunicipalitiesReferencia(this.empresaFormalizadaForm.value.municipio)">
+                                <option value="0" selected>-- Seleccione --</option>
+                                <option *ngFor="let m of municipality" value="{{ m.id }}">{{ m.descripcion }}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Distrito Municipal
+                              </label>
+                              <select class="form-select" aria-label="Default select example" id="distritoMunicipal"
+                                formControlName="distritoMunicipal">
+                                <option value="0" selected>-- Seleccione --</option>
+                                <option *ngFor="let d of district" value="{{ d.id }}">{{ d.descripcion }}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Sector
+                              </label>
+                              <input type="text" class="form-control" maxlength="180" id="sector"
+                                formControlName="sector" placeholder="Escriba el nombre de su sector">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Calle
+                              </label>
+                              <input type="text" class="form-control" id="calle" maxlength="180" formControlName="calle"
+                                placeholder="Escriba el Nombre de la calle">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Número
+                              </label>
+                              <input type="number" class="form-control" id="numeroCasa" formControlName="numero"
+                                placeholder="Escriba el No. Casa o apartamento">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Edificio
+                              </label>
+                              <input type="text" class="form-control" id="edificio" formControlName="edificio"
+                                placeholder="Escriba el Nombre y número de edificio">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Apartamento / Casa
+                              </label>
+                              <input type="number" class="form-control" id="apartamentoReferencia"
+                                formControlName="apartamentoCasa" placeholder="Escriba el Número de apt. o casa">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Correo Electrónico
+                              </label>
+                              <input type="email"
+                                pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                                class="form-control" id="correoReferencia" formControlName="correoElectronico"
+                                placeholder="Escriba su correo electronico">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="mb-3">
+                            <div class="form-group">
+                              <label for="" class="form-label mb-2">
+                                Teléfono
+                              </label>
+                              <input type="text" class="form-control" [mask]="'000-000-0000'" id="telefonoReferencia"
+                                formControlName="telefono" placeholder="Digite su numero de telefono">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="boton-guardar float-end-mb-3">
+                        <button type="submit" class="btn btn-guardar btn-listo float-end" id="btnReferenciasP">Listo</button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <div class="card bg-light">
+                    <div class="card-body">
+                      <h5 class="card-title mb-3">Referencias Guardadas</h5>
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>Nombre Completo</th>
+                              <th>Provincia</th>
+                              <th>Municipio</th>
+                              <th>Distrito Municipal</th>
+                              <th>Teléfono</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let rp of referenciasPersonales">
+                              <td>{{ rp.referencia.nombre }} {{ rp.referencia.apellido }}</td>
+                              <td>{{ rp.referencia?.provinciaData?.descripcion }}</td>
+                              <td>{{ rp.referencia?.municipioData?.descripcion }}</td>
+                              <td>{{ rp.referencia?.distritoMunicipalData?.descripcion }}</td>
+                              <td>{{ rp.referencia.telefono }}</td>
+                              <td>
+                                <button type="button" class="btn btnOutlinePrimary" (click)="openReferencesModal(rp)">Detalles</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item ElementosDelSalario" *ngIf="TipoSolicitante !== 'Empleador'">
+              <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#ElementosDelSalario-collapseOne" aria-expanded="false"
+                  id="acordionElementosDelSalario" aria-controls="ElementosDelSalario-collapseOne">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" id="iconoCheckElementosDelSalario" aria-hidden="true"></i>
+                  ELEMENTOS DEL SALARIO
+                </button>
+              </h2>
+              <div id="ElementosDelSalario-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingTwo">
+                <div class="accordion-body mb-5">
+                  <form [formGroup]="salarioForm" (ngSubmit)="validateSalario()" id="salarioForm">
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="monto" class="form-label">
+                            Monto <span class="asterisco">*</span>
+                          </label>
+                          <input formControlName="monto" type="text" class="form-control" id="monto"
+                            placeholder="Ingrese el monto" required>
+                          <div *ngIf="salarioForm.get('monto').invalid &&
+                            salarioForm.get('monto').touched">
+                            <span class="text-danger">Campo requerido</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="periodoPago" class="form-label">
+                            Periodo de Pago <span class="asterisco">*</span>
+                          </label>
+                          <select formControlName="idPeriodoPago" class="form-select" id="periodoPago" required>
+                            <option value="">Seleccione</option>
+                            <option *ngFor="let tribunalApo of paymentPeriodDrop" value="{{tribunalApo.value}}">
+                              {{tribunalApo.text}}
+                            </option>
+                          </select>
+                          <div *ngIf="salarioForm.get('idPeriodoPago').invalid &&
+                          salarioForm.get('idPeriodoPago').touched">
+                            <span class="text-danger">Seleccione una opción</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="horasExtraordinarias" class="form-label">
+                            Horas Extraordinarias <span class="asterisco">*</span>
+                          </label>
+                          <select formControlName="horasExtraordinarias" class="form-select" id="horasExtraordinarias"
+                            required>
+                            <option value="">Seleccione</option>
+                            <option value="SI">Si</option>
+                            <option value="NO">No</option>
+                          </select>
+                          <div *ngIf="salarioForm.get('horasExtraordinarias').invalid &&
+                          salarioForm.get('horasExtraordinarias').touched">
+                            <span class="text-danger">Seleccione una opción</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="diasFeriados" class="form-label">
+                            Días Feriados <span class="asterisco">*</span>
+                          </label>
+                          <select formControlName="diasFeriados" class="form-select" id="diasFeriados" required>
+                            <option value="">Seleccione</option>
+                            <option value="SI">Si</option>
+                            <option value="NO">No</option>
+                          </select>
+                          <div *ngIf="salarioForm.get('diasFeriados').invalid &&
+                          salarioForm.get('diasFeriados').touched">
+                            <span class="text-danger">Seleccione una opción</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="descansoSemanal" class="form-label">
+                            Descanso Semanal <span class="asterisco">*</span>
+                          </label>
+                          <select formControlName="denscansoSemanal" class="form-select" id="descansoSemanal" required>
+                            <option value="">Seleccione</option>
+                            <option value="SI">Si</option>
+                            <option value="NO">No</option>
+                          </select>
+                          <div *ngIf="salarioForm.get('denscansoSemanal').invalid &&
+                          salarioForm.get('denscansoSemanal').touched">
+                            <span class="text-danger">Seleccione una opción</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="vacaciones" class="form-label">
+                            Vacaciones <span class="asterisco">*</span>
+                          </label>
+                          <select formControlName="vacaciones" class="form-select" id="vacaciones" required>
+                            <option value="">Seleccione</option>
+                            <option value="SI">Si</option>
+                            <option value="NO">No</option>
+                          </select>
+                          <div *ngIf="salarioForm.get('vacaciones').invalid &&
+                          salarioForm.get('vacaciones').touched">
+                            <span class="text-danger">Seleccione una opción</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="salarioNavidad" class="form-label">
+                            Salario de Navidad <span class="asterisco">*</span>
+                          </label>
+                          <select formControlName="salarioNavidad" class="form-select" id="salarioNavidad" required>
+                            <option value="">Seleccione</option>
+                            <option value="SI">Si</option>
+                            <option value="NO">No</option>
+                          </select>
+                          <div *ngIf="salarioForm.get('salarioNavidad').invalid &&
+                          salarioForm.get('salarioNavidad').touched">
+                            <span class="text-danger">Seleccione una opción</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="bonificacion" class="form-label">
+                            Participación de Beneficios (Bonificación) <span class="asterisco">*</span>
+                          </label>
+                          <select formControlName="participacionBeneficios" class="form-select" id="bonificacion"
+                            required>
+                            <option value="">Seleccione</option>
+                            <option value="SI">Si</option>
+                            <option value="NO">No</option>
+                          </select>
+                          <div *ngIf="salarioForm.get('participacionBeneficios').invalid &&
+                          salarioForm.get('participacionBeneficios').touched">
+                            <span class="text-danger">Seleccione una opción</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="incentivos" class="form-label">
+                            Incentivos <span class="asterisco">*</span>
+                          </label>
+                          <select formControlName="incentivos" class="form-select" id="incentivos" required>
+                            <option value="">Seleccione</option>
+                            <option value="SI">Si</option>
+                            <option value="NO">No</option>
+                          </select>
+                          <div *ngIf="salarioForm.get('incentivos').invalid &&
+                          salarioForm.get('incentivos').touched">
+                            <span class="text-danger">Seleccione una opción</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <label for="otro" class="form-label">Otro</label>
+                          <input formControlName="otros" type="text" class="form-control" maxlength="180" id="otro"
+                            placeholder="Ingrese otro elemento">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="boton-guardar float-end">
+                      <button type="submit" class="btn btn-guardar btn-listo float-end" id="btn-salario"
+                        [disabled]="isInRole">
+                        Listo
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item CausasTerminacion" *ngIf="TipoSolicitante !== 'Empleador'">
+              <h2 class="accordion-header" id="panelsStayOpen-headingEigth">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#CausasTerminacion-collapseOne" aria-expanded="false" id="acordionCausasTerminacion"
+                  aria-controls="CausasTerminacion-collapseOne">
+                  <i class="fa fa-clock-o mx-2" id="iconoCheckCausasTerminacion" aria-hidden="true"></i> CAUSAS DE LA
+                  TERMINACION DEL CONTRATO
+                </button>
+              </h2>
+              <div id="CausasTerminacion-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingEigth">
+                <form [formGroup]="causasSuspencionContratoForm" (ngSubmit)="validateCausaFinContrato()"
+                  id="causasSuspencionContratoForm">
+                  <div class="accordion-body mb-5">
+                    <div class="mb-3">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="">Motivo de la Demanda <small class="text-danger">*</small></label>
+                            <select formControlName="idMotivoDemanda" class="form-select">
+                              <option value="" selected>Seleccione</option>
+                              <option *ngFor="let faseDoc of motivoDeLaDemandaDrop" value="{{faseDoc.value}}">
+                                {{faseDoc.text}}
+                              </option>
+                            </select>
+                            <div *ngIf="causasSuspencionContratoForm.get('idMotivoDemanda').invalid &&
+                            causasSuspencionContratoForm.get('idMotivoDemanda').touched">
+                              <span class="text-danger">Seleccione una opción</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="fechaInicio">
+                              Fecha <span class="asterisco">*</span>
+                            </label>
+                            <input type="date" class="form-control" formControlName="fecha" required>
+                            <div *ngIf="causasSuspencionContratoForm.get('fecha').invalid &&
+                              causasSuspencionContratoForm.get('fecha').touched">
+                              <span class="text-danger">Campo requerido</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="boton-guardar float-end">
+                      <button type="submit" class="btn btn-guardar btn-listo float-end" id="btn-CausasTerminacion"
+                        [disabled]="isInRole">
+                        Listo
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="accordion-item situacion-socio-economica" id="situacionEconomica"
+              *ngIf="TipoSolicitante === 'Empleador'">
+              <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#SocioEconomica-collapseOne" aria-expanded="false"
+                  aria-controls="SocioEconomica-collapseOne" id="acordionSocioEconomica">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" id="iconoCheckSocioEconomica" aria-hidden="true"></i>
+                  SITUACIÓN SOCIO-ECONÓMICA
+                </button>
+              </h2>
+              <div id="SocioEconomica-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingThree">
+                <div class="accordion-body">
+                  <form class="form" [formGroup]="situacionEconomicaForm">
+
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="cantidadSocio" class="form-label mb-2">Cantidad de Socios
+                            </label>
+                            <input type="number" maxlength="3" class="form-control" id="cantidadSocio"
+                              formControlName="cantidadSocio" placeholder="Escriba Cantidad de Socios">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="cantidadSucursal" class="form-label mb-2">Cantidad de Sucursales
+                            </label>
+                            <input type="number" maxlength="3" class="form-control" id="cantidadSucursal"
+                              formControlName="cantidadSucursal" placeholder="Escriba Cantidad de sucursales">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="valorExistenciaInstalacion" class="form-label mb-2">Valor de Existencias y/o
+                              Instalaciones
+                            </label>
+                            <div class="input-group mb-3">
+                              <input type="number" maxlength="10" class="form-control" id="valorExistenciaInstalacion"
+                                formControlName="valorExistenciaInstalacion" placeholder="Escriba Valor de Existencias"
+                                style="width: 70%;">
+                              <span class="input-group-text spamDop" id="basic-addon2">DOP</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="promerioMensual" class="form-label mb-2">Monto Promedio Utilidades Mensuales
+                            </label>
+                            <input type="number" maxlength="10" class="form-control" id="promerioMensual"
+                              formControlName="promerioMensual" placeholder="Escriba Monto Promedio Utilidades Mensuales">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="salario" class="form-label mb-2">Total Salarios
+                            </label>
+                            <input type="number" maxlength="10" class="form-control" id="salario"
+                              formControlName="salario" placeholder="Escriba Total Salarios">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="boton-guardar float-end mb-3 mt-3">
+                        <button type="submit" class="btn btn-guardar btn-listo float-end"
+                          (click)="validarSituacionEconomica()" id="btn-situacion-economica" [disabled]="isInRole">
+                          Listo
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item fundamento-defensa" *ngIf="TipoSolicitante === 'Empleador'">
+              <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#FundamentoDefenza-collapseOne" aria-expanded="false"
+                  aria-controls="FundamentoDefenza-collapseOne" id="acordionFundamentoDefenza">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" aria-hidden="true" id="iconoCheckFundamentoDefenza"></i> PARA
+                  FUNDAMENTO DE LA DEFENSA
+                </button>
+              </h2>
+              <div id="FundamentoDefenza-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingFour">
+                <div class="accordion-body">
+                  <form [formGroup]="fundamentoDefensaForm" (ngSubmit)="saveFundamentoDefensaForm()"
+                    id="fundamentoDefensaForm">
+                    <div class="row">
+                      <div class="col-8 col-md-8" style="margin-right: -80px;">
+                        <p class="mt-3 fw-bold">
+                          ¿Ha recibido alguna notificación por Acto de Alguacil a requerimiento del ex-trabajador?
+                        </p>
+                      </div>
+                      <div class="col- 2 col-md-2 mt-2" style="margin-right: -120px;">
+                        <div class="form-check px-0">
+                          <label class="form-check-label mt-2 ms-2" for="flexRadioDefault1">
+                            Si
+                          </label>
+                          <input class="form-check-input" value="true" (click)="mostrarAdjuntar(true)" type="radio"
+                            id="siMostrar">
+                        </div>
+                      </div>
+                      <div class="col-2 col-md-2 mt-2">
+                        <div class="form-check px-0">
+                          <label class="form-check-label mt-2 ms-2" for="flexRadioDefault2">
+                            No
+                          </label>
+                          <input class="form-check-input" value="false" (click)="mostrarAdjuntar(false)" type="radio"
+                            id="noMostrar">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="adjuntaDatos mt-3" id="adjuntaDatos">
+                      <div class="form">
+                        <div class="formAdjuntar">
+                          <label for="" class="form-label mb-2">Documentos Notificados</label>
+                          <div class="row">
+                            <div class="col-12 col-md-6">
+                              <div class="input-group">
+                                <input type="text" class="form-control" formControlName="descripcionDocumentoNotificado"
+                                  placeholder="Comentarios" aria-label="Recipient's username"
+                                  aria-describedby="button-addon2">
+                                <button class="btn-upload">
+                                  <i class="fa fa-download"></i> Adjuntar
+                                  <input type="file" multiple (change)="onFileSelect($event)">
+                                </button>
+                              </div>
+                              <div class="mt-2 ">
+                                <div *ngFor="let file of fundamentoDefensaFilesItem; let i = index">
+                                  <div class="documentContainer">
+                                    <span>{{file.name}}</span>
+                                    <a type="button" class="downloadBtn" (click)="downLoadAttachedFile(file)">
+                                      <i class="fa fa-cloud-download"></i>
+                                    </a>
+                                    <a type="button" class="deleteBtn" (click)="deleteFile(i)">
+                                      <i class="fa fa-trash"></i>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <p class="maximoRe">Peso máximo de 20 mb</p>
+                        </div>
+
+                        <div class="row">
+                          <div class="col">
+                            <div class="mb-3">
+                              <label for="" class="form-label mb-2">Nombre de la Persona Demandante
+                              </label>
+                              <input type="text" class="form-control" maxlength="180" formControlName="nombreDemandante"
+                                placeholder="Nombre Demandante">
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mb-3">
+                              <label for="" class="form-label mb-2">Tribunal Apoderado
+                              </label>
+                              <select class="form-select" formControlName="idTribunalApoderado"
+                                aria-label="Default select example">
+                                <option selected>Seleccione</option>
+                                <option *ngFor="let tribunalApo of proxyCourtDrop" value="{{tribunalApo.value}}">
+                                  {{tribunalApo.text}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mb-3">
+                              <label for="" class="form-label mb-2">Fase del Proceso
+                              </label>
+                              <select class="form-select" formControlName="idFaseProceso"
+                                aria-label="Default select example">
+                                <option selected>Seleccione</option>
+                                <option *ngFor="let faseDoc of processPhaseDrop" value="{{faseDoc.value}}">
+                                  {{faseDoc.text}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mb-3">
+                              <label for="">Motivo de la Demanda <small class="text-danger">*</small></label>
+                              <select formControlName="idMotivoDemanda" class="form-select">
+                                <option value="" selected>Seleccione</option>
+                                <option *ngFor="let faseDoc of motivoDeLaDemandaDrop" value="{{faseDoc.value}}">
+                                  {{faseDoc.text}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="boton-guardar float-end mb-3 mt-3">
+                            <button type="submit" class="btn btn-guardar btn-listo float-end" id="btn-fundamentoDefensa"
+                              [disabled]="isInRole">
+                              Listo
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item testigos" id="testigos">
+              <h2 class="accordion-header" id="panelsStayOpen-headingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#Testigos-collapseOne" aria-expanded="false" aria-controls="Testigos-collapseOne"
+                  id="acordionTestigos">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" id="iconoCheckTestigos" aria-hidden="true"></i> TESTIGOS
+                </button>
+              </h2>
+              <div id="Testigos-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingFive">
+                <div class="accordion-body mb-5">
+                  <div class="mb-3">
+                    <div class=" ">
+                      <p class="maximoReferencia ms-3">Máximo de hasta 3 testigos.</p>
+                    </div>
+                  </div>
+                  <form class="form" [formGroup]="testigosForm" (ngSubmit)="saveTestigos()">
+                    <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Nombre (s)
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" formControlName="nombre"
+                              placeholder="Escriba nombre">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Apellido (s)
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" id="apellidoReferencia"
+                              formControlName="apellido" placeholder="Escriba apellido">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Provincia
+                            </label>
+                            <select class="form-select" aria-label="Default select example" formControlName="provincia"
+                              id="provincia" (change)="onSelectedProvinceTestigos()">
+                              <option value="0" selected>-- Seleccione --</option>
+                              <option *ngFor="let p of provinces" value="{{p.id}}">{{ p.descripcion }}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Municipio
+                            </label>
+                            <select class="form-select" aria-label="Default select example" id="municipio"
+                              formControlName="municipio"
+                              (change)="getMunicipalitiesTestigo(this.empresaFormalizadaForm.value.municipio)">
+                              <option value="0" selected>-- Seleccione --</option>
+                              <option *ngFor="let m of municipality" value="{{ m.id }}">{{ m.descripcion }}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Distrito Municipal
+                            </label>
+                            <select class="form-select" aria-label="Default select example" id="distritoMunicipal"
+                              formControlName="distritoMunicipal">
+                              <option value="0" selected>-- Seleccione --</option>
+                              <option *ngFor="let d of district" value="{{ d.id }}">{{ d.descripcion }}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Sector
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" id="sector" formControlName="sector"
+                              placeholder="Escriba su Sector">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Calle
+                            </label>
+                            <input type="text" class="form-control" maxlength="180" id="calle" formControlName="calle"
+                              placeholder="Nombre de calle">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Número
+                            </label>
+                            <input type="number" class="form-control" id="numeroCasa" formControlName="numero"
+                              placeholder="Casa o apartamento">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Edificio
+                            </label>
+                            <input type="text" class="form-control" id="edificio" formControlName="edificio"
+                              placeholder="Nombre y número de edificio">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Apartamento / Casa
+                            </label>
+                            <input type="number" class="form-control" id="apartamentoReferencia"
+                              formControlName="apartamentoCasa" placeholder="Número de apt. o casa">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Correo Electrónico
+                            </label>
+                            <input type="email"
+                              pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                              class="form-control" id="correoReferencia" formControlName="correoElectronico"
+                              placeholder="solicitante@gmail.com">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="mb-3">
+                          <div class="form-group">
+                            <label for="" class="form-label mb-2">
+                              Teléfono
+                            </label>
+                            <input type="text" class="form-control" [mask]="'000-000-0000'" id="telefonoReferencia"
+                              formControlName="telefono" placeholder="(829) 632-1212">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="mb-3">
+                        <div class="form-group">
+                          <label for="" class="form-label mb-2">
+                            Observaciones
+                          </label>
+                          <input type="text" class="form-control" maxlength="180" id="observaciones"
+                            formControlName="observaciones" placeholder="Escriba su observación">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="boton-guardar float-end mb-3">
+                      <button type="submit" class="btn btn-guardar btn-listo 
+                      float-end" id="btn-testigos">
+                        Listo
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="card bg-light mb-4">
+                  <div class="card-body">
+                    <h5 class="card-title mb-3">Testigos Guardados</h5>
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Nombre Completo</th>
+                            <th>Provincia</th>
+                            <th>Municipio</th>
+                            <th>Distrito Municipal</th>
+                            <th>Teléfono</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let rp of referenciaTestigos">
+                            <td>{{ rp.referencia.nombre }} {{ rp.referencia.apellido }}</td>
+                            <td>{{ rp.referencia?.provinciaData?.descripcion }}</td>
+                            <td>{{ rp.referencia?.municipioData?.descripcion }}</td>
+                            <td>{{ rp.referencia?.distritoMunicipalData?.descripcion }}</td>
+                            <td>{{ rp.referencia.telefono }}</td>
+                            <td>
+                              <button type="button" class="btn btnOutlinePrimary" (click)="openWitnessModal(rp)">Detalles</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="accordion-item documentos">
+              <h2 class="accordion-header" id="panelsStayOpen-headingSix">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#Documentos-collapseOne" aria-expanded="false" id="acordionDocumentos"
+                  aria-controls="Documentos-collapseOne">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" id="iconoCheckDocumentos" aria-hidden="true"></i> DOCUMENTOS
+                  ANEXOS
+                </button>
+              </h2>
+              <div id="Documentos-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingSix">
+
+                <div class="accordion-body">
+                  <div class="acordion-conten mb-5">
+                    <form [formGroup]="empleadorDocumentoForm" (ngSubmit)="saveDocumentos()"
+                      id="empleadorDocumentoForm">
+                      <div class=" w-50 ">
+                        <label class="form-label mb-2">
+                          Tipo de Documento <span class="asterisco">*</span>
+                        </label>
+                        <ng-multiselect-dropdown [data]="typeOfDocumentDrop" [settings]="documentoAnexoDropdownSettings"
+                          (onSelect)="onDocumentoAnexoSelect($event)" [placeholder]="'-- Seleccione Tipo de documento --'">
+                        </ng-multiselect-dropdown>
+                      </div>
+
+                      <div formArrayName="documentos">
+                        <div class="w-50" *ngFor="let documento of documentos.controls; let i = index"
+                          [formGroupName]="i">
+                          <div class="card p-3 mt-5">
+                            <div class="">
+                              <p class="float-end" (click)="deleteDocumento(i)">
+                                Eliminar <i class="fa fa-trash-o text-danger" aria-hidden="true"></i>
+                              </p>
+                            </div>
+                            <div class="formAdjuntar">
+                              <label class="form-label mb-2">{{documento.get('nombre').value}}</label>
+                              <div class="input-group">
+                                <button class="btn-upload">
+                                  <i class="fa fa-download"></i> Adjuntar
+                                  <input type="file" multiple (change)="onFileSelectEmpleadorDocumento($event, i)">
+                                </button>
+                              </div>
+                              <p class="maximoRe">Peso máximo de 20 mb</p>
+                              <div class="mt-2">
+                                <label class="form-label mb-2">Archivos Subidos</label>
+                                <div *ngFor="let file of empleadorDocumentoFilesItem[i]; let j = index">
+                                  <div class="documentContainer">
+                                    <span>{{file.name}}</span>
+                                    <a type="button" class="downloadBtn" (click)="downLoadAttachedFile(file)">
+                                      <i class="fa fa-cloud-download"></i>
+                                    </a>
+                                    <a type="button" class="deleteBtn" (click)="deleteFileEmpleadorDocumento(i, j)">
+                                      <i class="fa fa-trash"></i>
+                                    </a>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="boton-guardar float-end mb-3">
+                        <button type="submit" class="btn btn-guardar btn-listo float-end" id="btn-documento"
+                          [disabled]="isInRole">
+                          Listo
+                        </button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item CORRESPONDENCIA">
+              <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#Correspondencia-collapseOne" aria-expanded="false"
+                  aria-controls="Correspondencia-collapseOne" id="acordionCorrespondencia">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" id="iconoCheckCorrespondencia" aria-hidden="true"></i>
+                  CORRESPONDENCIA
+                </button>
+              </h2>
+              <div id="Correspondencia-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingSeven">
+                <div class="accordion-body mb-5">
+                  <form [formGroup]="empleadorCorrespondenciaForm" (ngSubmit)="validateEmpleadorCorrespondencia()"
+                    id="empleadorCorrespondenciaForm">
+                    <div class="row mb-3">
+                      <div class="col-12 col-md-4">
+                        <div class="form-group">
+                          <label for="" class="form-label mb-2">
+                            No. de Correspondencia
+                          </label>
+                          <div class="input-group mb-3">
+                            <input type="text" class="form-control" formControlName="CodigoCorrespondencia"
+                              placeholder="Ingrese no. de correspondencia" appAllowHyphens>
+                            <button id="btnSerachC" class="btn btn-buscarInput" type="button" (click)="getSISCORData()">
+                              <i class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <div class="form-group">
+                          <label for="" class="form-label mb-2">
+                            Tipo de Correspondencia
+                          </label>
+                          <select formControlName="idTipoCorrespondencia" class="form-select"
+                            (change)="onCorrespondenceSelected()" aria-label="Default select example">
+                            <option selected value="">Seleccione Tipo de correspondencia</option>
+                            <option *ngFor="let tc of typeOfCorrespondenceDrop" value="{{tc.value}}">{{tc.text}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="resultMailNumberSiscord">
+                      <div class="row">
+                        <div class="col-12 col-md-12">
+                          <ul class="list-group list-group-flush">
+                            <div class="documentContainer" *ngFor="let result of resultMailNumberSiscord">
+                              <a href="{{ result.url }}" target="_blank">{{ result.name }}</a> <span
+                                *ngIf="result.name !== 'Documento No Encontrado'">Debes descargar el fichero y
+                                adjuntarlo</span>
+                            </div>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-50" id="uploadMail">
+                      <div class="card p-3 mt-5">
+                        <div class="formAdjuntar">
+                          <label for="" class="form-label mb-2">{{selectedCorrespondence}}
+                          </label>
+                          <div class="input-group" id="btn-uploadCorrespondencia">
+                            <button class="btn-upload">
+                              <i class=" fa fa-download"></i> Adjuntar
+                              <input type="file" multiple (change)="onFileSelectEmpleadorCorrespondencia($event)">
+                            </button>
+                          </div>
+
+                          <div class="mt-2">
+                            <div class="documentContainer"
+                              *ngFor="let file of empleadorCorrespondenciaFilesItem; let i = index">
+                              <span>{{file.name}}</span>
+                              <a type="button" class="downloadBtn" (click)="downloadMailDocument(file)">
+                                <i class="fa fa-cloud-download"></i>
+                              </a>
+                              <a type="button" class="deleteBtn" (click)="deleteFileEmpleadorCorrespondencia(i)">
+                                <i class="fa fa-trash"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <p class="maximoRe">Peso máximo de 20 mb</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="boton-guardar float-end">
+                      <button type="submit" class="btn btn-guardar btn-listo float-end" id="btn-correspondencia"
+                        [disabled]="isInRole">
+                        Listo
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item OBSERVACIONES" id="observacionesTab" *ngIf="this.asistenciaJudicial?.codigo">
+              <h2 class="accordion-header" id="panelsStayOpen-headingEigth">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#Observaciones-collapseOne" aria-expanded="false" id="acordionObservaciones"
+                  aria-controls="Observaciones-collapseOne">
+                  <i class="fa fa-clock-o mx-2" id="iconoCheckObservaciones" aria-hidden="true"></i> OBSERVACIONES
+                </button>
+              </h2>
+              <div id="Observaciones-collapseOne" class="accordion-collapse collapse mb-3"
+                aria-labelledby="panelsStayOpen-headingEigth">
+                <button class="btn btn-agregarNota" (click)="onPressAddNote()" id="agregarNotaObservaciones">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar Nota
+                </button>
+                <app-notes-history [codigo]="this.asistenciaJudicial?.codigo">
+                </app-notes-history>
+
+                <form [formGroup]="empleadorObservacionForm" (ngSubmit)="validateEmpleadorObservacion()"
+                  id="empleadorObservacionForm">
+                  
+                </form>
+              </div>
+            </div>
+
+            <div *ngIf="this.user.roleCode == 'ENCA' || this.user.roleCode == 'COOR'">
+              <div class="accordion-item ASIGNAR ABOGADO" id="asignarAbogado">
+                <h2 class="accordion-header" id="panelsStayOpen-headingNine">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#AsignarAbogado-collapseOne" aria-expanded="false"
+                    aria-controls="AsignarAbogado-collapseOne" id="acordionAsignarAbogado">
+                    <i class="fa fa-clock-o mx-2" id="iconoCheckAsignarAbogado" aria-hidden="true"></i> ASIGNACION Y
+                    REASIGNACION DE ABOGADOS
+                  </button>
+                </h2>
+                <div id="AsignarAbogado-collapseOne" class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingNine">
+                  <div class="accordion-body mb-5">
+                    <form [formGroup]="asignarAbogadoForm" (ngSubmit)="validarAsignarAbogado()" id="asignarAbogadoForm">
+                      <div class="form">
+                        <div class="row">
+                          <div class="col">
+                            <div class="mb-3">
+                              <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Abogado (Principal)</label>
+                                <ng-multiselect-dropdown formControlName="idAbogadoDropDown" [data]="abogadosDrop"
+                                  [settings]="lawyerDropdownSettings" (onSelect)="onlawyerOneSelect($event)"
+                                  (onDeSelect)="onlawyerOneDeSelect($event)">
+                                </ng-multiselect-dropdown>
+  
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mb-3">
+                              <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Abogado (Alterno 1)</label>
+                                <ng-multiselect-dropdown formControlName="idAbogadoAlternoDropDown" [data]="abogadosDrop"
+                                  [settings]="alternativeLawyerDropdownSettings" (onSelect)="onlawyerTwoSelect($event)">
+                                </ng-multiselect-dropdown>
+  
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mb-3">
+                              <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Abogado (Alterno 2)</label>
+                                <ng-multiselect-dropdown formControlName="idAbogadoAlternoOneDropDown"
+                                  [data]="abogadosDrop" [settings]="lawyerDropdownSettings"
+                                  (onSelect)="onlawyerThreeSelect($event)">
+                                </ng-multiselect-dropdown>
+  
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="asignarAbogadoForm.hasError('abogadosIgualesEnAsignarYReasignar')">
+                            <span class="text-danger">No puede seleccionar el mismo abogado</span>
+                          </div>
+                        </div>
+  
+                        <div class="row">
+                          <div class="col">
+                            <div class="mb-3">
+                              <div class="form-group">
+                                <label for="idMotivoAsignacionUsuario" class="pl-0">Motivo<span
+                                    class="asterisco">*</span></label>
+                                <select class="form-select" id="idMotivoAsignacionUsuario"
+                                  formControlName="idMotivoAsignacionUsuario">
+                                  <option value="">Selecione</option>
+                                  <option *ngFor="let rlt of motivoAsignacionAbogadoDrop" value="{{ rlt.value }}">{{
+                                    rlt.text
+                                    }}
+                                  </option>
+                                </select>
+                                <div *ngIf="asignarAbogadoForm.get('idMotivoAsignacionUsuario').invalid &&
+                                asignarAbogadoForm.get('idMotivoAsignacionUsuario').touched">
+                                  <span class="text-danger">Elija una opcion</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mb-3">
+                              <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Fecha Asignación</label>
+                                <input type="date" class="form-control" id="fechaAsignacion"
+                                  formControlName="fechaAsignacion" readonly>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="mb-3">
+                              <div class="form-group">
+                                <label for="exampleFormControlInput1" class="form-label">Fecha de Registro</label>
+                                <input type="date" class="form-control" id="fechaRegistro"
+                                  formControlName="fechaRegistro">
+                              </div>
+                            </div>
+                          </div>
+  
+  
+                        </div>
+                      </div>
+                      <div class="boton-guardar float-end">
+                        <button type="submit" class="btn btn-guardar btn-listo float-end" id="btn-asignacioAbogado"
+                          [disabled]="(this.user.roleCode === 'PLEGA' || this.user.roleCode === 'DIR' || this.user.roleCode == 'ADM' || this.user.roleCode == 'COOR') || asignarAbogadoForm.hasError('abogadosIgualesEnAsignarYReasignar')">
+                          Listo
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+
+            <div class="accordion-item  ASISTENCIA-JUDICIAL-FIRMADA" id="AsistenciaJudicial">
+              <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#asistenciaJudicialFirmada-collapseOne" aria-expanded="false"
+                  aria-controls="asistenciaJudicialFirmada-collapseOne" id="acordionasistenciaJudicialFirmada">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" id="iconoCheckasistenciaJudicialFirmada"
+                    aria-hidden="true"></i>
+                  ASISTENCIA JUDICIAL FIRMADA
+                </button>
+              </h2>
+              <div id="asistenciaJudicialFirmada-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingSeven">
+                <div class="accordion-body mb-5">
+                  <form [formGroup]="asistenciaJudicialFirmadaForm" (ngSubmit)="validateAsistenciaJudicialFirmada()"
+                    id="asistenciaJudicialFirmadaForm">
+
+                    <div class="row">
+                      <div class="col-12 col-md-6">
+                        <div class="input-group">
+                          <input type="text" class="form-control" formControlName="comentarioDocumentoFirmado"
+                            placeholder="Comentarios" aria-label="Recipient's username"
+                            aria-describedby="button-addon2">
+                          <button class="btn-upload">
+                            <i class="fa fa-download"></i> Adjuntar
+                            <input type="file" formControlName="idArchivoDocumentoFirmado"
+                              (change)="onFileSelectAsistenciaJudicialFirmada($event)">
+                          </button>
+                        </div>
+                        <div class="mt-2 ">
+                          <!-- <div *ngIf="selectedFileAsistenciaJudicialFirmada"
+                            class="border border-success p-3 d-flex justify-content-between align-items-center mb-3">
+                            <span>{{selectedFileAsistenciaJudicialFirmada.name}}</span>
+                            <i (click)="deleteFileAsistenciaJudicialFirmada()" class="fa fa-trash text-danger"></i>
+                          </div> -->
+
+                          <div *ngIf="selectedFileAsistenciaJudicialFirmada">
+                            <div class="documentContainer">
+                              <span>{{selectedFileAsistenciaJudicialFirmada.name}}</span>
+                              <a type="button" class="downloadBtn"
+                                (click)="downLoadAttachedSignedFile(selectedFileAsistenciaJudicialFirmada)">
+                                <i class="fa fa-cloud-download"></i>
+                              </a>
+                              <a type="button" class="deleteBtn" (click)="deleteFileAsistenciaJudicialFirmada()">
+                                <i class="fa fa-trash"></i>
+                              </a>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <p class="maximoRe">Peso máximo de 20 mb</p>
+
+
+
+                    <div class="boton-guardar float-end">
+                      <button type="submit" class="btn btn-guardar btn-listo float-end"
+                        id="btn-asistenciaJudicialFirmada" [disabled]="isInRole">
+                        Listo
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item  ORDENES-SICIT">
+              <h2 class="accordion-header" id="panelsStayOpen-headingSeven">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#OrdenesSicit-collapseOne" aria-expanded="false"
+                  aria-controls="OrdenesSicit-collapseOne" id="acordionOrdenesSicit">
+                  <i class="fa fa-clock-o mx-2 iconoCheck" id="iconoCheckOrdenesSicit" aria-hidden="true"></i>
+                  ORDEN DE SERVICIOS SICIT
+                </button>
+              </h2>
+              <div id="OrdenesSicit-collapseOne" class="accordion-collapse collapse"
+                aria-labelledby="panelsStayOpen-headingSeven">
+                <div class="accordion-body mb-5">
+                  <form action="" [formGroup]="ordenesSicitForm" (submit)="guardarOrdenesSicitForm()">
+                    <div class="row">
+                      <div class="col mb-3">
+                          <div class="form-group ">
+                            <label for="" class="form-label mb-2">Número Orden de Servicio</label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" formControlName="ordenServicioNumero" id="ordenServicioNumero" [readonly]="this.ordenesSicitForm.get('idAsistenciaJudicialOrdenServicioSicit').value > 0"
+                               placeholder="Escriba Número Orden de Servicio">
+                              <button class="btn btn-buscarInput" type="button" id="button-addon2" *ngIf="this.ordenesSicitForm.get('idAsistenciaJudicialOrdenServicioSicit').value == 0"
+                                [disabled]="isSearchingOrdenSicit"
+                                (click)="getOrdenSicitData(this.ordenesSicitForm.get('ordenServicioNumero').value)">
+                                <span *ngIf="!isSearchingOrdenSicit">
+                                  <i class="fa fa-search"></i>
+                                </span>
+                                <span *ngIf="isSearchingOrdenSicit">Buscando...</span>
+                              </button>
+                            </div>
+                            <div *ngIf="ordenesSicitForm.get('ordenServicioNumero').invalid &&
+                            ordenesSicitForm.get('ordenServicioNumero').touched">
+                                <span class="text-danger">Campo requerido</span>                   
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="col mb-3">
+                        <div class="form-group ">
+                          <label for="" class="form-label mb-2">RNC o Cédula</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" 
+                              aria-describedby="button-addon2" formControlName="empRnc"  readonly>                            
+                          </div>                          
+                        </div>
+                    </div>
+
+                      <div class="col mb-3">
+                        <div class="form-group">
+                          <label for="" class="form-label mb-2">Fecha de la Orden</label>
+                          <input type="date" class="form-control" formControlName="fechaOrden" id="fechaOrden" readonly>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col mb-3">
+                        <div class="form-group ">
+                          <label for="" class="form-label mb-2">Estatus</label>
+                          <div class="input-group">
+                            <input type="text" class="form-control" formControlName="estadoOrdenServicioInfo" id="estadoOrdenServicioInfo" readonly>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="boton-guardar float-end">
+                      <button type="submit" class="btn btn-guardar btn-listo float-end" id="btn-ordenesSicit" [disabled]="isInRole"
+                        >
+                        Listo
+                      </button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div
+        *ngIf="this.asistenciaJudicialHeaderForm.value.idAsistenciaDiariaEmpleador || validateExistAsistenciaJudicial"
+        class="boton-guardar float-end mb-5">
+        <button type="button"
+          [disabled]="!this.asistenciaJudicialHeaderForm.value.idAsistenciaDiariaEmpleador || this.user.roleCode === 'PLEGA' || this.user.roleCode === 'DIR'"
+          (click)="validateAsistenciaDiariaForm()" class="btn btn-guardar float-end">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="rncmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">RNC Modal</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

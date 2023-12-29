@@ -1,0 +1,259 @@
+<div class="container-fluid">
+  <div class="ms-1">
+    <div class="row mt-5 mb-3">
+      <div class="col-12 col-md-12">
+        <h4>Registro de Asistencia Diaria xxx</h4>
+      </div>
+      <div class="col-12 col-md-12">
+        <button class="btn">Crear Nuevo Registro</button><button class="btn">Añadir Sertvicio Judicial</button>
+      </div>
+    </div>
+  
+    <h5 class="pl-0 mb-4">INFORMACION DEL ENTREVISTADOR</h5>
+  
+        <div class="row mb-3 paralegal">
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label for="nombreUsuario" class="pl-0">Entrevistador</label>
+              <input type="text" id="paralegalName" formControlName="nombreUsuario" class="form-control css-camelcase"
+                disabled>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label for="" class="pl-0">Fecha</label>
+              <input type="date" class="form-control" formControlName="fechaAlta" id="inputDate">
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label for="idRepLocalProvinciaCatalog" class="pl-0">Representacion Local (RLT)
+                <span class="asterisco">*</span></label>
+              <select class="form-select" id="idRepLocalProvinciaCatalog" formControlName="idRepLocalProvinciaCatalog">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let rlt of localRepresentativeDrop" value="{{ rlt.value }}">{{ rlt.text }}</option>
+              </select>
+              <div *ngIf="asistenciaDiariaForm.get('idRepLocalProvinciaCatalog').invalid &&
+               asistenciaDiariaForm.get('idRepLocalProvinciaCatalog').touched">
+                <span class="text-danger">Elija una opcion</span>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <h5 class="pl-0 mb-4">INFORMACION GENERAL SOLICITANTE</h5>
+  
+        <div class="row mb-3 infoGeneral">
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="idTipoIdentificacion" class="pl-0 mx-1">Tipo de Documento</label>
+              <span class="asterisco">*</span>
+              <select class="form-select" formControlName="idTipoIdentificacion">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let tipoDocu of identificationDrop" value="{{ tipoDocu.value }}">{{ tipoDocu.text }}
+                </option>
+              </select>
+              <div
+                *ngIf="asistenciaDiariaForm.get('idTipoIdentificacion').invalid && asistenciaDiariaForm.get('idTipoIdentificacion').touched">
+                <span class="text-danger">Elige un tipo de documento.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="identificacion" class="pl-0">No. de Documento <span class="asterisco">*</span></label>
+              <input type="text" class="form-control" maxlength="13" formControlName="identificacion"
+                placeholder="Escriba su número de documento">
+              <div
+                *ngIf="asistenciaDiariaForm.get('identificacion').invalid && asistenciaDiariaForm.get('identificacion').touched">
+                <span class="text-danger">Ingresa un numero de documento.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="nombre" class="pl-0">Nombre(s) <span class="asterisco">*</span></label>
+              <input type="text" class="form-control" maxlength="25" formControlName="nombre"
+                placeholder="Escriba nombre">
+              <div *ngIf="asistenciaDiariaForm.get('nombre').invalid && asistenciaDiariaForm.get('nombre').touched">
+                <span class="text-danger">Ingresa un nombre</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="apellido" class="pl-0">Apellido(s) <span class="asterisco">*</span></label>
+              <input type="text" class="form-control" maxlength="25" formControlName="apellido"
+                placeholder="Escriba apellido">
+              <div *ngIf="asistenciaDiariaForm.get('apellido').invalid && asistenciaDiariaForm.get('apellido').touched">
+                <span class="text-danger">Ingresa un apellido</span>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row mb-3 infoGeneral">
+  
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="idSexo" class="pl-0">Sexo <span class="asterisco">*</span></label>
+              <select class="form-select" formControlName="idSexo">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let sexo of sexDrop" value="{{ sexo.value }}">{{ sexo.text }}</option>
+              </select>
+              <div *ngIf="asistenciaDiariaForm.get('idSexo').invalid && asistenciaDiariaForm.get('idSexo').touched">
+                <span class="text-danger">Ingresa un sexo</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="edad" class="pl-0">Edad <span class="asterisco">*</span></label>
+              <input type="number" class="form-control" formControlName="edad" max="99" min="1" maxlength="2"
+                (input)="maxCheck($event)" placeholder="Escriba la edad">
+              <div *ngIf="asistenciaDiariaForm.get('edad').invalid && asistenciaDiariaForm.get('edad').touched">
+                <span class="text-danger">Ingresa una edad valida.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="idNacionalidad" class="pl-0">Nacionalidad <span class="asterisco">*</span></label>
+              <select class="form-select" formControlName="idNacionalidad">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let nacionalidad of nationalityDrop" value="{{ nacionalidad.value }}">
+                  {{ nacionalidad.text }}</option>
+              </select>
+              <div
+                *ngIf="asistenciaDiariaForm.get('idNacionalidad').invalid && asistenciaDiariaForm.get('idNacionalidad').touched">
+                <span class="text-danger">Elija una nacionalidad.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="idEstadoCivil" class="pl-0">Estado civil <span class="asterisco">*</span></label>
+              <select class="form-select" formControlName="idEstadoCivil">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let estadoC of civilStatusDrop" value="{{ estadoC.value }}">{{ estadoC.text }}</option>
+              </select>
+  
+            </div>
+          </div>
+  
+        </div>
+  
+        <div class="row mb-3 infoGeneral">
+          <div class="col">
+            <div class="form-group">
+              <label for="idTipoSolicitante" class="pl-0">Tipo de Solicitante <span class="asterisco">*</span></label>
+              <select class="form-select" (change)="typeApplicantChange()" formControlName="idTipoSolicitante"
+                id="typeApplicant">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let ta of typeApplicantDrop" value="{{ ta.value }}">{{ ta.text }}</option>
+              </select>
+              <div *ngIf="asistenciaDiariaForm.get('idTipoSolicitante').invalid &&
+                 asistenciaDiariaForm.get('idTipoSolicitante').touched">
+                <span class="text-danger">Elija un tipo de Solicitante</span>
+              </div>
+            </div>
+          </div>
+          <div class="col " id="especifique">
+            <div class="form-group">
+              <label for="idRepresentante" class="pl-0">Especifique</label>
+              <select class="form-select" formControlName="idRepresentante">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let e of rTEDrop" value="{{ e.value }}">{{ e.text }}</option>
+              </select>
+              <div
+                *ngIf="asistenciaDiariaForm.get('idRepresentante').invalid && asistenciaDiariaForm.get('idRepresentante').touched">
+                <span class="text-danger">Elija una opcion</span>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="telefono" class="pl-0">Teléfono del Solicitante <span class="asterisco">*</span></label>
+              <input type="text"  class="form-control" formControlName="telefono"
+                id="solicitantePhoneRequest" (keydown)="checkPhoneNumber($event)" placeholder="Escriba el telefono">
+              <div *ngIf="asistenciaDiariaForm.get('telefono').invalid && asistenciaDiariaForm.get('telefono').touched">
+                <span class="text-danger">Ingrese numero de telefono</span>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="correoElectronico" class="pl-0">Correo Electronico</label>
+              <input type="email" class="form-control" formControlName="correoElectronico"
+                placeholder="Escriba el correo">
+            </div>
+          </div>
+        </div>
+  
+        <div class="row mb-3 infoGeneral ps-0">
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="telefonoOtraParte" class="pl-0">Teléfono (de la otra parte)</label>
+              <input type="text"  class="form-control" formControlName="telefonoOtraParte"
+                (keydown)="checkPhoneNumber($event)" placeholder="Escriba el telefono">
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="idMotivoVisita" class="pl-0">Motivo de Visita <span class="asterisco">*</span></label>
+              <select class="form-select" formControlName="idMotivoVisita">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let motivoV of reasonOfVisitDrop" value="{{ motivoV.value }}">{{ motivoV.text }}</option>
+              </select>
+              <div
+                *ngIf="asistenciaDiariaForm.get('idMotivoVisita').invalid && asistenciaDiariaForm.get('idMotivoVisita').touched">
+                <span class="text-danger">Elija un motivo de visita</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="idReferido" class="pl-0">Referido</label>
+              <select class="form-select" formControlName="idReferido">
+                <option *ngFor="let referido of referidoDrop" value="{{ referido.value }}">{{ referido.text }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-md-3">
+            <div class="form-group">
+              <label for="idAbogado" class="pl-0">Abogado (Principal)</label>
+              <select class="form-select" formControlName="idAbogado">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let a of abogadosDrop" value="{{ a.userId }}">
+                  {{ a.firstName }} {{ a.firstLastName }}</option>
+              </select>
+            </div>
+          </div>
+  
+        </div>
+        <div class="row mb-3 infoGeneral pl-0">
+  
+  
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label for="idAbogadoAlterno" class="pl-0">Abogado (Alterno)</label>
+  
+              <select class="form-select" formControlName="idAbogadoAlterno">
+                <option value="" selected>-- Seleccione --</option>
+                <option *ngFor="let a of abogadosDrop" value="{{ a.userId }}">
+                  {{ a.firstName }} {{ a.firstLastName }}</option>
+              </select>
+            </div>
+          </div>
+  
+          <div class="col-12 col-md-8">
+            <label for="observaciones" class="pl-0">Observaciones</label>
+            <textarea type="text" class="form-control" maxlength="180" formControlName="observaciones"
+              placeholder="Escriba algun comentario, nota u observación" style="height: 47px; resize: none;">
+             </textarea>
+          </div>
+        </div>
+  </div>
+  
+  
+</div>

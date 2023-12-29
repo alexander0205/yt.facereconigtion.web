@@ -1,0 +1,62 @@
+<form [formGroup]="responseForm" class=" row-cols-lg-auto g-3">
+  <div class="row">
+      <div class="col-12 col-md-2" >
+        <div class="form-group">
+          <label for="">Respuesta:
+          </label>
+          <input type="text" class="form-control" formControlName="status">
+        </div>
+      </div>                            
+      <div class="col-12 col-md-2" >
+      <div class="form-group">
+        <label for="">Texto de Respuesta:
+        </label>
+        <input type="text" class="form-control" formControlName="statusText">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-11" >
+      <div class="form-group">
+        <label for="">URL:
+        </label>
+        <input type="text" class="form-control" formControlName="url">
+      </div>
+    </div>
+</div>
+<div class="row">  
+  <div class="col-12 col-md-11" >
+    <app-code-display [code]="this.responseForm.get('headers').value" caption="Cabecera"></app-code-display>
+  </div>  
+</div>
+<div class="row" *ngIf="this.responseForm.value.ok">  
+<div class="col-12 col-md-11" >
+  <app-code-display [code]="this.responseForm.get('body').value" caption="Cuerpo"></app-code-display>
+</div>  
+</div>
+<div *ngIf="this.responseForm.value.ok == false">  
+<div class="row">
+<div class="col-12 col-md-11" >
+  <div class="form-group">
+    <label for="">Nombre del Error:
+    </label>
+    <input type="text" class="form-control" formControlName="name">
+  </div>
+</div>
+</div>
+<div class="col-12 col-md-11" >
+  <app-code-display [code]="this.responseForm.get('error').value" caption="Error"></app-code-display>
+</div>  
+<div class="row">  
+<div class="col-12 col-md-11" >
+  <div class="form-group">
+    <label for="">Mensaje:
+    </label>
+    <textarea type="text" class="form-control" formControlName="message" style="height: 200px; resize: none;">
+    </textarea>
+  </div>
+</div>  
+</div>
+</div>
+
+</form> 

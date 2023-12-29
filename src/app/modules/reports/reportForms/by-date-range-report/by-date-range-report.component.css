@@ -1,0 +1,15 @@
+:host ::ng-deep .p-calendar {
+  display: block;
+}
+
+:host ::ng-deep .p-calendar > .p-inputtext {
+  width: 90% !important;
+  height: calc(1.5em + 1rem + 2px);
+  border-radius: 0px;
+}
+:host ::ng-deep .p-calendar > .p-button {
+  height: 46px !important;
+}
+:host ::ng-deep .p-datepicker {
+  position: initial;
+}

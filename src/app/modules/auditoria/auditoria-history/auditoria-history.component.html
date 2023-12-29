@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="ms-1">
+    <!-- <h2 class="mb-4">Historial</h2> -->
+  </div>
+  <div class="botones">
+    <form [formGroup]="searchForm" class=" row-cols-lg-auto g-3">
+      <div class="row">
+        <div class="col-12 col-md-2" >
+          <div class="form-group">
+            <label for="">Fecha Desde:</label>
+            <input formControlName="sinceDate" type="datetime-local" class="form-control w-100" />
+          </div>
+        </div>
+        <div class="col-12 col-md-2" >
+          <div class="form-group">
+            <label for="">Fecha Hasta:</label>
+            <input formControlName="untilDate" type="datetime-local" class="form-control w-100" />
+          </div>
+        </div>
+          <div class="col-12 col-md-3">
+            <label for="">Usuario:</label>
+            <select formControlName="Usuario" id="" class="form-select">
+              <option value="" selected>
+                --Seleccione Usuario--
+              </option>
+              <option *ngFor="let usuario of usuarioDrop" value="{{ usuario.value }}">
+                {{ usuario.text }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="">Entidad:</label>
+            <select formControlName="Entidad" id="" class="form-select">
+              <option value="" selected>
+                --Seleccione Entidad--
+              </option>
+              <option *ngFor="let entidad of entidadDrop" value="{{ entidad.value }}">
+                {{ entidad.text }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 col-md-2" style="margin-top: 24px;">
+            <button (click)="getRecords()" type="button" class="btn btnBuscar" id="btnBuscar"
+              data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              Buscar
+            </button>
+          </div>
+        </div>
+    </form>
+  </div>
+  <div class="table-responsive mb-5">
+    <app-prime-table [records]="recordDataFiltered" [loading]="loading" [cols]="cols" [buttons]="customButtons"
+    [filters]="filters" [hasGlobalFilters]="true"></app-prime-table>
+  </div>
+</div>

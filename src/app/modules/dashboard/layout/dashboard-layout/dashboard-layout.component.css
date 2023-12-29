@@ -1,0 +1,126 @@
+.separation {
+  margin-left: 5px !important;
+}
+
+.title {
+  font-family: "proxima-font";
+}
+
+.w-90 {
+  width: 98%;
+}
+.space {
+  padding-left: 0.2rem;
+}
+
+.drop {
+  float: right;
+}
+@media only screen and (max-width: 450px) {
+  .w-90 {
+    width: 100%;
+    margin: 0px;
+  }
+
+  .drop {
+    float: none;
+  }
+  .ngb-dp-content.ngb-dp-months {
+    display: list-item !important;
+  }
+  .space {
+    padding-bottom: 15px;
+    padding-left: 0.9rem;
+  }
+  ngb-datepicker.dropdown-menu.show {
+    will-change: none !important;
+    transform: none !important;
+  }
+}
+
+.form-group.hidden {
+  width: 0;
+  margin-top: 37px;
+  border: none;
+  padding: 0;
+  position: absolute;
+}
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}
+
+.el {
+  width: 20rem;
+}
+
+.image {
+  /* top: 50%;
+  left: 50%; */
+  margin-top: 50vh;
+  width: 120px;
+  height: 120px;
+
+  -webkit-animation: spin 2s linear infinite;
+  -moz-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotatey(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotatey(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotatey(360deg);
+    transform: rotatey(360deg);
+  }
+}
+
+.input-group {
+  height: 42px;
+  width: 100%;
+}
+.form-control {
+  height: 100%;
+}
+
+.buttonIcon {
+  background: white;
+  color: #1460B8;
+  border-color: #1460B8;
+  height: 46px;
+}
+
+.buttonIcon:hover{
+  background-color: #1460B8;
+}
+
+input{
+  border: 3px solid #1460B8;
+}
+
+.mainDrop{
+  color: #1460B8;
+  border:1px solid #1460B8 !important;
+  border-radius: 0%;
+}

@@ -1,0 +1,113 @@
+<form class="form" [formGroup]="fundamentoDeLaDemandaForm" (ngSubmit)="validateFundamentoDeLaDemanda()">
+  <div class="row mb-3">
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label for="">Instancia Judicial <small class="text-danger"
+            *ngIf="!fundamentoDeLaDemandaForm.get('idInstanciaJudicial').value">*</small></label>
+        <ng-multiselect-dropdown [data]="instanciJudicialDrop" formControlName="idInstanciaJudicialDropDown"
+          [settings]="instanciaJudicialDropdownSettings" (onSelect)="onInstanciaJudicialSelect($event)"
+          [placeholder]="'-- Seleccione Instancia Judicial --'">
+        </ng-multiselect-dropdown>
+
+        <div *ngIf="fundamentoDeLaDemandaForm.get('idInstanciaJudicial').invalid &&
+        fundamentoDeLaDemandaForm.get('idInstanciaJudicial').touched">
+          <span class="text-danger">Campo requerido</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label for="">Motivo de la Demanda <small class="text-danger">*</small></label>
+        <ng-multiselect-dropdown [data]="motivoDeLaDemandaDrop" formControlName="idMotivoDemandaDropDown"
+          [settings]="instanciaJudicialDropdownSettings" (onSelect)="onMotivoDemandaSelect($event)"
+          [placeholder]="'-- Seleccione Motivo de la Demanda --'">
+        </ng-multiselect-dropdown>
+
+        <div *ngIf="fundamentoDeLaDemandaForm.get('idMotivoDemanda').invalid &&
+        fundamentoDeLaDemandaForm.get('idMotivoDemanda').touched">
+          <span class="text-danger">Campo requerido</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label for="">Fase Procesal <small class="text-danger">*</small></label>
+        <ng-multiselect-dropdown [data]="faseProcesalDrop" formControlName="idFaseProcesoDropDown"
+          [settings]="faseProcesoDropdownSettings" (onSelect)="onFaseProcesoSelect($event)"
+          [placeholder]="'-- Seleccione Fase Procesal --'">
+        </ng-multiselect-dropdown>
+
+        <div *ngIf="fundamentoDeLaDemandaForm.get('idFaseProceso').invalid &&
+        fundamentoDeLaDemandaForm.get('idFaseProceso').touched">
+          <span class="text-danger">Campo requerido</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label for="">No. Expediente Externo</label>
+        <input formControlName="noExpedienteExterno" type="text" class="form-control" placeholder="Escriba No. Expediente Externo" />
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label for="">Ultima Audiencia </label>
+        <input formControlName="fechaUltimaAudiencia" [min]="ultimaFecha | date:'yyyy-MM-dd'" type="date" class="form-control" placeholder="Fecha Ultima Audiencia">
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label for="">Próxima Audiencia</label>
+        <input formControlName="fechaProximaAudiencia" [min]="ultimaFecha | date:'yyyy-MM-dd'" type="date" class="form-control" placeholder="Fecha Proxima Audiencia">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <div class="form-group mb-3">
+        <label for="">Observaciones</label>
+        <input formControlName="observaciones" type="text" maxlength="180" class="form-control" placeholder="Escriba sus Observaciones">
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 mt-2">
+    <div class="card bg-light">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Histórico Expedientes</h5>
+        <table class="table table-hover">
+          <thead>
+            <tr style="border-bottom: darkgray;">
+              <th scope="col">Instancia Judicial</th>
+              <th scope="col">Fase Procesal</th>
+              <th scope="col">Última Audiencia</th>
+              <th scope="col">Próxima Audiencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let he of historicoExpedienteData | paginate: { itemsPerPage: 5, currentPage: p }">
+              <td>{{ he?.instanciaJudicial?.descripcion }}</td>
+              <td>{{ he?.faseProceso?.descripcion }}</td>
+              <td>{{ he.fechaUltimaAudiencia | date : "MM/dd/yyyy" }}</td>
+              <td>{{ he.fechaProximaAudiencia | date : "MM/dd/yyyy" }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-12">
+      <button type="submit"
+        [disabled]="expedientCerrado || this.user.roleCode === 'ADM' || this.user.roleCode === 'DIR' || this.user.roleCode === 'PLEGA' || this.user.roleCode === 'ENCA'"
+        class="btn btnSubmit float-end btn-guardar btnListo" id="btnFundamentoDemandada">Listo</button>
+    </div>
+  </div>
+
+</form>

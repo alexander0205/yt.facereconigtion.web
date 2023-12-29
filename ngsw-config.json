@@ -1,0 +1,99 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ],
+        "urls":[
+          "https://fonts.googleapis.com/css?family=Muli:300,700&amp;display=swap",
+          "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js",
+          "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js",
+          "https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js",
+          "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js",
+          "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css",
+          "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css",
+          "https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css",
+          "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css",
+          "https://kit.fontawesome.com/223d7fdc30.js"
+
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/**",
+          "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "SICIT-Api", 
+      "urls": [
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfRegister?independentRecord=true&registrationStatus=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/ApplicantCondition?status=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/ClassificationType",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/ConceptOfInfractionReport?recordStatus=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/ConceptOfWarningReport?recordStatus=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/Group?status=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/InspectionReason",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/JustificationChangeEstimatedDate?status=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/LocalRepresentativeProvince",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/QualityOfTheNotified?status=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/RequestForm",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/Role?status=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/StatusServiceOrder",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfActionTaken",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfActivity",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfActivityBranch",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfIdentification",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfApplicant",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfSchedule",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfService",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/ReasonOfVisit",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/UserLocalRepresentativeProvince",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/RepLocalProvinciaCatalog?Id=",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/Referido",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfCorrespondence",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/TypeOfDocument",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/ProcessPhase",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/ProxyCourt",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/CompanyEconomicSituation",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/Company",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/CompanyEconomicSituation",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/Reference",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/ServiceOrderFirstStep/ServiceOrder/FirstStep?Status=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/InspectionProgram?Status=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1.0/UserService/UserServices?Status=true",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/User",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/Ciudadanos",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/VMEmpresaEstablecimiento",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/DivisionesTerritoriales/Provincia",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/DivisionesTerritoriales/Municipio",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/DivisionesTerritoriales/DistritoMunicipal",
+          "http://prueba.api.sicet.mt.gob.do/api/v1/MotivoReapertura"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 50000,
+        "maxAge": "10d",
+        "timeout": "10s"
+      }      
+    }
+  ]
+ 
+}

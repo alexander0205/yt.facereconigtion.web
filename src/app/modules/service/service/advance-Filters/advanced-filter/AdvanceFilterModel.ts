@@ -1,0 +1,41 @@
+export class AdvanceFilterModel {
+    statusServiceOrderId: number
+    assignedInspectorInfo: string
+    serviceOrderStatusInfo: string
+    orderDateServiceOrder: string
+    registrationDateServiceOrder: string
+    serviceOrderNumber: string
+    registeredByServiceOrder: string
+    assignedInspectorId: number
+    companyTradeName: string
+    inspectionProgramName: string
+    cssClosingDateStatus: string
+    inspectionProgramId: number
+    inspectionProgramNumber: string
+    orderServiceTypeId: number
+    classificationTypeId: number
+    repLocalProvIdInspProg: string
+    printedReport: boolean
+    directedTo: string
+    supervisorId: number
+    workerName: string
+    workerIdentificationTypeId: number
+    workerIdentification: string
+    RNC: number
+    RNL: number
+    activityBranchRLTId: number
+    typeOfApplicantId: number
+    requestFormId: string
+    estimatedDeadLineStr: string
+    inspectionReasonsListed: string
+    myCases: string
+    assignRepLocalId: number
+    groupId: number
+    companyArea: string
+    visitDateStr: string
+    typeOfScheduleId: number
+    actionTakenId: number
+    nearToClose: boolean
+    RLT: number
+}
+

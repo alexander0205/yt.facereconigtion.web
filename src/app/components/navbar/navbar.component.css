@@ -1,0 +1,176 @@
+.nav {
+  opacity: 1;
+  width: 100%;
+  background: white !important;
+  border: none;
+}
+
+.input {
+  padding-left: 20%;
+  height: 32px;
+}
+
+.bg-light {
+  background: #ffffff !important;
+}
+
+.bread {
+  font-family: proxima-font-bold;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #333333;
+  padding: 0.5rem;
+}
+
+.search {
+  margin-right: 22px;
+}
+.navbar-brand {
+  pointer-events: none !important;
+}
+.breadCrumb {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  font-family: "proxima-font-bold" !important;
+  font-size: 20px;
+}
+.breadCrumb li {
+  display: inline-block;
+  color: var(--azulClaro);
+}
+.breadCrumb li:before {
+  color: var(--azulClaro);
+  content: ">";
+}
+
+#arrow {
+  margin-top: 30px;
+}
+.breadCrumb li:first-child:before {
+  content: "";
+}
+
+.breadCrumb li:last-child {
+  color: #333333;
+  font-weight: 300;
+}
+.cs-next-bell {
+  border-radius: 100% !important;
+  margin: -10px;
+  position: absolute;
+}
+
+.logo {
+  width: 100px;
+  height: 82px;
+  /* background: url(/src/assets/icons/logo.svg); */
+  background-size: 100px 82px;
+}
+
+.nav-item .dropdown::before {
+  display: none;
+}
+
+.is-active {
+  box-shadow: -5px 0px 0px 0px var(--azulClaro);
+  color: var(--azulClaro) !important;
+}
+
+.nav-link {
+  font-family: "proxima-font-bold";
+  font-weight: bold;
+  font-size: 18px;
+  padding-left: 1.4rem;
+}
+.link-menu {
+  height: 60px !important;
+}
+.menu a {
+  font-family: var(--font-style-normal) normal var(--font-weight-bold) 18px/22px
+    var(--font-family-proxima-nova);
+  letter-spacing: var(--character-spacing-0);
+  text-align: left;
+  font-family: normal normal bold 18px/22px Proxima Nova;
+  letter-spacing: 0px;
+  color: #8e8e8e;
+  opacity: 1;
+  cursor: pointer;
+  /* background: #f8f9fa; */
+}
+.css-drop-settings {
+  color: black;
+
+  font-family: "proxima-font-bold";
+  color: #606060;
+}
+
+.icon-bar {
+  height: 1px;
+  width: 3px;
+  background: black;
+}
+.navbar-toggle.minus.collapsed .icon-bar:nth-of-type(1) {
+  transform: translate3d(0, 0, 0) rotate(0deg);
+}
+
+.navbar-toggle.minus.collapsed .icon-bar:nth-of-type(2) {
+  transform: translate3d(0, 0, 0) rotate(0deg);
+}
+
+.navbar-toggle.minus.collapsed .icon-bar:nth-of-type(3) {
+  transform: translate3d(0, 0, 0) rotate(0deg);
+}
+
+.navbar-toggle.minus .icon-bar:nth-of-type(1) {
+  transform: translate3d(0, 6px, 0);
+}
+
+.navbar-toggle.minus .icon-bar:nth-of-type(3) {
+  transform: translate3d(0, -6px, 0);
+}
+
+.user li {
+  display: inline-block;
+  margin: inherit !important;
+}
+
+ul.user {
+  margin-bottom: 0px !important;
+}
+.bell {
+  margin-top: 10px !important;
+  padding-top: 17px;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.breadCrumbTitle {
+  font-size: 39px;
+  font-family: "proxima-font-bold";
+  height: 39px;
+  margin-bottom: 8px;
+}
+
+.navbar-class {
+  min-height: 113px;
+}
+
+::ng-deep.dropdown-menu {
+  min-width: 17rem !important;
+}
+
+::ng-deep.dropdown-item {
+  font-family: "proxima-nova";
+}
+::ng-deep.dropdown-item:hover {
+  background-color: #ffffff00 !important;
+  color: var(--azulClaro) !important;
+}
+::ng-deep.dropdown-item:focus {
+  background-color: #ffffff00 !important;
+  color: var(--azulClaro) !important;
+}

@@ -1,0 +1,101 @@
+<!-- Modal -->
+<div class="modal-content">
+  <div class="modal-header border-0">
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      (click)="closeModal()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="text-center">
+      <h1 class="modal-title fs-4">Datos de la Auditoria</h1>
+    </div>
+    <form [formGroup]="auditoriaForm" class="p-4">
+      <div class="apertura">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <label for="">Usuario:</label>
+            <select formControlName="usuarioId" class="form-select" disabled>
+              <option value="" selected>--Seleccione Usuario--</option>
+              <option
+                *ngFor="let usuario of usuarioDrop"
+                value="{{ usuario.value }}"
+              >
+                {{ usuario.text }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 col-md-2">
+            <div class="form-group">
+              <label for="">Fecha de Registro:</label>
+              <input
+                formControlName="fechaRegistro"
+                type="datetime-local"
+                class="form-control w-100"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-md-2">
+            <div class="form-group">
+              <label for="">Acción: </label>
+              <input type="text" class="form-control" formControlName="tipo" />
+            </div>
+          </div>
+          <div class="col-12 col-md-2">
+            <div class="form-group">
+              <label for="">Entidad: </label>
+              <input type="text" class="form-control" formControlName="tabla" />
+            </div>
+          </div>
+          <div class="col-12 col-md-2">
+            <div class="form-group">
+              <label for="">Id de la Entidad: </label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="primaryKeyValue"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="text-center">
+      <h1 class="fs-5">Cambios Realizados</h1>
+    </div>
+    <div *ngFor="let columna of columns" class="p-4">
+      <div class="row">
+        <div class="col-12 col-md-2 d-flex align-items-center">
+          <div class="form-group text-center">
+            {{ columna }}
+          </div>
+        </div>
+        <div class="col-12 col-md-5">
+          <div class="form-group">
+            <label>Valor Antiguo:</label>
+            <input
+              type="text"
+              class="form-control"
+              value="{{this.recordOld?.[columna]}}"
+              [readOnly]="true"
+            />
+          </div>
+        </div>
+        <div class="col-12 col-md-5">
+          <div class="form-group">
+            <label>Valor Nuevo:</label>
+            <input
+              type="text"
+              class="form-control"
+              value="{{this.recordNew?.[columna]}}"
+              [readOnly]="true"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

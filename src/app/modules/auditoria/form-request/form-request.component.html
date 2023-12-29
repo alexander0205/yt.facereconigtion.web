@@ -1,0 +1,68 @@
+<form [formGroup]="requestForm" class=" row-cols-lg-auto g-3">
+  <div class="row">
+      <div class="col-12 col-md-6">
+        <label for="">Usuario:</label>
+        <select formControlName="usuarioId" class="form-select" disabled>
+          <option value="" selected>
+            --Seleccione Usuario--
+          </option>
+          <option *ngFor="let usuario of usuarioDrop" value="{{ usuario.value }}">
+            {{ usuario.text }}
+          </option>
+        </select>
+      </div>
+      <div class="col-12 col-md-3" >
+        <div class="form-group">
+          <label for="">Fecha de Registro:</label>
+          <input formControlName="fechaRegistro" type="datetime-local"  class="form-control w-100" />
+        </div>
+      </div>
+      <div class="col-12 col-md-2" >
+        <div class="form-group">
+          <label for="">Tipo de Respuesta:
+          </label>
+          <input type="text" class="form-control" formControlName="responseType">
+        </div>
+      </div>
+  </div>
+  <div class="row">          
+    <div class="col-12 col-md-2" >
+      <div class="form-group">
+        <label for="">Método:
+        </label>
+        <input type="text" class="form-control" formControlName="method">
+      </div>
+    </div>
+    <div class="col-12 col-md-9" >
+      <div class="form-group">
+        <label for="">URL:
+        </label>
+        <input type="text" class="form-control" formControlName="url">
+      </div>
+    </div>
+  </div>
+  <div class="row">  
+    <div class="col-12 col-md-11" >
+      <div class="form-group">
+        <label for="">URL con Parametros:
+        </label>
+        <input type="text" class="form-control" formControlName="urlWithParams">
+      </div>
+    </div>  
+</div>
+  <div class="row">  
+    <div class="col-12 col-md-11" >
+      <app-code-display [code]="this.requestForm?.get('headers').value" caption="Cabecera"></app-code-display>
+    </div>  
+</div>
+<div class="row">  
+  <div class="col-12 col-md-11" >
+    <app-code-display [code]="this.requestForm?.get('params').value" caption="Parametros"></app-code-display>
+  </div>  
+</div>
+<div class="row">  
+<div class="col-12 col-md-11" >
+  <app-code-display [code]="this.requestForm?.get('body').value" caption="Cuerpo"></app-code-display>
+</div>  
+</div>
+</form>  
