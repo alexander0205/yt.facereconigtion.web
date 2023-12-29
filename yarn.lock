@@ -298,7 +298,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/router@^17.0.8", "@angular/router@>=7.0.0":
+"@angular/router@^17.0.8", "@angular/router@>=13.0.0":
   version "17.0.8"
   resolved "https://registry.npmjs.org/@angular/router/-/router-17.0.8.tgz"
   integrity sha512-ptphcRe1RG/mIS60R7ZPilkkrxautqB0sOhds3h5VP3g628G1a2HWzvnmvjEfpJWDMFivV32VJMMBtTLqGr+0Q==
@@ -2430,19 +2430,19 @@
   resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-17.0.8.tgz"
   integrity sha512-wx0XBMrbpDeailK2uIhp/ZVMC3GK3BWwJjUu5SbT4BFrcoi2Zd9/9m0RCBAY54UXLBCqKd+ih7pJ6JSvprZmWw==
 
-"@ngx-loading-bar/core@^6.0.2", "@ngx-loading-bar/core@5.1.2":
+"@ngx-loading-bar/core@^6.0.2", "@ngx-loading-bar/core@6.0.2":
   version "6.0.2"
   resolved "https://registry.npmjs.org/@ngx-loading-bar/core/-/core-6.0.2.tgz"
   integrity sha512-8r+OQEYXwvU+2ZXK6CY3Guh2yJuG8pQ2XNryHVbPZB2Ub3VmzhGWqjxXAQgxmsi+GxrD4m+nGmGZPeOrNH1ztA==
   dependencies:
     tslib "^2.0.0"
 
-"@ngx-loading-bar/router@^5.1.2":
-  version "5.1.2"
-  resolved "https://registry.npmjs.org/@ngx-loading-bar/router/-/router-5.1.2.tgz"
-  integrity sha512-k/Ne2rWYX3HFFWTemm/vBEEkP1YxE0QCd+poaP2G3QKI78SOntYLVdRnRvbvNJpZUtiH8eb+RvExxfdYpm4CPQ==
+"@ngx-loading-bar/router@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.npmjs.org/@ngx-loading-bar/router/-/router-6.0.2.tgz"
+  integrity sha512-el+32ysDhqr46Zcg+H8UiKpOEz43qY0++CUxj8DADLRm3mAzKqNn/X+5qhFQS4o5Nb/SdvZn5apfFlXoNNUViQ==
   dependencies:
-    tslib "^1.10.0"
+    tslib "^2.0.0"
 
 "@ngx-translate/core@^15.0.0", "@ngx-translate/core@>=13.0.0":
   version "15.0.0"
