@@ -6,7 +6,7 @@ import { saveAs } from 'file-saver';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import * as moment from 'moment';
-import { ConnectionService } from 'ngx-connection-service';
+import { ConnectionService } from 'ngx-connection-service/lib/connection-service.service';
 import { Subject } from 'rxjs';
 
 import Swal, { SweetAlertIcon } from 'sweetalert2';
