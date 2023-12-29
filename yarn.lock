@@ -162,7 +162,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^10.0.0", "@angular/common@^11.2.8", "@angular/common@^15.0.0 || ^16.0.0", "@angular/common@^15.2.1", "@angular/common@^17.0.0 || ^18.0.0", "@angular/common@^17.0.8", "@angular/common@>=10.0.0", "@angular/common@>=10.1.5", "@angular/common@>=12.0.0", "@angular/common@>=12.0.0-0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=2.0.0", "@angular/common@>=7", "@angular/common@>=9", "@angular/common@>=9.0.0", "@angular/common@17.0.8":
+"@angular/common@^10.0.0", "@angular/common@^11.2.8", "@angular/common@^15.0.0 || ^16.0.0", "@angular/common@^15.2.1", "@angular/common@^17.0.0 || ^18.0.0", "@angular/common@^17.0.8", "@angular/common@>=10.0.0", "@angular/common@>=10.1.5", "@angular/common@>=12.0.0", "@angular/common@>=12.0.0-0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=16.0.0", "@angular/common@>=2.0.0", "@angular/common@>=7", "@angular/common@>=9", "@angular/common@>=9.0.0", "@angular/common@17.0.8":
   version "17.0.8"
   resolved "https://registry.npmjs.org/@angular/common/-/common-17.0.8.tgz"
   integrity sha512-fFfwtdg7H+OkqnvV/ENu8F8KGfgIiH16DDbQqYY5KQyyQB+SMsoVW29F1fGx6Y30s7ZlsLOy6cHhgrw74itkSw==
@@ -195,7 +195,7 @@
   resolved "https://registry.npmjs.org/@angular/compiler/-/compiler-9.0.0.tgz"
   integrity sha512-ctjwuntPfZZT2mNj2NDIVu51t9cvbhl/16epc5xEwyzyDt76pX9UgwvY+MbXrf/C/FWwdtmNtfP698BKI+9leQ==
 
-"@angular/core@^10.0.0", "@angular/core@^11.2.8", "@angular/core@^15.0.0 || ^16.0.0", "@angular/core@^15.2.1", "@angular/core@^17.0.0 || ^18.0.0", "@angular/core@^17.0.8", "@angular/core@>=10.0.0", "@angular/core@>=10.1.5", "@angular/core@>=12.0.0-0", "@angular/core@>=13.0.0", "@angular/core@>=14.0.0", "@angular/core@>=2.0.0", "@angular/core@>=2.0.0 <6.0.0", "@angular/core@>=7", "@angular/core@>=8.0.0", "@angular/core@>=9", "@angular/core@>=9.0.0", "@angular/core@17.0.8", "@angular/core@7.2.16":
+"@angular/core@^10.0.0", "@angular/core@^11.2.8", "@angular/core@^15.0.0 || ^16.0.0", "@angular/core@^15.2.1", "@angular/core@^17.0.0 || ^18.0.0", "@angular/core@^17.0.8", "@angular/core@>=10.0.0", "@angular/core@>=10.1.5", "@angular/core@>=12.0.0-0", "@angular/core@>=13.0.0", "@angular/core@>=14.0.0", "@angular/core@>=16.0.0", "@angular/core@>=2.0.0", "@angular/core@>=2.0.0 <6.0.0", "@angular/core@>=7", "@angular/core@>=8.0.0", "@angular/core@>=9", "@angular/core@>=9.0.0", "@angular/core@17.0.8", "@angular/core@7.2.16":
   version "17.0.8"
   resolved "https://registry.npmjs.org/@angular/core/-/core-17.0.8.tgz"
   integrity sha512-tzYsK24LdkNuKNJK6efF4XOqspvF/qOe9j/n1Y61a6mNvFwsJFGbcmdZMby4hI/YRm6oIDoIIFjSep8ycp6Pbw==
@@ -2442,12 +2442,10 @@
   dependencies:
     tslib "^1.10.0"
 
-"@ngx-translate/core@^13.0.0", "@ngx-translate/core@>=13.0.0":
-  version "13.0.0"
-  resolved "https://registry.npmjs.org/@ngx-translate/core/-/core-13.0.0.tgz"
-  integrity sha512-+tzEp8wlqEnw0Gc7jtVRAJ6RteUjXw6JJR4O65KlnxOmJrCGPI0xjV/lKRnQeU0w4i96PQs/jtpL921Wrb7PWg==
-  dependencies:
-    tslib "^2.0.0"
+"@ngx-translate/core@^15.0.0", "@ngx-translate/core@>=13.0.0":
+  version "15.0.0"
+  resolved "https://registry.npmjs.org/@ngx-translate/core/-/core-15.0.0.tgz"
+  integrity sha512-Am5uiuR0bOOxyoercDnAA3rJVizo4RRqJHo8N3RqJ+XfzVP/I845yEnMADykOHvM6HkVm4SZSnJBOiz0Anx5BA==
 
 "@ngx-translate/http-loader@^6.0.0":
   version "6.0.0"
@@ -8322,7 +8320,7 @@ rxjs-compat@^6.6.7:
   resolved "https://registry.npmjs.org/rxjs-compat/-/rxjs-compat-6.6.7.tgz"
   integrity sha512-szN4fK+TqBPOFBcBcsR0g2cmTTUF/vaFEOZNuSdfU8/pGFnNmmn2u8SystYXG1QMrjOPBc6XTKHMVfENDf6hHw==
 
-rxjs@^6.0.0, "rxjs@^6.0.0 || ^7.5.0", rxjs@^6.5.3, "rxjs@^6.5.3 || ^7.4.0", rxjs@^6.5.5, rxjs@>=6.3.0, rxjs@>=6.5.3, rxjs@~6.5.4:
+rxjs@^6.0.0, "rxjs@^6.0.0 || ^7.5.0", rxjs@^6.5.3, "rxjs@^6.5.3 || ^7.4.0", rxjs@^6.5.5, "rxjs@^6.5.5 || ^7.4.0", rxjs@>=6.3.0, rxjs@>=6.5.3, rxjs@~6.5.4:
   version "6.5.5"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-6.5.5.tgz"
   integrity sha512-WfQI+1gohdf0Dai/Bbmk5L5ItH5tYqm3ki2c5GdWhKjalzjg93N3avFjVStyZZz+A2Em+ZxKH5bNghw9UeylGQ==

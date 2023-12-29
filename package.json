@@ -37,7 +37,7 @@
     "@ng-idle/keepalive": "^11.0.3",
     "@ngx-loading-bar/core": "^5.1.2",
     "@ngx-loading-bar/router": "^5.1.2",
-    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
     "@popperjs/core": "^2.11.7",
     "@types/chart.js": "^2.9.37",
