@@ -59,13 +59,9 @@ export class AuthService {
 
 
 
-  async logIn({ userName, password }): Promise<boolean> {
-    try {
-      const pass = window.btoa(password);
-      console.log(`en login response`)
-      
-      let response = await this.http.post<{ token: string, user: user, refreshToken: string }>({ email: userName, password }, 'auth/login').toPromise()
-      console.log(`en login response`,  response)
+  async logIn({ username, password }): Promise<boolean> {
+    try {      
+      let response = await this.http.post<{ token: string, user: user, refreshToken: string }>({ email: username, password }, 'auth/login').toPromise()
         
       this.setToken(response.token)
       

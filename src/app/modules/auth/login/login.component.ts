@@ -52,15 +52,15 @@ export class LoginComponent implements OnInit {
       }
     }
     this.loginForm = this.fb.group({
-      userName: new FormControl(null, Validators.required),
+      username: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required)
     })
   }
 
   async login() {
     if (this.loginForm.valid) {
+      console.log(this.loginForm.value)
       this.loading = true;
-
       this.loading = await this.auth.logIn(this.loginForm.value)
     } else {
       this.notFound();
