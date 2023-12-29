@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClientService } from '../../shared/_services/http-client/http-client.service';
 import { UserService } from '../service/user-service-form/_model/UserService';
@@ -7,7 +7,7 @@ import { UserService } from '../service/user-service-form/_model/UserService';
 @Injectable({
   providedIn: 'root'
 })
-export class UserServiceResolverGuard  implements Resolve<any>{
+export class UserServiceResolverGuard  {
   constructor(private http: HttpClientService, private router: Router) {
 
   }

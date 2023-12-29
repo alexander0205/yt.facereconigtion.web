@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClientService } from '../../shared/_services/http-client/http-client.service';
 import { inspectionProgram } from '../service/inspection-program/_models/inspectionProgram';
@@ -7,7 +7,7 @@ import { inspectionProgram } from '../service/inspection-program/_models/inspect
 @Injectable({
   providedIn: 'root'
 })
-export class InspectionProgramGuard implements Resolve<any>{
+export class InspectionProgramGuard {
   constructor(private http: HttpClientService, private router: Router) {
 
   }

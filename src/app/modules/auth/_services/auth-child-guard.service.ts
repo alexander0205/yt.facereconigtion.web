@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, CanActivateChild } from '@angular/router';
+import { Router } from '@angular/router';
 import { SesionServiceService } from 'src/app/_services/sesion-service.service';
 import { AuthService } from './auth.service';
 @Injectable()
-export class AuthChildGuardService implements CanActivateChild {
+export class AuthChildGuardService  {
   constructor(public auth: AuthService, public router: Router, public sessionService: SesionServiceService) {
 
     this.sessionService.getUserLoggedIn().subscribe(t => {
