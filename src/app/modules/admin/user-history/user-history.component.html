@@ -14,17 +14,7 @@
     </div>
   </div>
 
-  <div *ngIf="isNewUser" class="mt-2 ms-1 mr-2">
-    <app-prime-table [records]="records" [loading]="loading" [cols]="cols" [buttons]="customButtons" [filters]="filters"
-      [hasGlobalFilters]="false"></app-prime-table>
-  </div>
 
-  <div *ngIf="!isNewUser">
-    <div class="mt-2 ms-1 mr-2">
-      <app-prime-table [records]="recordAds" [loading]="loading" [cols]="colsAd" [buttons]="customAddButtons"
-        [filters]="filtersAd" [hasGlobalFilters]="false"></app-prime-table>
-    </div>
-  </div>
 
   <!-- Modal editar usuario -->
   <div class="modal fade" id="editUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

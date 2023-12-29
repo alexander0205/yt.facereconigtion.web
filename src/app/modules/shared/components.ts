@@ -7,7 +7,6 @@ import { EllipsisComponent } from './_elements/element-ui/ellipsis/ellipsis.comp
 import { FileReaderComponent } from './_elements/element-ui/file-reader/file-reader.component'
 import { FileUploaderComponent } from './_elements/element-ui/file-uploader/file-uploader.component'
 import { MapComponent } from './_elements/element-ui/map/Map.component'
-import { PrimeTableComponent } from './_elements/element-ui/prime-table/prime-table.component'
 import { ProfileInfoComponent } from './_elements/element-ui/profile-info/profile-info.component'
 import { SaveWarningComponent } from './_elements/element-ui/save-warning/save-warning/save-warning.component'
 import { TreeFilesComponent } from './_elements/element-ui/tree-files/tree-files.component'
@@ -22,7 +21,6 @@ export const components = [
     DropdownComponent,
     DynamicFormatComponent,
     EllipsisComponent,
-    PrimeTableComponent,
     FileUploaderComponent,
     FileReaderComponent,
     NotificationBellComponent,

@@ -17,12 +17,10 @@ import { MessageModule } from 'primeng/message';
 import { BadgeModule } from 'primeng/badge';
 import { ChipsModule } from 'primeng/chips';
 import { RippleModule } from 'primeng/ripple';
-import { TagInputModule } from 'ngx-chips';
 import { AvatarModule } from 'primeng/avatar';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TabViewModule } from 'primeng/tabview';
 import { SliderModule } from "primeng/slider";
-import { NgxMaskModule } from "ngx-mask";
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { FileSaverModule } from "ngx-filesaver";
@@ -39,7 +37,6 @@ export const modules = [
     DropdownModule,
     ProgressBarModule,
     InputTextModule,
-    NgxMaskModule.forRoot(),
     FileUploadModule,
     TranslateModule,
     MessagesModule,

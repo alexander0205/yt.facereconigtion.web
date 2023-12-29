@@ -867,9 +867,7 @@ btn-outline-danger{
   border-radius: 0;
 }
 
-app-prime-table div.card{
-  border: none !important;
-  }
+
 
 .btnEditarUser:hover{
   background-color: #1460B8 !important;

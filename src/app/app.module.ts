@@ -15,7 +15,6 @@ import { routing, appRoutingProviders } from './app.routing';
 //Components
 import { AppComponent } from './app.component';
 import { SharedModule } from './modules/shared/shared.module';
-import { NgxMaskModule } from 'ngx-mask';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -74,7 +73,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AllowHyphensDirective,
   ],
   imports: [
-    NgxMaskModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,

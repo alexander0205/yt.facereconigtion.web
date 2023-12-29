@@ -6,10 +6,6 @@ import { SharedModule } from '../shared/shared.module';
 import { ArchwizardModule } from 'angular-archwizard';
 import { ServiceComponent } from './service/service.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { NgxMaskModule } from 'ngx-mask';
-
-
-
 import { registerLocaleData } from "@angular/common";
 import localeDe from "@angular/common/locales/es";
 import localeDeExtra from "@angular/common/locales/extra/es";
@@ -55,7 +51,6 @@ registerLocaleData(localeDe, "es", localeDeExtra);
         NgbModule,
         ArchwizardModule,
         NgMultiSelectDropDownModule,
-        NgxMaskModule.forChild(),
         serviceRoutingModule,
         FileUploadModule,
         CurrencyMaskModule, DropdownModule,

@@ -7,7 +7,6 @@ import { BasicRecordComponent } from './basic-record/basic-record.component';
 import { BasicRecordHistoryComponent } from './basic-record-history/basic-record-history.component';
 import { BasicRecordNewComponent } from './basic-record-new/basic-record-new.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormDemandadaComponent } from './form-demandada/form-demandada.component';
 import { FormDemandanteComponent } from './form-demandante/form-demandante.component';
@@ -47,7 +46,6 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     CommonModule,
     BasicRecordsRoutingModule,
     ReactiveFormsModule,
-    NgxMaskModule.forChild(),
     DropdownModule,
     NgbModule,
     NgxPaginationModule,

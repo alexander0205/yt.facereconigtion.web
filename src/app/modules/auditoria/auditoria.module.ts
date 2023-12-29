@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -36,7 +35,6 @@ import { ClipboardModule } from 'ngx-clipboard';
     AuditoriaRoutingModule,
     NgxPaginationModule,
     ReactiveFormsModule,
-    NgxMaskModule.forChild(),
     DropdownModule,
     NgbModule,
     SharedModule,
