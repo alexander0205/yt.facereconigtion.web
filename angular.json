@@ -87,18 +87,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sicet_frontend:build"
+            "buildTarget": "sicet_frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "sicet_frontend:build:production"
+              "buildTarget": "sicet_frontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sicet_frontend:build"
+            "buildTarget": "sicet_frontend:build"
           }
         },
         "test": {
