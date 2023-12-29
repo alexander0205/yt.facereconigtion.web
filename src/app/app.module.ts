@@ -19,7 +19,6 @@ import { SharedModule } from './modules/shared/shared.module';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BreadcrumService } from './_services/breadcrum.service';
-import { ArchwizardModule } from 'angular-archwizard';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServiceModule } from './modules/service/service.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -96,7 +95,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     routing,
     NgbModule,
     LoadingBarModule,
-    ArchwizardModule.forRoot(),
     NgMultiSelectDropDownModule.forRoot(),
     ToastrModule.forRoot(),
 

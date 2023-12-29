@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
-import { ArchwizardModule } from 'angular-archwizard';
 import { ServiceComponent } from './service/service.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { registerLocaleData } from "@angular/common";
@@ -49,7 +48,6 @@ registerLocaleData(localeDe, "es", localeDeExtra);
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        ArchwizardModule,
         NgMultiSelectDropDownModule,
         serviceRoutingModule,
         FileUploadModule,
