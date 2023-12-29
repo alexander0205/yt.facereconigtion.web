@@ -21,7 +21,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     authRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [JwtHelperService, SesionServiceService]
 })

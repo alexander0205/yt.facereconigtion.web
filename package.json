@@ -64,7 +64,7 @@
     "ngx-connection-service": "^7.0.3",
     "ngx-filesaver": "^10.0.1",
     "ngx-lottie": "^7.0.4",
-    "ngx-mask": "^12.0.0",
+    "ngx-mask": "^17.0.4",
     "ngx-pagination": "^6.0.3",
     "ngx-print": "^1.2.1",
     "ngx-toastr": "^14.0.0",
