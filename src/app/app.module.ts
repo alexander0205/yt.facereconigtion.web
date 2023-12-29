@@ -15,7 +15,6 @@ import { routing, appRoutingProviders } from './app.routing';
 //Components
 import { AppComponent } from './app.component';
 import { SharedModule } from './modules/shared/shared.module';
-
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BreadcrumService } from './_services/breadcrum.service';
@@ -32,7 +31,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './components/home/home.component';
 import { AuthModule } from './modules/auth/auth.module';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './modules/auth/_interceptors/auth-interceptor';
 import { AuthGuardService } from './modules/auth/_services/auth-guard.service';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -53,6 +52,11 @@ import { NotesComponent } from './modules/notes/notes.component';
 import { AllowHyphensDirective } from './allow-hyphens.directive';
 import { AuditoriaModule } from './modules/auditoria/auditoria.module';
 import { LoggingInterceptor } from './modules/shared/_services/http-client/http-interceptor';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -74,7 +78,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule,
     RouterModule,
     HttpClientModule,
     FormsModule,
@@ -122,7 +125,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ConnectionServiceModule,
     AdminModule,
-    DragDropModule
+    DragDropModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDividerModule
   ],
   providers: [appRoutingProviders, BreadcrumService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     , AuthGuardService
