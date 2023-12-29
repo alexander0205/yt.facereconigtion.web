@@ -5,7 +5,6 @@ import { BasicRecordsRoutingModule } from './basic-records-routing.module';
 import { BasicRecordListComponent } from './basic-record-list/basic-record-list.component';
 import { BasicRecordComponent } from './basic-record/basic-record.component';
 import { BasicRecordHistoryComponent } from './basic-record-history/basic-record-history.component';
-import { BasicRecordNewComponent } from './basic-record-new/basic-record-new.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormFundamentoDemandaComponent } from './form-fundamento-demanda/form-fundamento-demanda.component';
@@ -27,7 +26,6 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     BasicRecordListComponent,
     BasicRecordComponent,
     BasicRecordHistoryComponent,
-    BasicRecordNewComponent,
     FormFundamentoDemandaComponent,
     CloseExpedientModalComponent,
     FormExpedientNotaComponent,

@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { BasicRecordListComponent } from './basic-record-list/basic-record-list.component';
 import { BasicRecordComponent } from './basic-record/basic-record.component';
 import { BasicRecordHistoryComponent } from './basic-record-history/basic-record-history.component';
-import { BasicRecordNewComponent } from './basic-record-new/basic-record-new.component';
 const routes: Routes = [
   {
     path: '',
@@ -17,7 +16,6 @@ const routes: Routes = [
         component: BasicRecordHistoryComponent,
 
       },
-      { path: 'crearExpediente/:id', component: BasicRecordNewComponent },
     ]
   },
 ];
