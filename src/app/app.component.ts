@@ -9,7 +9,7 @@ import { AuthService } from './modules/auth/_services/auth.service';
 import { SesionServiceService } from './_services/sesion-service.service';
 import { AnimationOptions } from 'ngx-lottie';
 import * as moment from 'moment';
-import { ConnectionService } from 'ngx-connection-service';
+import { ConnectionService } from 'ngx-connection-service/lib/connection-service.service';
 import { ToolsService } from './modules/shared/tools/tools.service';
 import { pairwise, startWith } from 'rxjs/operators';
 import * as _ from 'lodash';

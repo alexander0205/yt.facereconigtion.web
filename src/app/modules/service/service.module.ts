@@ -8,7 +8,6 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { registerLocaleData } from "@angular/common";
 import localeDe from "@angular/common/locales/es";
 import localeDeExtra from "@angular/common/locales/extra/es";
-import { serviceOrderForm } from './serviceOrderForm/General-data/serviceOrderForm.component';
 import { serviceRoutingModule } from './service-routing.module';
 import { RecordHistoryComponent } from './service/record-history/record-history.component';
 import { FormsCreationComponent } from './service/forms-creation/forms-creation.component';
@@ -37,7 +36,7 @@ import { WitnessReferencesModalComponent } from './service/forms-creation/witnes
 registerLocaleData(localeDe, "es", localeDeExtra);
 
 @NgModule({
-    declarations: [serviceOrderForm, ServiceComponent,
+    declarations: [ServiceComponent,
         RecordHistoryComponent,
         FormsCreationComponent, CompanyDataComponent,
         SucursalesModalComponent,
@@ -61,7 +60,7 @@ registerLocaleData(localeDe, "es", localeDeExtra);
         TooltipModule,
         MultiSelectModule,
     ], schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-    exports: [serviceOrderForm],
+    exports: [],
     providers: [{ provide: LOCALE_ID, useValue: "es-Es" }, CanExitGuard,  RoleGuard,  companyEdit, AuthChildGuardService, NgbActiveModal
     ]
 })

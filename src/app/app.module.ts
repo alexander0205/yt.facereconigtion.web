@@ -39,7 +39,7 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { SesionServiceService } from './_services/sesion-service.service';
 import { IdleExpiry, LocalStorageExpiry } from '@ng-idle/core';
 import { ButtonModule } from 'primeng/button';
-import { ConnectionServiceModule } from 'ngx-connection-service';
+import { ConnectionServiceModule } from 'ngx-connection-service/lib/connection-service.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { AvatarModule } from 'primeng/avatar';
