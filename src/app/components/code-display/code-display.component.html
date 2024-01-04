@@ -1,7 +1,0 @@
-<div class="code-display">
-  <div *ngIf="caption" class="caption">{{ caption }}</div>
-  <pre><code>{{ code }}</code></pre>
-  <button ngxClipboard [cbContent]="code" (click)="onCopy()">
-    {{ isCopied ? 'Copiado!' : 'Copiar' }}
-  </button>
-</div>

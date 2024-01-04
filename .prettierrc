@@ -1,8 +1,0 @@
-{
-  "printWidth": 80,
-  "endOfLine": "auto",
-  "max-len": 80,
-  "editor.max-len": 80,
-  "editor.printWidth": 80,
-  "prettier.max-len": 80
-}
