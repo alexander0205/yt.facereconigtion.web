@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>People profile</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="peopleForm">
+      <mat-form-field class="m-r-8" appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput  formControlName="name">
+      </mat-form-field>
+
+      <mat-form-field class="m-r-8" appearance="outline">
+        <mat-label>Identification</mat-label>
+        <input matInput  formControlName="identification">
+      </mat-form-field>
+
+      
+    </form>
+  </mat-card-content>
+</mat-card>
+<mat-grid-list cols="4" rowHeight="1:1">
+  <mat-grid-tile *ngFor="let image of images; let i = index;">
+    <mat-grid-tile-header>
+      <span matLine>Gallery Image: {{ i+1 }}</span>
+    </mat-grid-tile-header>
+
+    <img class="w-full h-full object-cover cursor-pointer"
+         mtxPhotoviewer
+         [mtxPhotoviewerItems]="images"
+         [mtxPhotoviewerOptions]="{ index: i }"
+         [src]="image.src" alt="Gallery Image {{ i+1 }}" />
+  </mat-grid-tile>
+</mat-grid-list>

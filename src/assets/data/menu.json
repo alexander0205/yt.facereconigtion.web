@@ -1,0 +1,38 @@
+{
+  "menu": [
+    {
+      "route": "dashboard",
+      "name": "dashboard",
+      "type": "link",
+      "icon": "dashboard",
+      "badge": {
+        "color": "red-500",
+        "value": "5"
+      },
+      "permissions": {
+        "except": [
+          "GUEST"
+        ]
+      }
+    },
+    {
+      "route": "",
+      "name": "business",
+      "type": "sub",
+      "icon": "person",
+      "permissions": {
+        "only": [
+          "ADMIN"
+        ]
+      },
+      "children": [       
+        {
+          "route": "people",
+          "name": "people",
+          "icon": "person",
+          "type": "link"
+        }
+      ]
+    }
+  ]
+}

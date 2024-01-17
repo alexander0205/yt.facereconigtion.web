@@ -1,0 +1,44 @@
+.business-selector {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 400px; /* Ajusta el ancho según tus necesidades */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  background-color: #3498db;
+  color: #fff;
+  padding: 12px;
+}
+
+.business-list {
+  padding: 16px;
+}
+
+.business {
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  transition: background-color 0.3s;
+}
+
+.business:hover {
+  background-color: #f2f2f2;
+}
+
+.business-info {
+  text-align: left;
+}
+
+h3 {
+  margin: 0;
+  color: #333;
+}
+
+p {
+  margin: 8px 0 0;
+  color: #666;
+}

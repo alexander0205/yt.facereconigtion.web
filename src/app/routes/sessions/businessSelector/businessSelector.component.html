@@ -1,0 +1,10 @@
+<div class="business-selector">
+  <div class="header">
+    <h2>Select your business</h2>
+  </div>
+  <div class="business-list">
+    <div class="business" *ngFor="let business of businesss" (click)="selectBusiness(business)">
+      {{ business.name }}
+    </div>
+  </div>
+</div>

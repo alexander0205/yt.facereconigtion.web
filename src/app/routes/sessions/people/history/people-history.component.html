@@ -1,0 +1,31 @@
+<div class="m-y-8">
+  <h1>List of peoples</h1>
+</div>
+
+<mtx-grid [data]="list"
+          [columns]="columns"
+          [loading]="isLoading"
+          [columnResizable]="columnResizable"
+          [multiSelectable]="multiSelectable"
+          [rowSelectable]="rowSelectable"
+          [hideRowSelectionCheckbox]="hideRowSelectionCheckbox"
+          [rowHover]="rowHover"
+          [rowStriped]="rowStriped"
+          [showToolbar]="showToolbar"
+          [toolbarTitle]="'Data Grid Toolbar'"
+          [columnHideable]="columnHideable"
+          [columnSortable]="columnSortable"
+          [columnPinnable]="columnPinnable"
+          [expandable]="expandable"
+          [expansionTemplate]="expansionTpl"
+          [pageOnFront]="showPaginator"
+          [showPaginator]="showPaginator"
+          [pageSizeOptions]="[5,10,50,100]"
+          [pageIndex]="0"
+          [pageSize]="5"
+          (sortChange)="changeSort($event)"
+          (selectionChange)="changeSelect($event)">
+</mtx-grid>
+<ng-template #expansionTpl let-row>
+  {{row.name}}
+</ng-template>
